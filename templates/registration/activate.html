@@ -1,0 +1,13 @@
+{% extends "metal/slave_index.html" %}
+
+{% block title %}
+	ratings4you.net - активация аккаунта
+{% endblock %}
+
+{% block content %}
+		{% if account %}
+			Активация прошла успешно, ваш логин - {{ account }}
+		{% else %}
+			Время истечения предварительной регистрации без подтверждения {{ expiration_days }} дней.
+		{% endif %}
+{% endblock %}

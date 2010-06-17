@@ -1,0 +1,5 @@
+Для активации пройдите по ссылке:
+
+{{ site_url }}accounts/activate/{{ activation_key }}
+
+Ссылка будет актуальна в течение {{ expiration_days }} дней.

@@ -1,0 +1,19 @@
+{% extends "metal/slave_index.html" %}
+
+{% block title %}
+	ratings4you.net - Регистрация
+{% endblock %}
+
+{% block content %}
+	<h3>Регистрация пользователя</h3>
+	<br/>
+		<table class="prod_table">
+		<form method="post">
+ 			{{ form }}
+ 			<tr>
+ 			<td><input type="submit" value="Зарегистрироваться"></td>
+ 			<td></td>
+ 			</tr> 
+ 		</form>
+ 	</table>
+{% endblock %}
