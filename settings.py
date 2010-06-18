@@ -86,6 +86,8 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'registration',
     'captcha',
+    'django.contrib.comments',
+    
 )
 
 

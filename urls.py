@@ -6,6 +6,7 @@ from django.conf.urls.defaults import *
 
 urlpatterns = patterns('',
     # Example:
+    (r'^comments/', include('django.contrib.comments.urls')),
     (r'^ratings/', include('ratings.ratings4you.urls')),
 
     # Uncomment the admin/doc line below and add 'django.contrib.admindocs' 
