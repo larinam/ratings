@@ -1,3 +1,5 @@
+#!/usr/bin/python
+# -*- coding: utf8 -*-
 from django.contrib.auth.models import User
 from django.db import models
 from datetime import datetime
@@ -6,32 +8,41 @@ from interfaces import IModeratable
 # Create your models here.
 
 # 
+
+AUTHORIZATION_CHOICES = (
+    ('Anonymous', 'Анонимный'),
+    ('Authorized', 'Авторизованный'),
+)
+
+BONUS_CHOICES = (
+    ('RUR', 'Рубль'),
+    ('USD', 'Американский доллар'),
+    ('EUR', 'Евро'),
+)
+
 class UserProfile(models.Model):
-    juridical_name = models.CharField(max_length=255, help_text="Название юридического лица") #Название организации
-    contact_person = models.CharField(max_length=255, help_text="Контактное лицо") #Контактное лицо
-    inn = models.CharField(max_length=255, help_text="ИНН")
-    address = models.TextField(help_text="Адрес")
-    phone_numer = models.CharField(max_length=255, help_text="Номер телефона")
+    authorization_mode = models.CharField(max_length=255, choices=AUTHORIZATION_CHOICES)
+    bonus_currency = models.CharField(max_length=255, choices=BONUS_CHOICES)
     user = models.ForeignKey(User, unique=True)
     
 class RatingThemesDirectory(models.Model):
     """
     Справочник тем для голосований.
     """
-    name = models.CharField()
+    name = models.CharField(max_length=255, help_text="Тема голосования")
 
 class RegionDirectory(models.Model):
     """
     Справочник регионов - здесь могут быть как страны, города, области, так и всё что угодно.
     """
-    name = models.CharField()
+    name = models.CharField(max_length=255, help_text="Регион, для которого проводится голосование")
 
 class  Rating(models.Model, IModeratable):
     """
     Сам рейтинг, содержащий пункты для голосования.
     Один из главных бизнес-объектов.
     """
-    name = models.CharField()
+    name = models.CharField(max_length=255, help_text="Название рейтинга")
     region = models.ForeignKey(RegionDirectory, unique=True)
     theme = models.ForeignKey(RatingThemesDirectory, unique=True)
     begin_date = models.DateField()
@@ -58,7 +69,7 @@ class RatingItem(models.Model, IModeratable):
     Пункт рейтинга в @see: Rating .
     Один из главных бизнес-объектов.
     """
-    name = models.CharField()
+    name = models.CharField(max_length=255, help_text="Название пункта голосования")
     rating = models.ForeignKey(Rating, unique=True)
     moderated = models.BooleanField(default=False)
     

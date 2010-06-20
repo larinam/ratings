@@ -1,0 +1,525 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"> 
+<head> 
+	
+	<title></title> 
+	<meta name="keywords" content=""/> 
+	<meta name="description" content=""/><meta http-equiv="Last-Modified" content="Sat, 19 Jun 2010 17:50:39 GMT"/>	<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" /> 
+	
+	<base href="http://www.rating4you.net/"/> 
+	<meta content="text/html; charset=utf-8" http-equiv="Content-Type"> 
+	<script type="text/javascript" src="http://www.rating4you.net/sourseJs/sourse/jquery-1.3.2.js"></script> 
+	<script type="text/javascript" src="http://www.rating4you.net/sourseJs/JsHttpRequest.min.js"></script> 
+	<script type="text/javascript" src="http://www.rating4you.net/sourseJs/jquery.fancybox.pack.js"></script> 
+	<script type="text/javascript" src="http://www.rating4you.net/sourseJs/function.js"></script> 
+	<script type="text/javascript" src="http://www.rating4you.net/sourseJs/functionForm.js"></script> 
+	<script type="text/javascript" src="http://www.rating4you.net/sourseJs/functionAjax.js"></script> 
+	<script type="text/javascript" src="http://www.rating4you.net/sourseJs/functionService.js"></script> 
+	<script type="text/javascript" src="http://www.rating4you.net/sourseJs/loadMain.js"></script> 
+	<link href="http://www.rating4you.net/sourseCss/cmfStyle.css" rel="stylesheet" type="text/css" /> 
+	<link href="http://www.rating4you.net/sourseJs/jquery.fancybox/jquery.fancybox.css" rel="stylesheet" type="text/css" /> 
+	<link rel="stylesheet" type="text/css" href="css/all.css" /> 
+	<link rel="stylesheet" type="text/css" href="css/opera.css" /> 
+	<!--[if IE]>
+	<link rel="stylesheet" type="text/css" href="css/ie.css" media="screen" />
+	<![endif]--> 
+	<!--[if lt IE 7]>
+	<link rel="stylesheet" type="text/css" href="css/ltie7.css" media="screen" />
+	<![endif]--> 
+ 
+</head> 
+<body> 
+	<img class="body-img" src="images/bg-body.gif" alt="" /> 
+	<div class="b-img"></div> 
+	<div id="wrapper"> 
+		<div class="wrapper2"> 
+			<div id="header"> 
+				<strong class="logo"> 
+					<a href="#">rating4you.net</a> 
+				</strong> 
+				<div> 
+					<a class="login" href="#">войти</a> 
+					<a class="reg" href="#">зерегистрироваться</a> 
+				</div> 
+				<!--[if lt IE 7]>
+				<div class="img-bl"></div>
+				<![endif]--> 
+			</div> 
+			<div id="nav"> 
+				<ul> 
+					<li class="first"><a class="about" href="#">о сайте</a></li> 
+					<li><a class="expert" href="#">эксперты</a></li> 
+					<li><a class="rate-arch" href="#">архив рейтингов</a></li> 
+					<li><a class="analitic" href="#">аналитика</a></li> 
+					<li><a class="rate-create" href="#">создать рейтинг</a></li> 
+					<li><a class="forum" href="#">форум</a></li> 
+					<li><a class="callback" href="#">обратная связь</a></li> 
+				</ul> 
+			</div>			<div id="main"> 
+				<div class="main-frame"> 
+					<div id="sidebar-l"> 
+						<div class="topic"> 
+							<div class="shadow"> 
+								<div class="side"> 
+									<div class="shadow-left"></div> 
+									<div class="shadow-right"></div> 
+								</div> 
+							</div> 
+							<div class="shadow"> 
+								<div class="updown"> 
+									<div class="shadow-top"></div> 
+									<div class="shadow-bottom"></div> 
+								</div> 
+							</div> 
+							<div class="shadow"> 
+								<div class="shadow-tl"></div> 
+								<div class="shadow-tr"></div> 
+								<div class="shadow-bl"></div> 
+								<div class="shadow-br"></div> 
+							</div> 
+							<div class="tframe"> 
+								<div class="tframe1"> 
+									<div class="header"> 
+										<div class="frame1"> 
+											<div class="frame2"> 
+												<h1 class="title">каталог рейтингов</h1> 
+											</div> 
+										</div> 
+										<!--[if lt IE 7]>
+										<div class="hframe1"></div>
+										<div class="hframe2"></div>
+										<![endif]--> 
+									</div> 
+									<div class="content"> 
+										<div> 
+											<form action="#"> 
+												<input type="text" class="find" /> 
+												<input type="button" class="btn-find" /> 
+											</form> 
+										</div> 
+									</div> 
+									<div class="bottom"> 
+										<div class="frame1"> 
+											<div class="frame2"> 
+												&nbsp;
+											</div> 
+										</div> 
+									</div> 
+								</div> 
+							</div> 
+						</div> 
+					</div> 
+					<div id="content"> 
+						<div class="topic"> 
+							<div class="shadow"> 
+								<div class="side"> 
+									<div class="shadow-left"></div> 
+									<div class="shadow-right"></div> 
+								</div> 
+							</div> 
+							<div class="shadow"> 
+								<div class="updown"> 
+									<div class="shadow-top"></div> 
+									<div class="shadow-bottom"></div> 
+								</div> 
+							</div> 
+							<div class="shadow"> 
+								<div class="shadow-tl"></div> 
+								<div class="shadow-tr"></div> 
+								<div class="shadow-bl"></div> 
+								<div class="shadow-br"></div> 
+							</div> 
+							<div class="tframe"> 
+								<div class="tframe1"> 
+									<div class="header"> 
+										<div class="frame1"> 
+											<div class="frame2"> 
+												<h1 class="title">топ брендов</h1> 
+											</div> 
+										</div> 
+										<!--[if lt IE 7]>
+										<div class="hframe1"></div>
+										<div class="hframe2"></div>
+										<![endif]--> 
+									</div> 
+									<div class="content"> 
+										<form action="#"> 
+											<div class="clear-l"> 
+												<p class="brand">Toyota</p> 
+												<div class="cl-n"> 
+													<a href="#" class="r-active">&nbsp;</a> 
+												</div> 
+												<div class="separator">&nbsp;</div> 
+											</div> 
+											<div class="clear-l"> 
+												<p class="brand">Mercedes-Benz</p> 
+												<div class="cl-n"> 
+													<a href="#" class="r-nactive">&nbsp;</a> 
+												</div> 
+												<div class="separator m1">&nbsp;</div> 
+											</div> 
+											<div class="clear-l"> 
+												<p class="brand">BMW</p> 
+												<div class="cl-n"> 
+													<a href="#" class="r-nactive">&nbsp;</a> 
+												</div> 
+												<div class="separator m2">&nbsp;</div> 
+											</div> 
+											<div class="clear-l"> 
+												<p class="brand">Honda</p> 
+												<div class="cl-n"> 
+													<a href="#" class="r-nactive">&nbsp;</a> 
+												</div> 
+												<div class="separator m3">&nbsp;</div> 
+											</div> 
+											<div class="clear-l"> 
+												<p class="brand">Ford</p> 
+												<div class="cl-n"> 
+													<a href="#" class="r-nactive">&nbsp;</a> 
+												</div> 
+												<div class="separator m2">&nbsp;</div> 
+											</div> 
+											<div class="clear-l"> 
+												<p class="brand">Volkswagen</p> 
+												<div class="cl-n"> 
+													<a href="#" class="r-nactive">&nbsp;</a> 
+												</div> 
+												<div class="separator m4">&nbsp;</div> 
+											</div> 
+											<div class="clear-l"> 
+												<p class="brand">Audi</p> 
+												<div class="cl-n"> 
+													<a href="#" class="r-nactive">&nbsp;</a> 
+												</div> 
+												<div class="separator m2">&nbsp;</div> 
+											</div> 
+											<div class="clear-l"> 
+												<p class="brand">Toyota</p> 
+												<div class="cl-n"> 
+													<a href="#" class="r-nactive">&nbsp;</a> 
+												</div> 
+												<div class="separator">&nbsp;</div> 
+											</div> 
+											<div class="clear-l"> 
+												<p class="brand">Mercedes-Benz</p> 
+												<div class="cl-n"> 
+													<a href="#" class="r-nactive">&nbsp;</a> 
+												</div> 
+												<div class="separator m1">&nbsp;</div> 
+											</div> 
+											<div class="clear-l"> 
+												<p class="brand">BMW</p> 
+												<div class="cl-n"> 
+													<a href="#" class="r-nactive">&nbsp;</a> 
+												</div> 
+												<div class="separator m2">&nbsp;</div> 
+											</div> 
+											<div class="clear-l"> 
+												<p class="brand">Honda</p> 
+												<div class="cl-n"> 
+													<a href="#" class="r-nactive">&nbsp;</a> 
+												</div> 
+												<div class="separator m3">&nbsp;</div> 
+											</div> 
+											<div class="clear-l"> 
+												<p class="brand">Ford</p> 
+												<div class="cl-n"> 
+													<a href="#" class="r-nactive">&nbsp;</a> 
+												</div> 
+												<div class="separator m2">&nbsp;</div> 
+											</div> 
+											<div class="clear-l"> 
+												<p class="brand">Volkswagen</p> 
+												<div class="cl-n"> 
+													<a href="#" class="r-nactive">&nbsp;</a> 
+												</div> 
+												<div class="separator m4">&nbsp;</div> 
+											</div> 
+											<div class="clear-l"> 
+												<p class="brand">Audi</p> 
+												<div class="cl-n"> 
+													<a href="#" class="r-nactive">&nbsp;</a> 
+												</div> 
+												<div class="separator m2">&nbsp;</div> 
+											</div> 
+											<div class="clear-l"> 
+												<p class="brand">Toyota</p> 
+												<div class="cl-n"> 
+													<a href="#" class="r-nactive">&nbsp;</a> 
+												</div> 
+												<div class="separator">&nbsp;</div> 
+											</div> 
+											<div class="clear-l"> 
+												<p class="brand">Mercedes-Benz</p> 
+												<div class="cl-n"> 
+													<a href="#" class="r-nactive">&nbsp;</a> 
+												</div> 
+												<div class="separator m1">&nbsp;</div> 
+											</div> 
+											<div class="clear-l"> 
+												<p class="brand">BMW</p> 
+												<div class="cl-n"> 
+													<a href="#" class="r-nactive">&nbsp;</a> 
+												</div> 
+												<div class="separator m2">&nbsp;</div> 
+											</div> 
+											<div class="clear-l"> 
+												<p class="brand">Honda</p> 
+												<div class="cl-n"> 
+													<a href="#" class="r-nactive">&nbsp;</a> 
+												</div> 
+												<div class="separator m3">&nbsp;</div> 
+											</div> 
+											<div class="clear-l"> 
+												<p class="brand">Ford</p> 
+												<div class="cl-n"> 
+													<a href="#" class="r-nactive">&nbsp;</a> 
+												</div> 
+												<div class="separator m2">&nbsp;</div> 
+											</div> 
+											<div class="clear-l"> 
+												<p class="brand">Volkswagen</p> 
+												<div class="cl-n"> 
+													<a href="#" class="r-nactive">&nbsp;</a> 
+												</div> 
+												<div class="separator m4">&nbsp;</div> 
+											</div> 
+											<div class="clear-l"> 
+												<p class="brand">Audi</p> 
+												<div class="cl-n"> 
+													<a href="#" class="r-nactive">&nbsp;</a> 
+												</div> 
+												<div class="separator m2">&nbsp;</div> 
+											</div> 
+											<div class="clear-l"> 
+												<p class="brand">Toyota</p> 
+												<div class="cl-n"> 
+													<a href="#" class="r-nactive">&nbsp;</a> 
+												</div> 
+												<div class="separator">&nbsp;</div> 
+											</div> 
+											<div class="clear-l"> 
+												<p class="brand">Mercedes-Benz</p> 
+												<div class="cl-n"> 
+													<a href="#" class="r-nactive">&nbsp;</a> 
+												</div> 
+												<div class="separator m1">&nbsp;</div> 
+											</div> 
+											<div class="clear-l"> 
+												<p class="brand">BMW</p> 
+												<div class="cl-n"> 
+													<a href="#" class="r-nactive">&nbsp;</a> 
+												</div> 
+												<div class="separator m2">&nbsp;</div> 
+											</div> 
+											<div class="clear-l"> 
+												<p class="brand">Honda</p> 
+												<div class="cl-n"> 
+													<a href="#" class="r-nactive">&nbsp;</a> 
+												</div> 
+												<div class="separator m3">&nbsp;</div> 
+											</div> 
+											<div class="clear-l"> 
+												<p class="brand">Ford</p> 
+												<div class="cl-n"> 
+													<a href="#" class="r-nactive">&nbsp;</a> 
+												</div> 
+												<div class="separator m2">&nbsp;</div> 
+											</div> 
+											<div class="clear-l"> 
+												<p class="brand">Volkswagen</p> 
+												<div class="cl-n"> 
+													<a href="#" class="r-nactive">&nbsp;</a> 
+												</div> 
+												<div class="separator m4">&nbsp;</div> 
+											</div> 
+											<div class="clear-l"> 
+												<p class="brand">Audi</p> 
+												<div class="cl-n"> 
+													<a href="#" class="r-nactive">&nbsp;</a> 
+												</div> 
+												<div class="separator m2">&nbsp;</div> 
+											</div> 
+											<div class="clear-l"> 
+												<p class="brand">Toyota</p> 
+												<div class="cl-n"> 
+													<a href="#" class="r-nactive">&nbsp;</a> 
+												</div> 
+												<div class="separator">&nbsp;</div> 
+											</div> 
+											<div class="clear-l"> 
+												<p class="brand">Mercedes-Benz</p> 
+												<div class="cl-n"> 
+													<a href="#" class="r-nactive">&nbsp;</a> 
+												</div> 
+												<div class="separator m1">&nbsp;</div> 
+											</div> 
+											<div class="clear-l"> 
+												<p class="brand">BMW</p> 
+												<div class="cl-n"> 
+													<a href="#" class="r-nactive">&nbsp;</a> 
+												</div> 
+												<div class="separator m2">&nbsp;</div> 
+											</div> 
+ 
+												<div class="buttons"> 
+													<input type="button" class="btn-vote" value="" /> 
+													<input type="button" class="btn-viewres" value="" /> 
+												</div> 
+											</form> 
+										</div> 
+									<div class="bottom"> 
+										<div class="frame1"> 
+											<div class="frame2"> 
+												&nbsp;
+											</div> 
+										</div> 
+									</div> 
+								</div> 
+							</div> 
+						</div> 
+					</div> 
+					<div id="sidebar-r"> 
+						<div class="topic ht5"> 
+							<div class="shadow"> 
+								<div class="side ht6"> 
+									<div class="shadow-left"></div> 
+									<div class="shadow-right"></div> 
+								</div> 
+							</div> 
+							<div class="shadow"> 
+								<div class="updown"> 
+									<div class="shadow-top"></div> 
+									<div class="shadow-bottom"></div> 
+								</div> 
+							</div> 
+							<div class="shadow"> 
+								<div class="shadow-tl"></div> 
+								<div class="shadow-tr"></div> 
+								<div class="shadow-bl"></div> 
+								<div class="shadow-br"></div> 
+							</div> 
+							<div class="tframe"> 
+								<div class="tframe1"> 
+									<div class="header"> 
+										<div class="frame1"> 
+											<div class="frame2"> 
+												<h1 class="title">топ брендов</h1> 
+											</div> 
+										</div> 
+										<!--[if lt IE 7]>
+										<div class="hframe1"></div>
+										<div class="hframe2"></div>
+										<![endif]--> 
+									</div> 
+									<div class="content ht1"> 
+										<div> 
+											<p class="brand first">Toyota</p> 
+											<p class="num first clr1">5798</p> 
+											<div class="separator first">&nbsp;</div> 
+										</div> 
+										<div> 
+											<p class="brand">Mercedes-Benz</p> 
+											<p class="num clr2">5798</p> 
+											<div class="separator m1">&nbsp;</div> 
+										</div> 
+										<div> 
+											<p class="brand">BMW</p> 
+											<p class="num clr3">5798</p> 
+											<div class="separator m2">&nbsp;</div> 
+										</div> 
+										<div> 
+											<p class="brand">Honda</p> 
+											<p class="num clr4">5798</p> 
+											<div class="separator m3">&nbsp;</div> 
+										</div> 
+										<div> 
+											<p class="brand">Ford</p> 
+											<p class="num">5798</p> 
+											<div class="separator m2">&nbsp;</div> 
+										</div> 
+										<div> 
+											<p class="brand">Volkswagen</p> 
+											<p class="num">5798</p> 
+											<div class="separator m4">&nbsp;</div> 
+										</div> 
+										<div> 
+											<p class="brand">Audi</p> 
+											<p class="num">5798</p> 
+											<div class="separator m2">&nbsp;</div> 
+										</div> 
+									</div> 
+									<div class="bottom"> 
+										<div class="frame1"> 
+											<div class="frame2"> 
+												&nbsp;
+											</div> 
+										</div> 
+									</div> 
+								</div> 
+							</div> 
+						</div> 
+						<div class="topic ht5"> 
+							<div class="shadow"> 
+								<div class="side ht6"> 
+									<div class="shadow-left"></div> 
+									<div class="shadow-right"></div> 
+								</div> 
+							</div> 
+							<div class="shadow"> 
+								<div class="updown"> 
+									<div class="shadow-top"></div> 
+									<div class="shadow-bottom"></div> 
+								</div> 
+							</div> 
+							<div class="shadow"> 
+								<div class="shadow-tl"></div> 
+								<div class="shadow-tr"></div> 
+								<div class="shadow-bl"></div> 
+								<div class="shadow-br"></div> 
+							</div> 
+							<div class="tframe"> 
+								<div class="tframe1"> 
+									<div class="header"> 
+										<div class="frame1"> 
+											<div class="frame2"> 
+												<h1 class="title">топ пользователей</h1> 
+											</div> 
+										</div> 
+										<!--[if lt IE 7]>
+										<div class="hframe1"></div>
+										<div class="hframe2"></div>
+										<![endif]--> 
+									</div> 
+									<div class="content ht1"> 
+										&nbsp;
+									</div> 
+									<div class="bottom"> 
+										<div class="frame1"> 
+											<div class="frame2"> 
+												&nbsp;
+											</div> 
+										</div> 
+									</div> 
+								</div> 
+							</div> 
+						</div> 
+						<div class="topic ht5"> 
+							<div class="tframe"> 
+								<div class="tframe1"> 
+									<p>облако тегов</p> 
+								</div> 
+							</div> 
+						</div> 
+					</div> 
+				</div> 
+			</div>			<div id="footer"> 
+				<div class="frame"> 
+					&nbsp;
+				</div> 
+			</div> 
+		</div> 
+	</div> 
+<div id="idAjaxLog"></div> 
+</body> 
+</html>

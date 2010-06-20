@@ -87,6 +87,8 @@ INSTALLED_APPS = (
     'registration',
     'captcha',
     'django.contrib.comments',
+    'ratings4you',
+    'south',
     
 )
 

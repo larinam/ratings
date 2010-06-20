@@ -1,0 +1,31 @@
+.errorDiv {
+	display: none;
+	color: #FF0000;
+}
+.errorDiv2 {
+	color: #FF0000;
+}
+
+
+.cmfHide {
+	display:none;
+}
+
+#Debug {
+	align:left;
+}
+
+.empty {
+	height: 0px;
+	clear: both;
+	font-size: 0px;}
+
+
+div#Gmap {
+width: 99%;
+height:300px;
+margin:0px 0px 0px 0px;
+border:4px solid #F5F5F5;
+}
+
+#idAjaxLog {	display: none;}
