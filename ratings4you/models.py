@@ -1,8 +1,9 @@
 #!/usr/bin/python
 # -*- coding: utf8 -*-
+from datetime import datetime
 from django.contrib.auth.models import User
 from django.db import models
-from datetime import datetime
+from django.db.models.signals import post_save
 from interfaces import IModeratable
 
 # Create your models here.
@@ -24,6 +25,12 @@ class UserProfile(models.Model):
     authorization_mode = models.CharField(max_length=255, choices=AUTHORIZATION_CHOICES)
     bonus_currency = models.CharField(max_length=255, choices=BONUS_CHOICES)
     user = models.ForeignKey(User, unique=True)
+    
+def create_user_profile(sender, instance, created, **kwargs):  
+    if created:
+       profile, created = UserProfile.objects.get_or_create(user=instance)
+
+post_save.connect(create_user_profile, sender=User) 
     
 class RatingThemesDirectory(models.Model):
     """

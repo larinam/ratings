@@ -92,5 +92,6 @@ INSTALLED_APPS = (
     
 )
 
-
+AUTH_PROFILE_MODULE = 'ratings4you.UserProfile'
+LOGIN_REDIRECT_URL = "/ratings/accounts/profile/"
 ACCOUNT_ACTIVATION_DAYS = 7 # One-week activation window

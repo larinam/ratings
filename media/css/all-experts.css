@@ -1,0 +1,95 @@
+#main .topic{
+	width:100%;
+	position:relative;
+	height:882px;
+}
+#main .topic .shadow .side{
+	height:855px;
+}
+#main .topic .header{
+	background:url(../images/bg-wheader.gif) repeat-x;
+	height:44px;
+	position:relative;
+}
+#main .topic .header .frame1{
+	background:url(../images/bg-window.png) no-repeat 100% 100%;
+	width:100%;
+	height:100%;
+}
+#main .topic .header .frame2{
+	background:url(../images/bg-window2.png) no-repeat 15px 10px;
+	width:100%;
+	height:100%;
+}
+#main .topic .content{
+	background:url(../images/bg-sidebar-l.gif) repeat-x;
+	font:15px Arial, Helvetica, sans-serif;
+	color:#383431;
+}
+#main .topic .content .cframe{
+	margin:0 25px;
+	height:800px;
+}
+#main .topic .content form{
+	margin:0;
+	padding:15px 0 23px;
+}
+#main .topic .content select{
+	width:235px;
+	height:26px;
+	padding:2px 0 0;
+}
+#main .content .profile{
+	width:100%;
+}
+#main .profile{
+	margin:12px 0 0;
+	height:210px;
+	background:url(../images/sep2.gif) repeat-x 0 100%;
+}
+#main .profile .top{
+	width:100%;
+}
+#main .profile .top .avatar{
+	float:left;
+	width:64px;
+	height:63px;
+	background:url(../images/ico-avatar.png) no-repeat;
+}
+#main .profile .top .about{
+	float:left;
+	margin:0 0 7px 7px;
+}
+#main .profile p.nomargin{
+	margin:0;
+	padding:0;
+	line-height:normal;
+	color:#383431;
+	text-align:left;
+	font-size:14px;
+}
+#main .profile p.st1{
+	clear:left;
+	margin-top:10px;
+	display:block;
+}
+#main .profile p a{
+	color:#3939cf;
+}
+#main .profile p a:hover{
+	text-decoration:none;
+}
+span.uline{
+	text-decoration:underline;
+}
+#main .topic .bottom{
+	background:url(../images/bg-topic-bl.gif) no-repeat;
+}
+#main .topic .bottom .frame1{
+	height:11px;
+	background:url(../images/bg-topic-br.gif) no-repeat 100% 0;
+}
+#main .topic .bottom .frame2{
+	height:11px;
+	background:url(../images/bg-topic-b.gif) repeat-x;
+}

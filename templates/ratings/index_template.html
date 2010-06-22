@@ -2,24 +2,28 @@
 <html xmlns="http://www.w3.org/1999/xhtml"> 
 <head> 
 	
-	<title></title> 
+	<title>
+		{% block title %}
+			ratings4you.net 
+		{% endblock %}
+	</title> 
 	<meta name="keywords" content=""/> 
 	<meta name="description" content=""/><meta http-equiv="Last-Modified" content="Sat, 19 Jun 2010 17:50:39 GMT"/>	<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" /> 
 	
-	<base href="http://www.rating4you.net/"/> 
+	<!-- <base href="http://www.rating4you.net/"/> --> 
 	<meta content="text/html; charset=utf-8" http-equiv="Content-Type"> 
-	<script type="text/javascript" src="http://www.rating4you.net/sourseJs/sourse/jquery-1.3.2.js"></script> 
-	<script type="text/javascript" src="http://www.rating4you.net/sourseJs/JsHttpRequest.min.js"></script> 
-	<script type="text/javascript" src="http://www.rating4you.net/sourseJs/jquery.fancybox.pack.js"></script> 
-	<script type="text/javascript" src="http://www.rating4you.net/sourseJs/function.js"></script> 
-	<script type="text/javascript" src="http://www.rating4you.net/sourseJs/functionForm.js"></script> 
-	<script type="text/javascript" src="http://www.rating4you.net/sourseJs/functionAjax.js"></script> 
-	<script type="text/javascript" src="http://www.rating4you.net/sourseJs/functionService.js"></script> 
-	<script type="text/javascript" src="http://www.rating4you.net/sourseJs/loadMain.js"></script> 
-	<link href="http://www.rating4you.net/sourseCss/cmfStyle.css" rel="stylesheet" type="text/css" /> 
-	<link href="http://www.rating4you.net/sourseJs/jquery.fancybox/jquery.fancybox.css" rel="stylesheet" type="text/css" /> 
-	<link rel="stylesheet" type="text/css" href="css/all.css" /> 
-	<link rel="stylesheet" type="text/css" href="css/opera.css" /> 
+	<script type="text/javascript" src="/js//jquery-1.3.2.js"></script> 
+	<script type="text/javascript" src="/js/JsHttpRequest.min.js"></script> 
+	<script type="text/javascript" src="/js/jquery.fancybox.pack.js"></script> 
+	<script type="text/javascript" src="/js/function.js"></script> 
+	<script type="text/javascript" src="/js/functionForm.js"></script> 
+	<script type="text/javascript" src="/js/functionAjax.js"></script> 
+	<script type="text/javascript" src="/js/functionService.js"></script> 
+	<script type="text/javascript" src="/js/loadMain.js"></script> 
+	<link href="/css/cmfStyle.css" rel="stylesheet" type="text/css" /> 
+	<link href="/css/jquery.fancybox.css" rel="stylesheet" type="text/css" /> 
+	<link rel="stylesheet" type="text/css" href="/css/all.css" /> 
+	<link rel="stylesheet" type="text/css" href="/css/opera.css" /> 
 	<!--[if IE]>
 	<link rel="stylesheet" type="text/css" href="css/ie.css" media="screen" />
 	<![endif]--> 
@@ -38,8 +42,8 @@
 					<a href="#">rating4you.net</a> 
 				</strong> 
 				<div> 
-					<a class="login" href="#">войти</a> 
-					<a class="reg" href="#">зерегистрироваться</a> 
+					<a class="login" href="/accounts/login/">войти</a> 
+					<a class="reg" href="/accounts/register/">зерегистрироваться</a> 
 				</div> 
 				<!--[if lt IE 7]>
 				<div class="img-bl"></div>
@@ -143,6 +147,8 @@
 										<![endif]--> 
 									</div> 
 									<div class="content"> 
+									{% block content %}
+									{% endblock %}
 										<form action="#"> 
 											<div class="clear-l"> 
 												<p class="brand">Toyota</p> 

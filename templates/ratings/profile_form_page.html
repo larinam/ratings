@@ -1,0 +1,20 @@
+{% extends "ratings/index_template.html" %}
+
+{% block title %}
+	Профиль пользователя. ratings4you.
+{% endblock %}
+
+
+{% block content %}
+	<h2>Профиль пользователя</h2>
+	<div>Пожалуйста, заполните все поля.</div>
+	<form action="" method="POST">
+	<table class="prod_table">
+		{{ widget }}
+		<tr><td><input type="submit" value="Сохранить" /></td><td></td></tr>
+	</table>
+	
+	</form>
+	<br />
+	<a href="{{ link }}">{{ link_text }}</a>
+{% endblock %}

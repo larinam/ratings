@@ -1,4 +1,4 @@
-{% extends "metal/slave_index.html" %}
+{% extends "ratings/index_template.html" %}
 
 {% block title %}
 	ratings4you.net - Аутентификация
@@ -19,10 +19,11 @@
 	{% endif %}
 	
 	<form method="post" action="">
+		{% csrf_token %}
 		<table class="prod_table">
 		{{ form }}
 		</table>
-	<input type="submit" value="Вход" / class="clearfix">
+	<input type="submit" value="Вход" class="clearfix">
 	</form>
 	    
 	<script type="text/javascript">
