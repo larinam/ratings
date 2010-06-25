@@ -4,7 +4,7 @@ from datetime import datetime
 from django.contrib.auth.models import User
 from django.db import models
 from django.db.models.signals import post_save
-from interfaces import IModeratable
+from interfaces import IModeratable, NameAsIdentifier
 
 # Create your models here.
 
@@ -32,29 +32,29 @@ def create_user_profile(sender, instance, created, **kwargs):
 
 post_save.connect(create_user_profile, sender=User) 
     
-class RatingThemesDirectory(models.Model):
+class RatingThemesDirectory(models.Model, NameAsIdentifier):
     """
     Справочник тем для голосований.
     """
-    name = models.CharField(max_length=255, help_text="Тема голосования")
+    name = models.CharField(max_length=255, unique=True, null=False, help_text="Тема голосования")
 
-class RegionDirectory(models.Model):
+class RegionDirectory(models.Model, NameAsIdentifier):
     """
     Справочник регионов - здесь могут быть как страны, города, области, так и всё что угодно.
     """
-    name = models.CharField(max_length=255, help_text="Регион, для которого проводится голосование")
+    name = models.CharField(max_length=255, unique=True, null=False, verbose_name="Регион", help_text="Регион, для которого проводится голосование")
 
-class  Rating(models.Model, IModeratable):
+class  Rating(models.Model, IModeratable, NameAsIdentifier):
     """
     Сам рейтинг, содержащий пункты для голосования.
     Один из главных бизнес-объектов.
     """
     name = models.CharField(max_length=255, help_text="Название рейтинга")
-    region = models.ForeignKey(RegionDirectory, unique=True)
-    theme = models.ForeignKey(RatingThemesDirectory, unique=True)
-    begin_date = models.DateField()
-    end_date = models.DateField()
-    moderated = models.BooleanField(default=False)
+    region = models.ForeignKey(RegionDirectory, help_text="Регион")
+    theme = models.ForeignKey(RatingThemesDirectory, help_text="Тема рейтинга")
+    begin_date = models.DateField(verbose_name="Дата начала голосования", help_text="Дата начала голосования")
+    end_date = models.DateField(verbose_name="Дата окончания голосования", help_text="Дата окончания голосования")
+    moderated = models.BooleanField(default=False, help_text="Прошёл модерацию")
     
     def addRatingItem(self, name):
         rating_item = RatingItem(name=name, rating=self)

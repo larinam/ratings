@@ -20,14 +20,14 @@ class Migration(SchemaMigration):
         # Adding model 'RatingThemesDirectory'
         db.create_table('ratings4you_ratingthemesdirectory', (
             ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('name', self.gf('django.db.models.fields.CharField')(max_length=255)),
+            ('name', self.gf('django.db.models.fields.CharField')(unique=True, max_length=255)),
         ))
         db.send_create_signal('ratings4you', ['RatingThemesDirectory'])
 
         # Adding model 'RegionDirectory'
         db.create_table('ratings4you_regiondirectory', (
             ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('name', self.gf('django.db.models.fields.CharField')(max_length=255)),
+            ('name', self.gf('django.db.models.fields.CharField')(unique=True, max_length=255)),
         ))
         db.send_create_signal('ratings4you', ['RegionDirectory'])
 
@@ -35,8 +35,8 @@ class Migration(SchemaMigration):
         db.create_table('ratings4you_rating', (
             ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
             ('name', self.gf('django.db.models.fields.CharField')(max_length=255)),
-            ('region', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['ratings4you.RegionDirectory'], unique=True)),
-            ('theme', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['ratings4you.RatingThemesDirectory'], unique=True)),
+            ('region', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['ratings4you.RegionDirectory'])),
+            ('theme', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['ratings4you.RatingThemesDirectory'])),
             ('begin_date', self.gf('django.db.models.fields.DateField')()),
             ('end_date', self.gf('django.db.models.fields.DateField')()),
             ('moderated', self.gf('django.db.models.fields.BooleanField')(default=False, blank=True)),
@@ -128,8 +128,8 @@ class Migration(SchemaMigration):
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'moderated': ('django.db.models.fields.BooleanField', [], {'default': 'False', 'blank': 'True'}),
             'name': ('django.db.models.fields.CharField', [], {'max_length': '255'}),
-            'region': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['ratings4you.RegionDirectory']", 'unique': 'True'}),
-            'theme': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['ratings4you.RatingThemesDirectory']", 'unique': 'True'})
+            'region': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['ratings4you.RegionDirectory']"}),
+            'theme': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['ratings4you.RatingThemesDirectory']"})
         },
         'ratings4you.ratingitem': {
             'Meta': {'object_name': 'RatingItem'},
@@ -141,12 +141,12 @@ class Migration(SchemaMigration):
         'ratings4you.ratingthemesdirectory': {
             'Meta': {'object_name': 'RatingThemesDirectory'},
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'name': ('django.db.models.fields.CharField', [], {'max_length': '255'})
+            'name': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '255'})
         },
         'ratings4you.regiondirectory': {
             'Meta': {'object_name': 'RegionDirectory'},
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'name': ('django.db.models.fields.CharField', [], {'max_length': '255'})
+            'name': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '255'})
         },
         'ratings4you.userprofile': {
             'Meta': {'object_name': 'UserProfile'},

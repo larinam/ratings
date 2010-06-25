@@ -1,0 +1,17 @@
+{% extends "ratings/index_template.html" %}
+
+{% block title %}
+	{{ title }}. ratings4you.
+{% endblock %}
+
+
+{% block content %}
+	<form action="" method="POST">
+	<table class="prod_table">
+		{{ form }}
+		<tr><td><input type="submit" value="Сохранить" /></td><td></td></tr>
+	</table>
+	</form>
+	<br />
+	<a href="{{ link }}">{{ link_text }}</a>
+{% endblock %}
