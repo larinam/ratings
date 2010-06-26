@@ -9,7 +9,6 @@ from interfaces import IModeratable, NameAsIdentifier
 # Create your models here.
 
 # 
-
 AUTHORIZATION_CHOICES = (
     ('Anonymous', 'Анонимный'),
     ('Authorized', 'Авторизованный'),
@@ -55,6 +54,7 @@ class  Rating(models.Model, IModeratable, NameAsIdentifier):
     begin_date = models.DateField(verbose_name="Дата начала голосования", help_text="Дата начала голосования")
     end_date = models.DateField(verbose_name="Дата окончания голосования", help_text="Дата окончания голосования")
     moderated = models.BooleanField(default=False, help_text="Прошёл модерацию")
+    author = models.ForeignKey(User, null=True) # автор рейтинга
     
     def addRatingItem(self, name):
         rating_item = RatingItem(name=name, rating=self)
@@ -71,14 +71,15 @@ class  Rating(models.Model, IModeratable, NameAsIdentifier):
         self.moderated = value
 
     
-class RatingItem(models.Model, IModeratable):
+class RatingItem(models.Model, IModeratable, NameAsIdentifier):
     """
     Пункт рейтинга в @see: Rating .
     Один из главных бизнес-объектов.
     """
-    name = models.CharField(max_length=255, help_text="Название пункта голосования")
+    name = models.CharField(max_length=255, verbose_name="Название элемента голосования", help_text="Название пункта голосования")
     rating = models.ForeignKey(Rating, unique=True)
     moderated = models.BooleanField(default=False)
+    author = models.ForeignKey(User, null=True) # автор изменений внесенных в элемент
     
     def addVote(self, user, ip):
         vote = Vote(user=user, rating_item=self, ip=ip)
@@ -96,8 +97,8 @@ class Vote(models.Model):
     Один из главных бизнес-объектов.
     Не должно быть возможности как-то изменить.
     """
-    user = models.ForeignKey(User, unique=True)
+    user = models.ForeignKey(User)
     vote_date = models.DateTimeField(auto_now=True)
-    rating_item = models.ForeignKey(RatingItem, unique=True)
+    rating_item = models.ForeignKey(RatingItem)
     ip = models.IPAddressField()
     
