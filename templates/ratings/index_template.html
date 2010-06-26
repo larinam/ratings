@@ -39,12 +39,12 @@
 		<div class="wrapper2"> 
 			<div id="header"> 
 				<strong class="logo"> 
-					<a href="/ratings/">rating4you.net</a> 
+					<a href="/ratings/">rating4you.net</a>
 				</strong> 
 				<div> 
 					<a class="login" href="/accounts/login/">войти</a> 
-					<a class="reg" href="/accounts/register/">зерегистрироваться</a> 
-				</div> 
+					<a class="reg" href="/accounts/register/">зерегистрироваться</a>
+				</div>
 				<!--[if lt IE 7]>
 				<div class="img-bl"></div>
 				<![endif]--> 
@@ -97,7 +97,7 @@
 									<div class="content"> 
 										<div> 
 											{% for rating in ratings %}
-												{{ rating }}
+												<a href="/ratings/view/{{ rating.id }}/">{{ rating }}</a>
 											{% endfor %}
 											<form action="#"> 
 												<input type="text" class="find" /> 

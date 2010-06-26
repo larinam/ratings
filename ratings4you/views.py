@@ -47,3 +47,11 @@ def add_item(request, id):
     form = RatingItemForm()
     return render_to_response('ratings/one_form_page.html', dict(form=form, link="/ratings/", link_text="или просто продолжайте серфинг с главной"),
                               context_instance=RequestContext(request))
+    
+def view_rating(request, id):
+    '''
+    отображение рейтинга для голосования
+    '''
+    rating = get_object_or_404(Rating, pk=id)
+    return render_to_response('ratings/one_form_page.html', dict(form=rating, link="/ratings/", link_text="или просто продолжайте серфинг с главной"),
+                              context_instance=RequestContext(request))
