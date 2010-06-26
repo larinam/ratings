@@ -9,6 +9,7 @@ urlpatterns = patterns('',
    (r'^$', 'ratings.ratings4you.views.index'),
    (r'^accounts/profile/$', 'ratings.ratings4you.accounts.profile'),
    (r'^add/$', 'ratings.ratings4you.views.add'),
+   (r'^additem/(?P<id>\w{0,10})/$', 'ratings.ratings4you.views.add_item'),
    
    #administration
    (r'^admin/$', 'ratings.ratings4you.views_admin.index'),

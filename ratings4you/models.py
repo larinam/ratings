@@ -29,7 +29,11 @@ def create_user_profile(sender, instance, created, **kwargs):
     if created:
        profile, created = UserProfile.objects.get_or_create(user=instance)
 
-post_save.connect(create_user_profile, sender=User) 
+try:
+    #чтобы init миграция проходил без сучка без задоринки 
+    post_save.connect(create_user_profile, sender=User)
+except:
+    pass 
     
 class RatingThemesDirectory(models.Model, NameAsIdentifier):
     """
@@ -48,11 +52,11 @@ class  Rating(models.Model, IModeratable, NameAsIdentifier):
     Сам рейтинг, содержащий пункты для голосования.
     Один из главных бизнес-объектов.
     """
-    name = models.CharField(max_length=255, help_text="Название рейтинга")
-    region = models.ForeignKey(RegionDirectory, help_text="Регион")
-    theme = models.ForeignKey(RatingThemesDirectory, help_text="Тема рейтинга")
-    begin_date = models.DateField(verbose_name="Дата начала голосования", help_text="Дата начала голосования")
-    end_date = models.DateField(verbose_name="Дата окончания голосования", help_text="Дата окончания голосования")
+    name = models.CharField(max_length=255, verbose_name="Название рейтинга", help_text="Название рейтинга")
+    region = models.ForeignKey(RegionDirectory, verbose_name="Регион", help_text="Регион")
+    theme = models.ForeignKey(RatingThemesDirectory, verbose_name="Тема рейтинга", help_text="Тема рейтинга")
+    begin_date = models.DateField(verbose_name="Дата начала голосования", help_text="например, 2010-01-01")
+    end_date = models.DateField(verbose_name="Дата окончания голосования", help_text="например, 2010-12-01")
     moderated = models.BooleanField(default=False, help_text="Прошёл модерацию")
     author = models.ForeignKey(User, null=True) # автор рейтинга
     
@@ -77,7 +81,7 @@ class RatingItem(models.Model, IModeratable, NameAsIdentifier):
     Один из главных бизнес-объектов.
     """
     name = models.CharField(max_length=255, verbose_name="Название элемента голосования", help_text="Название пункта голосования")
-    rating = models.ForeignKey(Rating, unique=True)
+    rating = models.ForeignKey(Rating)
     moderated = models.BooleanField(default=False)
     author = models.ForeignKey(User, null=True) # автор изменений внесенных в элемент
     

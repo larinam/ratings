@@ -2,7 +2,7 @@
 # Create your views here.
 from django.template import RequestContext
 from django.shortcuts import get_object_or_404, render_to_response
-from forms import RatingModelForm
+from forms import RatingModelForm, RatingItemForm
 from models import Rating
 from db_rating import *
 
@@ -26,5 +26,24 @@ def add(request):
             return render_to_response('ratings/one_form_page.html', dict(form=form, link="/ratings/", link_text="или просто продолжайте сёрфинг с главной"),
                               context_instance=RequestContext(request))
     form = RatingModelForm()
+    return render_to_response('ratings/one_form_page.html', dict(form=form, link="/ratings/", link_text="или просто продолжайте серфинг с главной"),
+                              context_instance=RequestContext(request))
+
+def add_item(request, id):
+    '''
+    добавление элемента рейтинга
+    '''
+    rating = get_object_or_404(Rating, pk=id)
+    if request.POST:
+        form = RatingItemForm(data=request.POST)
+        if form.is_valid():
+            entity = form.save()
+            entity.author = request.user
+            entity.rating = rating
+            entity.save()
+        else:
+            return render_to_response('ratings/one_form_page.html', dict(form=form, link="/ratings/", link_text="или просто продолжайте серфинг с главной"),
+                              context_instance=RequestContext(request))
+    form = RatingItemForm()
     return render_to_response('ratings/one_form_page.html', dict(form=form, link="/ratings/", link_text="или просто продолжайте серфинг с главной"),
                               context_instance=RequestContext(request))
