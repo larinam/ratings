@@ -9,7 +9,11 @@
 	<h3>{{ title }}</h3>
 	<form action="" method="POST">
 	<table class="prod_table">
-		{{ form }}
+		<ul>
+		{% for ri in rating_items %}
+			<li>{{ ri }}</li>
+		{% endfor %}
+		</ul>
 		<tr><td><input type="submit" value="Сохранить" /></td><td></td></tr>
 	</table>
 	</form>
