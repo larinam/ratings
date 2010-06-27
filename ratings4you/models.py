@@ -29,11 +29,10 @@ def create_user_profile(sender, instance, created, **kwargs):
     if created:
        profile, created = UserProfile.objects.get_or_create(user=instance)
 
-try:
-    #чтобы init миграция проходил без сучка без задоринки 
-    post_save.connect(create_user_profile, sender=User)
-except:
-    pass 
+
+#чтобы init миграция проходил без сучка без задоринки 
+post_save.connect(create_user_profile, sender=User)
+
     
 class RatingThemesDirectory(models.Model, NameAsIdentifier):
     """

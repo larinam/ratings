@@ -1,10 +1,12 @@
 # -*- coding: utf8 -*-
 # Create your views here.
-from django.template import RequestContext
+from db_rating import *
+from django.core.urlresolvers import reverse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render_to_response
+from django.template import RequestContext
 from forms import RatingModelForm, RatingItemForm
 from models import Rating
-from db_rating import *
 
 def index(request):
     #ratings = listActualRatings()
@@ -22,6 +24,7 @@ def add(request):
             entity = form.save()
             entity.author = request.user
             entity.save()
+            return HttpResponseRedirect(reverse('ratings.ratings4you.views.add_item', kwargs=dict(id=entity.id)))
         else:
             return render_to_response('ratings/one_form_page.html', dict(form=form, link="/ratings/", link_text="или просто продолжайте сёрфинг с главной"),
                               context_instance=RequestContext(request))
