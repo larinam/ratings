@@ -38,7 +38,7 @@ class RatingThemesDirectory(models.Model, NameAsIdentifier):
     """
     Справочник тем для голосований.
     """
-    name = models.CharField(max_length=255, unique=True, null=False, help_text="Тема голосования")
+    name = models.CharField(max_length=255, unique=True, null=False, verbose_name="Тема голосования", help_text="Тема голосования")
 
 class RegionDirectory(models.Model, NameAsIdentifier):
     """
@@ -59,8 +59,8 @@ class  Rating(models.Model, IModeratable, NameAsIdentifier):
     moderated = models.BooleanField(default=False, help_text="Прошёл модерацию")
     author = models.ForeignKey(User, null=True) # автор рейтинга
     
-    def addRatingItem(self, name):
-        rating_item = RatingItem(name=name, rating=self)
+    def addRatingItem(self, name, author):
+        rating_item = RatingItem(name=name, rating=self, author=author)
         rating_item.save()
         return rating_item
         
@@ -93,6 +93,9 @@ class RatingItem(models.Model, IModeratable, NameAsIdentifier):
         
     def setModerated(self, value=True):
         self.moderated = value
+        
+    def getOverallCount(self):
+        return Vote.objects.filter(rating_item=self).count()
 
 class Vote(models.Model):
     """

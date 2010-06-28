@@ -7,16 +7,11 @@
 
 {% block content %}
 	<h3>{{ title }}</h3>
-	<form action="" method="POST">
-	
 		<ul>
 		{% for ri in rating_items %}
-			<li>{{ ri }} &nbsp; <input type="radio" name="ri_id" value="{{ri.id }}" /></li>
+			<li>{{ ri }} &nbsp; {{ ri.getOverallCount }}</li>
 		{% endfor %}
 		</ul>
-	<div><input type="submit" value="Голосовать" /></div>
-		
-	</form>
 	<br />
 	<a href="{{ link }}">{{ link_text }}</a>
 {% endblock %}
