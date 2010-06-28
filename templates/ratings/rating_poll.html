@@ -4,19 +4,29 @@
 	{{ title }}. ratings4you.
 {% endblock %}
 
+{% block center_title %} {{ title }} {% endblock %}
 
 {% block content %}
-	<h3>{{ title }}</h3>
-	<form action="" method="POST">
+
+										<form action="" method="POST">
+											{% for ri in rating_items %}
+											<div class="clear-l"> 
+												<p class="brand">{{ ri }}</p> 
+												<div class="cl-n"> 
+													<input type="radio" name="ri_id" value="{{ri.id }}" /> 
+												</div> 
+												<div class="separator">&nbsp;</div> 
+											</div> 
+											{% endfor %}
+											<div class="buttons"> 
+												<input type="submit" class="btn-vote" value="" /> 
+												<input type="button" class="btn-viewres" value="" onClick="window.location=window.location+'?action=view_results'"/> 
+											</div> 
+										</form>
 	
-		<ul>
-		{% for ri in rating_items %}
-			<li>{{ ri }} &nbsp; <input type="radio" name="ri_id" value="{{ri.id }}" /></li>
-		{% endfor %}
-		</ul>
-	<div><input type="submit" value="Голосовать" /></div>
+	
 		
-	</form>
+	
 	<br />
 	<a href="{{ link }}">{{ link_text }}</a>
 {% endblock %}

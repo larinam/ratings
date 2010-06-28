@@ -97,7 +97,7 @@
 									<div class="content"> 
 										<div> 
 											{% for rating in ratings %}
-												<a href="/ratings/view/{{ rating.id }}/">{{ rating }}</a>
+												<a href="/ratings/view/{{ rating.id }}/">{{ rating }}</a> <br />
 											{% endfor %}
 											<form action="#"> 
 												<input type="text" class="find" /> 
@@ -141,7 +141,7 @@
 									<div class="header"> 
 										<div class="frame1"> 
 											<div class="frame2"> 
-												<h1 class="title">топ брендов</h1> 
+												<h1 class="title">{% block center_title %} топ брендов {% endblock %}</h1> 
 											</div> 
 										</div> 
 										<!--[if lt IE 7]>

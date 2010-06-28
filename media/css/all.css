@@ -9,7 +9,14 @@ form, fieldset, input{
 	padding:0;
 }
 a{
-	color:transparent;
+	margin:0 0 0 24px;
+/*	padding:2px 0 0;*/
+	padding:4px 0 0;
+	font:13pt Tahoma;
+	color:#495677;
+	text-align:left;
+	/*float:left;*/
+	display:inline;
 }
 img.body-img{
 	position:absolute;

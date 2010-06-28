@@ -4,14 +4,18 @@
 	{{ title }}. ratings4you.
 {% endblock %}
 
+{% block center_title %} {{ title }} {% endblock %}
 
 {% block content %}
-	<h3>{{ title }}</h3>
-		<ul>
 		{% for ri in rating_items %}
-			<li>{{ ri }} &nbsp; {{ ri.getOverallCount }}</li>
+											<div class="clear-l"> 
+												<p class="brand">{{ ri }}</p> 
+												<div class="cl-n"> 
+													{{ ri.getOverallCount }} 
+												</div> 
+												<div class="separator">&nbsp;</div> 
+											</div> 
 		{% endfor %}
-		</ul>
 	<br />
 	<a href="{{ link }}">{{ link_text }}</a>
 {% endblock %}

@@ -64,6 +64,10 @@ def view_rating(request, id):
         rating_item.addVote(request.user, request.META['REMOTE_ADDR'])
         return render_to_response('ratings/rating_results.html', dict(title=rating.name, rating_items=rating.listRatingItems(), link="/ratings/", link_text="или просто продолжайте серфинг с главной"),
                               context_instance=RequestContext(request))
-        
+    if request.GET.get('action') == 'view_results':
+        print 'and we are here'
+        return render_to_response('ratings/rating_results.html', dict(title=rating.name, rating_items=rating.listRatingItems(), link="/ratings/view/%s/" % (rating.id), link_text="или вернитесь на страничку голосования"),
+                              context_instance=RequestContext(request))
+    print request.GET.get('action')
     return render_to_response('ratings/rating_poll.html', dict(title=rating.name, rating_items=rating.listRatingItems(), link="/ratings/", link_text="или просто продолжайте серфинг с главной"),
                               context_instance=RequestContext(request))
