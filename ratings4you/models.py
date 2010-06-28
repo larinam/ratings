@@ -21,8 +21,10 @@ BONUS_CHOICES = (
 )
 
 class UserProfile(models.Model):
-    authorization_mode = models.CharField(max_length=255, choices=AUTHORIZATION_CHOICES)
-    bonus_currency = models.CharField(max_length=255, choices=BONUS_CHOICES)
+    authorization_mode = models.CharField(max_length=255, verbose_name="Тип пользователя",
+                                          choices=AUTHORIZATION_CHOICES)
+    bonus_currency = models.CharField(max_length=255, verbose_name="Валюта бонуса",
+                                      choices=BONUS_CHOICES)
     user = models.ForeignKey(User, unique=True)
     
 def create_user_profile(sender, instance, created, **kwargs):  
