@@ -15,7 +15,7 @@ def catalogs(request):
                               context_instance=RequestContext(request))
     
 def themes(request):
-    catalog_items = RatingThemesDirectory.objects.all()
+    catalog_items = RatingThemesDirectory.objects.all().order_by('name')
     if request.POST:
         data_dict = request.POST
         form = RatingThemesDirectoryForm(data=data_dict)
@@ -23,15 +23,17 @@ def themes(request):
             entity = form.save(commit=True)
         else:
             return render_to_response('ratings/simple_catalogs_management.html', 
-                                      dict(form=form, link="/ratings/admin/catalogs/", link_text="или вернитесь в список каталогов", catalog_items=catalog_items),
+                                      dict(form=form, link="/ratings/admin/catalogs/", title="Темы голосований", 
+                                           link_text="или вернитесь в список каталогов", catalog_items=catalog_items),
                               context_instance=RequestContext(request))
     form = RatingThemesDirectoryForm()
     return render_to_response('ratings/simple_catalogs_management.html', 
-                              dict(form=form, link="/ratings/admin/catalogs/", link_text="или вернитесь в список каталогов", catalog_items=catalog_items),
+                              dict(form=form, link="/ratings/admin/catalogs/", title="Темы голосований",
+                                   link_text="или вернитесь в список каталогов", catalog_items=catalog_items),
                               context_instance=RequestContext(request))
 
 def regions(request):
-    catalog_items = RegionDirectory.objects.all()
+    catalog_items = RegionDirectory.objects.all().order_by('name')
     if request.POST:
         data_dict = request.POST
         form = RegionDirectoryForm(data=data_dict)
@@ -40,13 +42,16 @@ def regions(request):
         else:
             return render_to_response('ratings/simple_catalogs_management.html', 
                                       dict(form=form, 
+                                           title="Регионы голосований",
                                            link="/ratings/admin/catalogs/", 
                                            link_text="или вернитесь в список каталогов",
                                            catalog_items=catalog_items),
                               context_instance=RequestContext(request))
     form = RegionDirectoryForm()
     return render_to_response('ratings/simple_catalogs_management.html', 
-                              dict(form=form, link="/ratings/admin/catalogs/",
+                              dict(form=form,
+                                   title="Регионы голосований", 
+                                   link="/ratings/admin/catalogs/",
                                    link_text="или вернитесь в список каталогов",
                                    catalog_items=catalog_items),
                               context_instance=RequestContext(request))
