@@ -1,5 +1,6 @@
 # Django settings for ratings project.
 PROJECT_ROOT = '/home/alarin/workspace/ratings'
+PROJECT_URL_BASE = 'http://72.14.176.81/'
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG

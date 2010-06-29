@@ -27,12 +27,12 @@ def add(request):
             entity = form.save()
             entity.author = request.user
             entity.save()
-            return HttpResponseRedirect(reverse('ratings.ratings4you.views.add_item', kwargs=dict(id=entity.id)))
+            return HttpResponseRedirect(reverse('ratings.ratings4you.views.add_item', kwargs=dict(id=entity.id, title="Добавление рейтинга")))
         else:
-            return render_to_response('ratings/one_form_page.html', dict(form=form, link="/ratings/", link_text="или просто продолжайте сёрфинг с главной"),
+            return render_to_response('ratings/one_form_page.html', dict(form=form, link="/ratings/", title="Добавление рейтинга", link_text="или просто продолжайте сёрфинг с главной"),
                               context_instance=RequestContext(request))
     form = RatingModelForm()
-    return render_to_response('ratings/one_form_page.html', dict(form=form, link="/ratings/", link_text="или просто продолжайте серфинг с главной"),
+    return render_to_response('ratings/one_form_page.html', dict(form=form, link="/ratings/", title="Добавление рейтинга", link_text="или просто продолжайте серфинг с главной"),
                               context_instance=RequestContext(request))
 
 @login_required

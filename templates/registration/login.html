@@ -1,13 +1,12 @@
 {% extends "ratings/index_template.html" %}
 
 {% block title %}
-	ratings4you.net - Аутентификация
+	rating4you.net - Аутентификация
 {% endblock %}
 
+{% block center_title %}Аутентификация{% endblock %}
+
 {% block content %}
-<h3>Аутентификация</h3>
-<br />
-<br />
 
 {% if user.is_authenticated %}
 	Что такое, {{ user.username }}? Вы же уже авторизорваны. 
