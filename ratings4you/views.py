@@ -27,7 +27,7 @@ def add(request):
             entity = form.save()
             entity.author = request.user
             entity.save()
-            return HttpResponseRedirect(reverse('ratings.ratings4you.views.add_item', kwargs=dict(id=entity.id, title="Добавление рейтинга")))
+            return HttpResponseRedirect(reverse('ratings.ratings4you.views.add_item', kwargs=dict(id=entity.id)))
         else:
             return render_to_response('ratings/one_form_page.html', dict(form=form, link="/ratings/", title="Добавление рейтинга", link_text="или просто продолжайте сёрфинг с главной"),
                               context_instance=RequestContext(request))
@@ -41,16 +41,21 @@ def add_item(request, id):
     добавление элемента рейтинга
     '''
     rating = get_object_or_404(Rating, pk=id)
+    rating_items = rating.listRatingItems()
     title = "Добавление элемента голосования для рейтинга %s" % (rating)
     if request.POST:
         form = RatingItemForm(data=request.POST)
         if form.is_valid():
             rating_item = rating.addRatingItem(name=form.cleaned_data['name'], author=request.user)
         else:
-            return render_to_response('ratings/one_form_page.html', dict(form=form, title=title, link="/ratings/", link_text="или просто продолжайте серфинг с главной"),
+            return render_to_response('ratings/simple_catalogs_management.html', 
+                                      dict(form=form, title=title, link="/ratings/", link_text="или просто продолжайте серфинг с главной",
+                                           catalog_items=rating_items),
                               context_instance=RequestContext(request))
     form = RatingItemForm()
-    return render_to_response('ratings/one_form_page.html', dict(form=form, title=title, link="/ratings/", link_text="или просто продолжайте серфинг с главной"),
+    return render_to_response('ratings/simple_catalogs_management.html', 
+                              dict(form=form, title=title, link="/ratings/", link_text="или просто продолжайте серфинг с главной",
+                                   catalog_items=rating_items),
                               context_instance=RequestContext(request))
 
 def view_rating(request, id):

@@ -1,7 +1,7 @@
 {% extends "ratings/index_template.html" %}
 
 {% block title %}
-	{{ title }}. rating4you
+	{{ title }}. rating4you.net
 {% endblock %}
 
 {% block center_title %} {{ title }} {% endblock %}
@@ -15,4 +15,9 @@
 	</form>
 	<br />
 	<a href="{{ link }}">{{ link_text }}</a>
+	<ul>
+	{% for item in catalog_items %}
+		<li>{{ item.name }}</li>
+	{% endfor %}
+	</ul>
 {% endblock %}

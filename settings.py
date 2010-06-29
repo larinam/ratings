@@ -85,12 +85,11 @@ INSTALLED_APPS = (
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.sites',
+    'django.contrib.comments',
     'registration',
     'captcha',
-    'django.contrib.comments',
     'ratings4you',
     'south',
-    
 )
 
 AUTH_PROFILE_MODULE = 'ratings4you.UserProfile'
