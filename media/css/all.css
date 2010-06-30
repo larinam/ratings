@@ -268,7 +268,7 @@ img.body-img{
 	font:13pt Arial, Helvetica, sans-serif;
 	color:#fff;
 	text-align:center;
-	line-height:295px;
+	/*line-height:295px;*/
 }
 #main p.brand{
 	margin:0 0 0 24px;
