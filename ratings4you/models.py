@@ -42,12 +42,19 @@ class RatingThemesDirectory(models.Model, NameAsIdentifier):
     Справочник тем для голосований.
     """
     name = models.CharField(max_length=255, unique=True, null=False, verbose_name="Тема голосования", help_text="Тема голосования")
+    
+    class Meta:
+        ordering = ('name',)
+
 
 class RegionDirectory(models.Model, NameAsIdentifier):
     """
     Справочник регионов - здесь могут быть как страны, города, области, так и всё что угодно.
     """
     name = models.CharField(max_length=255, unique=True, null=False, verbose_name="Регион", help_text="Регион, для которого проводится голосование")
+    
+    class Meta:
+        ordering = ('name',)
 
 class  Rating(models.Model, IModeratable, NameAsIdentifier):
     """
@@ -61,6 +68,9 @@ class  Rating(models.Model, IModeratable, NameAsIdentifier):
     end_date = models.DateField(verbose_name="Дата окончания голосования", help_text="например, 2010-12-01")
     moderated = models.BooleanField(default=False, help_text="Прошёл модерацию")
     author = models.ForeignKey(User, null=True) # автор рейтинга
+    
+    class Meta:
+        ordering = ('name',)
     
     def addRatingItem(self, name, author):
         rating_item = RatingItem(name=name, rating=self, author=author)
@@ -86,6 +96,9 @@ class RatingItem(models.Model, IModeratable, NameAsIdentifier):
     rating = models.ForeignKey(Rating)
     moderated = models.BooleanField(default=False)
     author = models.ForeignKey(User, null=True) # автор изменений внесенных в элемент
+    
+    class Meta:
+        ordering = ('name',)
     
     def addVote(self, user, ip):
         vote = Vote(user=user, rating_item=self, ip=ip)

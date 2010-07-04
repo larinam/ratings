@@ -96,9 +96,8 @@
 									</div> 
 									<div class="content"> 
 										<div> 
-											{% for rating in ratings %}
-												<a href="/ratings/view/{{ rating.id }}/">{{ rating }}</a> <br />
-											{% endfor %}
+											{% load ratings_tree_tag %}
+											{% rating_catalog_tree %}
 											<form action="#"> 
 												<input type="text" class="find" /> 
 												<input type="button" class="btn-find" /> 

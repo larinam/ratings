@@ -12,7 +12,8 @@
     {% else %}
       <blockquote>{{ comment|linebreaks }}</blockquote>
       <p>
-      {% trans " и " %} <input type="submit" name="submit" class="submit-post" value="{% trans "Отправьте комментарий" %}" id="submit" /> {% trans "или внесите изменения" %}:
+      {% trans " и " %} <input type="submit" name="submit" class="submit-post" value="{% trans "Отправьте комментарий" %}" id="submit" />
+      <br /> {% trans "или внесите изменения" %}:
       </p>
     {% endif %}
     {% for field in form %}

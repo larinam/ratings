@@ -1,5 +1,6 @@
+# -*- coding: utf8 -*-
 '''
-@since: 20.12.2009
+@since: 04.06.2010
 @author: alarin
 '''
 
@@ -10,6 +11,9 @@ from django.contrib.auth.models import User
 register = template.Library()
 
 class UserNameTagNode(template.Node):
+    '''
+    Превращает id пользователя в username пользователя. 
+    '''
     
     def __init__(self, user_id=None):
         self.user_id = template.Variable(user_id)
