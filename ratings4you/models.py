@@ -25,6 +25,7 @@ class UserProfile(models.Model):
                                           choices=AUTHORIZATION_CHOICES)
     bonus_currency = models.CharField(max_length=255, verbose_name="Валюта бонуса",
                                       choices=BONUS_CHOICES)
+    profile_url = models.URLField(verbose_name="URL", verify_exists=True)
     user = models.ForeignKey(User, unique=True)
     
 def create_user_profile(sender, instance, created, **kwargs):  

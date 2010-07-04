@@ -4,11 +4,35 @@
 <form action="{% comment_form_target %}" method="post">
   <table>
   {% csrf_token %}
-  {{ form }}
-  <input type="hidden" name="next" value="/ratings/view/{{rating.id}}/" />
+  			
+  	
+  
+  	{% for field in form.visible_fields %}
+  		{% if forloop.first %}
+            {% for hidden in form.hidden_fields %}
+            {{ hidden }}
+            {% endfor %}
+        {% endif %}
+	{% ifequal field.name "name" %}
+	  	<input id="id_name" type="hidden" name="name" value="{{request.user.id}}" /> 
+	{% endifequal %}
+	{% ifequal field.name "email" %}
+	  	<input type="hidden" name="email" id="id_email" value="{{request.user.email}}" /> 
+	{% endifequal %}
+	{% ifequal field.name "url" %}
+	  	<input type="hidden" name="url" id="id_url" value="{{request.user.profile.profile_url}}" /> 
+	{% endifequal %}
+	{% ifequal field.name "comment" %}
+		<tr><td>Комментарий:</td></tr>
+	  	<tr><td>{{ field }}</td></tr>
+	{% endifequal %}
+	{% ifequal field.name "honeypot" %}
+	  	<div style="display:none;">{{ field }}</div>
+	{% endifequal %}
+	{% endfor %}
+  	<input type="hidden" name="next" value="/ratings/view/{{rating.id}}/" />
   <tr>
-    <td></td>
-    <td><input type="submit" name="preview" class="submit-post" value="Preview"></td>
+    <td><input type="submit" name="preview" class="submit-post" value="Предпросмотр"></td>
   </tr>
   </table>
 </form>
