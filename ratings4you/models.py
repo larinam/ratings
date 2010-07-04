@@ -25,7 +25,7 @@ class UserProfile(models.Model):
                                           choices=AUTHORIZATION_CHOICES)
     bonus_currency = models.CharField(max_length=255, verbose_name="Валюта бонуса",
                                       choices=BONUS_CHOICES)
-    profile_url = models.URLField(verbose_name="URL", verify_exists=True)
+    profile_url = models.URLField(verbose_name="URL", verify_exists=True, null=True)
     user = models.ForeignKey(User, unique=True)
     
 def create_user_profile(sender, instance, created, **kwargs):  
@@ -81,7 +81,7 @@ class  Rating(models.Model, IModeratable, NameAsIdentifier):
         return RatingItem.objects.filter(rating=self).order_by('name')
     
     def isModerated(self):
-        return moderated
+        return self.moderated
     
     def setModerated(self, value=True):
         self.moderated = value
@@ -105,7 +105,7 @@ class RatingItem(models.Model, IModeratable, NameAsIdentifier):
         vote.save()
         
     def isModerated(self):
-        return moderated
+        return self.moderated
         
     def setModerated(self, value=True):
         self.moderated = value

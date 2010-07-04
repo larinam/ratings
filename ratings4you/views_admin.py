@@ -1,8 +1,9 @@
 # -*- coding: utf8 -*-
 # Create your views here.
-from django.template import RequestContext
 from django.shortcuts import get_object_or_404, render_to_response
-from forms import RatingModelForm, RatingThemesDirectoryForm, RegionDirectoryForm
+from django.template import RequestContext
+from forms import RatingModelForm, RatingThemesDirectoryForm, \
+    RegionDirectoryForm, RatingItemForm
 from models import RegionDirectory, RatingThemesDirectory
 
 

@@ -12,7 +12,7 @@ def listActualRatings():
     возвращает рейтинги, которые актуальны в данный момент, все остальные рейтинги не отображаются в общем списке
     '''
     today = date.today()
-    ratins = Rating.objects.filter(begin_date<today, end_date>today)
+    ratings = Rating.objects.filter(begin_date<=today, end_date>=today) #@UndefinedVariable
     return ratings
 
 def listArchievedRatings():
@@ -20,5 +20,5 @@ def listArchievedRatings():
     возвращает архивные рейтинги, дата окончания которых находится в прошлом
     '''
     today = date.today()
-    ratins = Rating.objects.filter(end_date<today)
+    ratings = Rating.objects.filter(end_date<today) #@UndefinedVariable
     return ratings
