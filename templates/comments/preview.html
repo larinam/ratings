@@ -12,7 +12,7 @@
     {% else %}
       <blockquote>{{ comment|linebreaks }}</blockquote>
       <p>
-      {% trans "and" %} <input type="submit" name="submit" class="submit-post" value="{% trans "Post your comment" %}" id="submit" /> {% trans "or make changes" %}:
+      {% trans "and" %} <input type="submit" name="submit" class="submit-post" value="{% trans "Отправить комментарий" %}" id="submit" /> {% trans "or make changes" %}:
       </p>
     {% endif %}
     {% for field in form %}
@@ -23,13 +23,25 @@
         <p
           {% if field.errors %} class="error"{% endif %}
           {% ifequal field.name "honeypot" %} style="display:none;"{% endifequal %}>
-          {{ field.label_tag }} {{ field }}
+            {% ifequal field.name "name" %}
+			  	<input id="id_name" type="hidden" name="name" value="{{request.user.id}}" /> 
+			{% endifequal %}
+			{% ifequal field.name "email" %}
+			  	<input type="hidden" name="email" id="id_email" value="{{request.user.email}}" /> 
+			{% endifequal %}
+			{% ifequal field.name "url" %}
+			  	<input type="hidden" name="url" id="id_url" value="{{request.user.profile.profile_url}}" /> 
+			{% endifequal %}
+			{% ifequal field.name "comment" %}
+				<tr><td>Комментарий:</td></tr>
+			  	<tr><td>{{ field }}</td></tr>
+			{% endifequal %}
         </p>
       {% endif %}
     {% endfor %}
     <p class="submit">
-    <input type="submit" name="submit" class="submit-post" value="{% trans "Post" %}" />
-    <input type="submit" name="preview" class="submit-preview" value="{% trans "Preview" %}" />
+    <input type="submit" name="submit" class="submit-post" value="{% trans "Отправить" %}" />
+    <input type="submit" name="preview" class="submit-preview" value="{% trans "Предпросмотр" %}" />
     </p>
   </form>
 {% endblock %}

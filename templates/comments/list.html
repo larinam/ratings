@@ -1,11 +1,12 @@
 {% load comments %}
+{% load user_name_tag %}
 {% get_comment_count for rating as comment_count %}
 <div>комментарии ({{ comment_count }})</div>
 {% get_comment_list for rating as comment_list %}
 <ul>
 {% for comment in comment_list %}
 	<li>
-		<div style="color:grey;">{{ comment.user_name }} {{ comment.submit_date|date:"d F Y, H:i" }}</div>
+		<div style="color:grey;">{% user_id_to_name comment.user_name %} {{ comment.submit_date|date:"d F Y, H:i" }}</div>
 		<div >{{ comment.comment }}</div>
 	</li>
 {% endfor %}
