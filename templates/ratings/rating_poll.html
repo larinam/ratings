@@ -30,4 +30,12 @@
 	
 	<br />
 	<a href="{{ link }}">{{ link_text }}</a>
+	
+	{% load comments %}
+	{% render_comment_list for rating %}
+	{% if request.user.is_authenticated %}
+		<div align="left">
+		{% render_comment_form for rating %}
+		</div>
+	{% endif %}
 {% endblock %}
