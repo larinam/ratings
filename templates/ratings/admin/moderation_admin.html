@@ -1,0 +1,13 @@
+{% extends "ratings/index_template.html" %}
+
+{% block title %}
+	Модерирование. ratings4you.
+{% endblock %}
+
+{% block center_title %} {{ title }} {% endblock %}
+
+{% block content %}
+	{% for m in moderatable %}
+		<a href="/ratings/admin/moderaterating/{{ m.id }}/">{{ m }}</a><br />
+	{% endfor %}
+{% endblock %}

@@ -4,7 +4,8 @@ from django.shortcuts import get_object_or_404, render_to_response
 from django.template import RequestContext
 from forms import RatingModelForm, RatingThemesDirectoryForm, \
     RegionDirectoryForm, RatingItemForm
-from models import RegionDirectory, RatingThemesDirectory
+from models import RegionDirectory, RatingThemesDirectory, MODERATABLE_MODELS
+from db_rating import *
 
 
 def index(request):
@@ -57,6 +58,24 @@ def regions(request):
                                    catalog_items=catalog_items),
                               context_instance=RequestContext(request))
 
+def moderation(request):
+    moderatable = Rating.objects.filter() #listActualRatings()
+    return render_to_response('ratings/admin/moderation_admin.html', 
+                              dict(moderatable=moderatable,
+                                   title="Модерация", 
+                                   ),
+                              context_instance=RequestContext(request))
+    
+def moderatie_rating(request, id):
+    rating = Rating.objects.get(pk=id) #listActualRatings()
+    moderatable = rating.listRatingItems()
+    return render_to_response('ratings/admin/moderate_rating_admin.html', 
+                              dict(rating=rating, moderatable=moderatable,
+                                   title="Модерация рейтинга", 
+                                   ),
+                              context_instance=RequestContext(request))
+        
+        
     
 #def add(request):
 #    form = RatingModelForm()

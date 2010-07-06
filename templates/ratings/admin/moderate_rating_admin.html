@@ -1,0 +1,14 @@
+{% extends "ratings/index_template.html" %}
+
+{% block title %}
+	Модерирование. ratings4you.
+{% endblock %}
+
+{% block center_title %} {{ title }} {% endblock %}
+
+{% block content %}
+	<div>{{ rating }}<input type="checkbox" name="rating{{ rating.id }}"/></div>
+	{% for m in moderatable %}
+		{{ m }}<input type="checkbox" name="ratingitem{{ m.id }}"/><br />
+	{% endfor %}
+{% endblock %}
