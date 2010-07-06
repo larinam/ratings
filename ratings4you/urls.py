@@ -19,6 +19,6 @@ urlpatterns = patterns('',
    (r'^admin/catalogs/regions/$', 'ratings.ratings4you.views_admin.regions'),
    (r'^admin/moderation/$', 'ratings.ratings4you.views_admin.moderation'),
    (r'^admin/moderaterating/(?P<id>\w{0,10})/$', 
-    'ratings.ratings4you.views_admin.moderatie_rating'),
+    'ratings.ratings4you.views_admin.moderate_rating'),
                        
 )

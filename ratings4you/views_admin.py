@@ -6,6 +6,7 @@ from forms import RatingModelForm, RatingThemesDirectoryForm, \
     RegionDirectoryForm, RatingItemForm
 from models import RegionDirectory, RatingThemesDirectory, MODERATABLE_MODELS
 from db_rating import *
+from ratings4you.models import RatingItem
 
 
 def index(request):
@@ -66,9 +67,24 @@ def moderation(request):
                                    ),
                               context_instance=RequestContext(request))
     
-def moderatie_rating(request, id):
-    rating = Rating.objects.get(pk=id) #listActualRatings()
+def moderate_rating(request, id):
+    rating = Rating.objects.get(pk=id)
     moderatable = rating.listRatingItems()
+    isRatingModerated = False
+    isModeratableModerated = {}
+    for i in moderatable:
+        isModeratableModerated.update({i.id:False})
+    if request.POST:
+        for i in request.POST:
+            if i.startswith('rating') and i.replace('rating', '') == id and request.POST.get(i) == 'on':
+                isRatingModerated = True
+            elif i.startswith('ratingitem') and request.POST.get(i) == 'on':
+                mId = i.replace('ratingitem', '')
+                isModeratableModerated.update({int(mId):True})
+    rating.setModerated(value=isRatingModerated)
+    for i in moderatable:
+        i.setModerated(value=isModeratableModerated.get(i.id))
+        
     return render_to_response('ratings/admin/moderate_rating_admin.html', 
                               dict(rating=rating, moderatable=moderatable,
                                    title="Модерация рейтинга", 

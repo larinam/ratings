@@ -7,8 +7,23 @@
 {% block center_title %} {{ title }} {% endblock %}
 
 {% block content %}
-	<div>{{ rating }}<input type="checkbox" name="rating{{ rating.id }}"/></div>
+	<form action="" method="POST">
+	{% csrf_token %}
+	<div>
+		<div style="float:left;font-size:1.5em;">{{ rating }}</div>
+		<div style="float:right;"><input type="checkbox" name="rating{{ rating.id }}" {% if rating.moderated %} checked {% endif %}/></div>
+	</div>
+	<br/>
 	{% for m in moderatable %}
-		{{ m }}<input type="checkbox" name="ratingitem{{ m.id }}"/><br />
+	<br/>
+	<div>
+		<div style="float:left;">{{ m }}</div>
+		<div style="float:right;"><input type="checkbox" name="ratingitem{{ m.id }}" {% if m.moderated %} checked {% endif %}/></div>
+	</div>
 	{% endfor %}
+	<br/>
+	<div>
+	<input type="submit" value="Сохранить"/>
+	</div>
+	</form>
 {% endblock %}

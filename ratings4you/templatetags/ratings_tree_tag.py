@@ -6,7 +6,7 @@
 
 from django import template
 from django.template import Context
-from ratings4you.models import Rating
+from ratings4you.db_rating import listActualRatings
 
 register = template.Library()
 
@@ -17,7 +17,7 @@ class RatingsTreeTagNode(template.Node):
     def render(self, context):
         #raise template.TemplateSyntaxError, context
         request = context['request']
-        ratings = Rating.objects.filter()
+        ratings = listActualRatings()
         t = template.loader.get_template('ratings/templatetags/ratings_tree_tag.html')
         return t.render(Context({'ratings': ratings}))
 

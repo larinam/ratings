@@ -77,13 +77,17 @@ class  Rating(models.Model, IModeratable, NameAsIdentifier):
         return rating_item
         
     def listRatingItems(self):
-        return RatingItem.objects.filter(rating=self).order_by('name')
+        return RatingItem.objects.filter(rating=self)
+    
+    def listModeratedRatingItems(self):
+        return RatingItem.objects.filter(rating=self, moderated=True)
     
     def isModerated(self):
         return self.moderated
     
     def setModerated(self, value=True):
         self.moderated = value
+        self.save()
 
     
 class RatingItem(models.Model, IModeratable, NameAsIdentifier):
@@ -108,6 +112,7 @@ class RatingItem(models.Model, IModeratable, NameAsIdentifier):
         
     def setModerated(self, value=True):
         self.moderated = value
+        self.save()
         
     def getOverallCount(self):
         return Vote.objects.filter(rating_item=self).count()
