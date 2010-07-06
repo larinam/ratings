@@ -63,7 +63,9 @@ def moderation(request):
     moderatable = Rating.objects.filter() #listActualRatings()
     return render_to_response('ratings/admin/moderation_admin.html', 
                               dict(moderatable=moderatable,
-                                   title="Модерация", 
+                                   title="Модерация",
+                                   link="/ratings/admin/",
+                                   link_text="или вернитесь в раздел администрирование",
                                    ),
                               context_instance=RequestContext(request))
     
@@ -87,7 +89,9 @@ def moderate_rating(request, id):
         
     return render_to_response('ratings/admin/moderate_rating_admin.html', 
                               dict(rating=rating, moderatable=moderatable,
-                                   title="Модерация рейтинга", 
+                                   title="Модерация рейтинга",
+                                   link="/ratings/admin/moderation/",
+                                   link_text="или вернитесь к списку модерируемых рейтингов",
                                    ),
                               context_instance=RequestContext(request))
         

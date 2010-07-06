@@ -9,6 +9,7 @@
 {% block content %}
 
 										<form action="" method="POST">
+											{% csrf_token %}
 											{% for ri in rating_items %}
 											<div class="clear-l"> 
 												<p class="brand">{{ ri }}</p> 

@@ -1,0 +1,9 @@
+*.pyc
+.svn
+.project
+.pydevproject
+/dist
+/build
+/.metadata
+/.settings
+sqlite.db

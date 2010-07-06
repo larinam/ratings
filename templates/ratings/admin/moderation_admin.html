@@ -10,4 +10,6 @@
 	{% for m in moderatable %}
 		<a href="/ratings/admin/moderaterating/{{ m.id }}/">{{ m }}</a><br />
 	{% endfor %}
+	
+	<a href="{{ link }}">{{ link_text }}</a>
 {% endblock %}

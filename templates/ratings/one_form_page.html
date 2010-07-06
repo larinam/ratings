@@ -8,6 +8,7 @@
 
 {% block content %}
 	<form action="" method="POST">
+	{% csrf_token %}
 	<table class="prod_table">
 		{{ form }}
 		<tr><td><input type="submit" value="Сохранить" /></td><td></td></tr>
