@@ -7,9 +7,15 @@
 {% block center_title %} {{ title }} {% endblock %}
 
 {% block content %}
+	<table>
+		<tr><th>Рейтинг</th><th>Требует модерации</th><th>Требуют модерации пункты</th></tr>
 	{% for m in moderatable %}
-		<a href="/ratings/admin/moderaterating/{{ m.id }}/">{{ m }}</a><br />
+		<tr>
+			<td><a href="/ratings/admin/moderaterating/{{ m.id }}/">{{ m }}</a></td>
+			<td>{% if m.isModerated %} Нет {% else %} Да {% endif %}</td>
+			<td>{% if m.hasNotModeratedItems %} Да {% else %} Нет {% endif %}</td>
+		</tr>
 	{% endfor %}
-	
+	</table>
 	<a href="{{ link }}">{{ link_text }}</a>
 {% endblock %}

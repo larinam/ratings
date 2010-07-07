@@ -88,6 +88,17 @@ class  Rating(models.Model, IModeratable, NameAsIdentifier):
     def setModerated(self, value=True):
         self.moderated = value
         self.save()
+        
+    def hasNotModeratedItems(self):
+        """
+        имеет неотмодерированные пункты голосования
+        """
+        return 0 != RatingItem.objects.filter(rating=self, moderated=False).count()
+    
+    def delete(self):
+        for item in self.listRatingItems():
+            item.delete()
+        super(Rating, self).delete()
 
     
 class RatingItem(models.Model, IModeratable, NameAsIdentifier):

@@ -77,15 +77,18 @@ def moderate_rating(request, id):
     for i in moderatable:
         isModeratableModerated.update({i.id:False})
     if request.POST:
+        if 'delete' in request.POST.keys():
+            rating.delete()
+            return moderation(request)
         for i in request.POST:
             if i.startswith('rating') and i.replace('rating', '') == id and request.POST.get(i) == 'on':
                 isRatingModerated = True
             elif i.startswith('ratingitem') and request.POST.get(i) == 'on':
                 mId = i.replace('ratingitem', '')
                 isModeratableModerated.update({int(mId):True})
-    rating.setModerated(value=isRatingModerated)
-    for i in moderatable:
-        i.setModerated(value=isModeratableModerated.get(i.id))
+        rating.setModerated(value=isRatingModerated)
+        for i in moderatable:
+            i.setModerated(value=isModeratableModerated.get(i.id))
         
     return render_to_response('ratings/admin/moderate_rating_admin.html', 
                               dict(rating=rating, moderatable=moderatable,

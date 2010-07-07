@@ -60,15 +60,16 @@ def add_item(request, id):
 
 def view_rating(request, id):
     '''
-    отображение рейтинга для голосования
+    отображение рейтинга для голосования и нажатие кнопки голосовать
     '''
     rating = get_object_or_404(Rating, pk=id)
     if request.POST:
         rating_item_id = request.POST.get('ri_id')
-        rating_item = get_object_or_404(RatingItem, pk=rating_item_id)
-        rating_item.addVote(request.user, request.META['REMOTE_ADDR'])
-        return render_to_response('ratings/rating_results.html', dict(title=rating.name, rating=rating, rating_items=rating.listModeratedRatingItems(), link="/ratings/", link_text="или просто продолжайте серфинг с главной"),
-                              context_instance=RequestContext(request))
+        if rating_item_id:
+            rating_item = get_object_or_404(RatingItem, pk=rating_item_id)
+            rating_item.addVote(request.user, request.META['REMOTE_ADDR'])
+            return render_to_response('ratings/rating_results.html', dict(title=rating.name, rating=rating, rating_items=rating.listModeratedRatingItems(), link="/ratings/", link_text="или просто продолжайте серфинг с главной"),
+                                  context_instance=RequestContext(request))
     if request.GET.get('action') == 'view_results':
         return render_to_response('ratings/rating_results.html', dict(title=rating.name, rating=rating, rating_items=rating.listModeratedRatingItems(), link="/ratings/view/%s/" % (rating.id), link_text="или вернитесь на страничку голосования"),
                               context_instance=RequestContext(request))
