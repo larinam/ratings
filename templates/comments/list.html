@@ -1,9 +1,10 @@
+
 {% load comments %}
 {% load user_name_tag %}
 {% get_comment_count for rating as comment_count %}
-<div>комментарии ({{ comment_count }})</div>
+<div><a href="#" id="comment_id">комментарии ({{ comment_count }})</a></div>
 {% get_comment_list for rating as comment_list %}
-<ul>
+<ul name="comments_block" id="comments_block">
 {% for comment in comment_list %}
 	<li>
 		<div style="color:grey;">{% user_id_to_name comment.user_name %} {{ comment.submit_date|date:"d F Y, H:i" }}</div>
@@ -11,3 +12,11 @@
 	</li>
 {% endfor %}
 </ul>
+
+<script> 
+		$("#comments_block").hide();
+	    $("#comment_id").click(function () {
+	        $("#comments_block").show("fast");
+	        return false;
+	   });
+</script>
