@@ -3,8 +3,10 @@ Created on 25.06.2010
 
 @author: alarin
 '''
+from django import forms
 from django.forms import ModelForm
 from models import Rating, RatingThemesDirectory, RegionDirectory, RatingItem
+from captcha.fields import CaptchaField
 
 class RatingModelForm(ModelForm):
     class Meta:
@@ -24,3 +26,18 @@ class RatingItemForm(ModelForm):
     class Meta:
         model = RatingItem
         exclude = ['moderated', 'author', 'rating']
+        
+        
+class FeedbackForm(forms.Form):
+    '''
+    Форма обратной связи.
+    '''
+    name = forms.CharField(label="Имя", required=True)
+    contacts = forms.CharField(label="Контактные данные", required=True)
+    question = forms.CharField(label="Содержание", widget=forms.Textarea, required=True)
+    captcha = CaptchaField()
+    
+class SendMailForm(forms.Form):
+    subject = forms.CharField(label="Тема письма", required=True)
+    body = forms.Textarea(label="Текст письма", required=True)
+    

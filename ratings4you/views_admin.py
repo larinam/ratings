@@ -2,9 +2,10 @@
 # Create your views here.
 from db_rating import *
 from django.contrib.auth.decorators import login_required, user_passes_test
+from django.core.mail import send_mail
 from django.shortcuts import get_object_or_404, render_to_response
 from django.template import RequestContext
-from forms import RatingModelForm, RatingThemesDirectoryForm, \
+from forms import FeedbackForm, RatingModelForm, RatingThemesDirectoryForm, \
     RegionDirectoryForm, RatingItemForm
 from models import RegionDirectory, RatingThemesDirectory, MODERATABLE_MODELS
 from ratings4you.models import RatingItem
@@ -105,7 +106,19 @@ def moderate_rating(request, id):
                                    ),
                               context_instance=RequestContext(request))
         
-        
+def feedback(request):
+    if request.POST:
+        form = FeedbackForm(request.POST.copy())
+        if not form.is_valid():
+            return render_to_response("metal/one_form_page.html", dict(widget=form))
+        data = form.cleaned_data
+        send_mail("Письмо с сайта", data["question"], "larinam@gmail.com", ["larinam@gmail.com"], False, "", "")
+        return render_to_response("metal/one_widget_page.html", dict(widget="Спасибо за обратную связь!", link="/", link_text="Вернуться на главную."),
+                              context_instance=RequestContext(request))
+    form = FeedbackForm()
+    return render_to_response("metal/one_form_page.html", dict(widget=form, link="mailto:krater@narod.ru", link_text="или напишите нам через почтовый клиент"),
+                              context_instance=RequestContext(request))
+
     
 #def add(request):
 #    form = RatingModelForm()

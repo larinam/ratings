@@ -4,11 +4,15 @@
 	Профиль пользователя. ratings4you.
 {% endblock %}
 
+{% block center_title %}
+	Профиль пользователя
+{% endblock %}
 
 {% block content %}
-	<h2>Профиль пользователя</h2>
+	
 	<div>Пожалуйста, заполните все поля.</div>
 	<form action="" method="POST">
+		{% csrf_token %}
 	<table class="prod_table">
 		{{ widget }}
 		<tr><td><input type="submit" value="Сохранить" /></td><td></td></tr>
