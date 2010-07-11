@@ -1,3 +1,4 @@
+# -*- coding: utf8 -*-
 '''
 Created on 25.06.2010
 
@@ -38,6 +39,7 @@ class FeedbackForm(forms.Form):
     captcha = CaptchaField()
     
 class SendMailForm(forms.Form):
+    rating_id = forms.IntegerField(required=True, widget=forms.HiddenInput())
     subject = forms.CharField(label="Тема письма", required=True)
-    body = forms.Textarea(label="Текст письма", required=True)
+    body = forms.CharField(label="Текст письма", required=True, widget=forms.Textarea)
     

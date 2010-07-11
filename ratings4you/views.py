@@ -2,11 +2,12 @@
 # Create your views here.
 from db_rating import *
 from django.contrib.auth.decorators import login_required, user_passes_test
+from django.core.mail import send_mail
 from django.core.urlresolvers import reverse
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render_to_response
 from django.template import RequestContext
-from forms import RatingModelForm, RatingItemForm
+from forms import FeedbackForm, RatingModelForm, RatingItemForm
 from models import Rating, RatingItem
 
 def index(request):
@@ -74,4 +75,18 @@ def view_rating(request, id):
         return render_to_response('ratings/rating_results.html', dict(title=rating.name, rating=rating, rating_items=rating.listModeratedRatingItems(), link="/ratings/view/%s/" % (rating.id), link_text="или вернитесь на страничку голосования"),
                               context_instance=RequestContext(request))
     return render_to_response('ratings/rating_poll.html', dict(title=rating.name, rating=rating, rating_items=rating.listModeratedRatingItems(), link="/ratings/", link_text="или просто продолжайте серфинг с главной"),
+                              context_instance=RequestContext(request))
+
+
+def feedback(request):
+    if request.POST:
+        form = FeedbackForm(request.POST.copy())
+        if not form.is_valid():
+            return render_to_response("metal/one_form_page.html", dict(widget=form))
+        data = form.cleaned_data
+        send_mail("Письмо с сайта", data["question"], "larinam@gmail.com", ["larinam@gmail.com"], False, "", "")
+        return render_to_response("metal/one_widget_page.html", dict(widget="Спасибо за обратную связь!", link="/", link_text="Вернуться на главную."),
+                              context_instance=RequestContext(request))
+    form = FeedbackForm()
+    return render_to_response("metal/one_form_page.html", dict(widget=form, link="mailto:krater@narod.ru", link_text="или напишите нам через почтовый клиент"),
                               context_instance=RequestContext(request))

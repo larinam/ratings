@@ -5,7 +5,16 @@ Created on 26.06.2010
 @author: alarin
 '''
 from datetime import date
-from models import Rating
+from models import Rating, RatingItem
+
+def listTopRatingItems(lim=10):
+    sql = """SELECT ratings4you_ratingitem.id, ratings4you_ratingitem.name, count(ratings4you_vote.id) as c 
+            from ratings4you_vote, ratings4you_ratingitem 
+            where ratings4you_vote.rating_item_id=ratings4you_ratingitem.id 
+            group by ratings4you_vote.rating_item_id
+            order by count(ratings4you_vote.id) desc"""
+    ris = RatingItem.objects.raw(sql)[:lim]
+    return ris
 
 def listActualRatings():
     '''

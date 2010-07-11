@@ -3,12 +3,17 @@
 from db_rating import *
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.core.mail import send_mail
+from django.core.urlresolvers import reverse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render_to_response
 from django.template import RequestContext
 from forms import FeedbackForm, RatingModelForm, RatingThemesDirectoryForm, \
-    RegionDirectoryForm, RatingItemForm
+    RegionDirectoryForm, RatingItemForm, SendMailForm
 from models import RegionDirectory, RatingThemesDirectory, MODERATABLE_MODELS
 from ratings4you.models import RatingItem
+
+FROM_EMAIL = 'krater@narod.ru'
+TO_EMAIL = 'krater@narod.ru'
 
 
 @login_required
@@ -97,29 +102,30 @@ def moderate_rating(request, id):
         rating.setModerated(value=isRatingModerated)
         for i in moderatable:
             i.setModerated(value=isModeratableModerated.get(i.id))
-        
+    send_mail_form = SendMailForm(initial=dict(rating_id=id))
     return render_to_response('ratings/admin/moderate_rating_admin.html', 
                               dict(rating=rating, moderatable=moderatable,
+                                   send_mail_form=send_mail_form,
                                    title="Модерация рейтинга",
                                    link="/ratings/admin/moderation/",
                                    link_text="или вернитесь к списку модерируемых рейтингов",
                                    ),
                               context_instance=RequestContext(request))
-        
-def feedback(request):
-    if request.POST:
-        form = FeedbackForm(request.POST.copy())
-        if not form.is_valid():
-            return render_to_response("metal/one_form_page.html", dict(widget=form))
-        data = form.cleaned_data
-        send_mail("Письмо с сайта", data["question"], "larinam@gmail.com", ["larinam@gmail.com"], False, "", "")
-        return render_to_response("metal/one_widget_page.html", dict(widget="Спасибо за обратную связь!", link="/", link_text="Вернуться на главную."),
-                              context_instance=RequestContext(request))
-    form = FeedbackForm()
-    return render_to_response("metal/one_form_page.html", dict(widget=form, link="mailto:krater@narod.ru", link_text="или напишите нам через почтовый клиент"),
-                              context_instance=RequestContext(request))
 
-    
+def rating_send_mail(request):
+    if request.POST:
+        form = SendMailForm(request.POST)
+        if form.is_valid():
+            data = form.cleaned_data
+            rating_id = data.get('rating_id')
+            rating = Rating.objects.get(pk=rating_id)
+            subject = data.get('subject')
+            body = data.get('body')
+            to_email = rating.author.email
+            
+            send_mail(subject, body, FROM_EMAIL, [TO_EMAIL], False, "", "")
+            return HttpResponseRedirect(reverse('ratings.ratings4you.views_admin.moderate_rating', kwargs={"id":rating_id}))
+        
 #def add(request):
 #    form = RatingModelForm()
 #    return render_to_response('ratings/one_form_page.html', dict(form=form, link="/", link_text="или просто продолжайте серфинг с главной"),

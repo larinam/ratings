@@ -29,4 +29,13 @@
 	</form>
 	
 	<a href="{{ link }}">{{ link_text }}</a>
+	
+	<div>Отписать автору рейтинга</div>
+	<form action="/ratings/admin/rating_send_mail" method="POST">
+		<table>
+		{% csrf_token %}
+		{{ send_mail_form }}
+		</table>
+		<input type="submit" value="Отправить" />
+	</form>
 {% endblock %}
