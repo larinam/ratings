@@ -20,7 +20,7 @@
 											</div> 
 											{% endfor %}
 											<div class="buttons"> 
-												<input type="submit" class="btn-vote" value="" /> 
+												{% if user.is_authenticated %} <input type="submit" class="btn-vote" value="" /> {% endif %} 
 												<input type="button" class="btn-viewres" value="" onClick="window.location=window.location+'?action=view_results'"/> 
 											</div> 
 										</form>
@@ -28,7 +28,7 @@
 	
 		
 	
-	<br />
+	<br /><br />
 	<a href="{{ link }}">{{ link_text }}</a>
 	
 	{% load comments %}

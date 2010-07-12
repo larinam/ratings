@@ -16,6 +16,11 @@
 	{% ifequal field.name "name" %}
 	  	<input id="id_name" type="hidden" name="name" value="{{request.user.id}}" /> 
 	{% endifequal %}
+	{% ifequal field.name "name" %}
+		{% if not user.is_authenticated %}
+	  		<input id="id_name" type="text" name="name" value="{{request.user.id}}" />
+	  	{% endif %} 
+	{% endifequal %}
 	{% ifequal field.name "email" %}
 	  	<input type="hidden" name="email" id="id_email" value="{{request.user.email}}" /> 
 	{% endifequal %}

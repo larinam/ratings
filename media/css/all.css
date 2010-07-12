@@ -732,7 +732,7 @@ img.body-img{
 	display:block;
 	margin:0 0 2px;
 }
-input[type=text] #main-reg .content input.input-txt, #main-reg .content select{
+input[type=text] #main-reg .content input.input-txt, #main-reg .content select input{
 	width:235px;
 	height:24px;
 	border:1px solid #000;
