@@ -107,7 +107,7 @@ class RatingItem(models.Model, IModeratable, NameAsIdentifier):
     Пункт рейтинга в @see: Rating .
     Один из главных бизнес-объектов.
     """
-    name = models.CharField(max_length=255, verbose_name="Название элемента голосования", help_text="Название пункта голосования")
+    name = models.CharField(max_length=255, verbose_name="Создайте пункты рейтинга", help_text="Название пункта голосования")
     rating = models.ForeignKey(Rating)
     moderated = models.BooleanField(default=False)
     author = models.ForeignKey(User, null=True) # автор изменений внесенных в элемент

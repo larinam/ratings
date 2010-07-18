@@ -27,7 +27,7 @@ def profile(request):
         user = request.user
         p = user.get_profile()
         f = UserProfileForm(instance=p)
-    return render_to_response('ratings/profile_form_page.html', dict(widget=f),
+    return render_to_response('ratings/profile_form_page.html', dict(widget=f, profile=p),
                                               context_instance=RequestContext(request))
          
 

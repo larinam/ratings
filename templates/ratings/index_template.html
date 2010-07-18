@@ -43,12 +43,12 @@
 				</strong>
 				{% if request.user.is_authenticated %}
 				<div>
-					<a class="logout" href="/accounts/logout/"><font style="">выйти</font></a><br/><br /> 
-					<a class="profile" href="/ratings/accounts/profile/"><font style="">профиль</font></a> 
+					<a class="profile" href="/ratings/accounts/profile/">{{ request.user.username }}</a> 
+					(<a class="logout" href="/accounts/logout/"><font style="">выйти</font></a>)<br/><br /> 
 				</div>
 				{% else %}
 				<div> 
-					<a class="login" href="/accounts/login/"><font style="visibility:hidden">войти</font></a><br/><br /> 
+					<a class="login" href="/accounts/login/?next={{ request.get_full_path }}"><font style="visibility:hidden">войти</font></a><br/><br /> 
 					<a class="reg" href="/accounts/register/"><font style="visibility:hidden">зерегистрироваться</font></a>
 				</div>
 				{% endif %}

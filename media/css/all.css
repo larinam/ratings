@@ -9,7 +9,7 @@ form, fieldset, input{
 	padding:0;
 }
 a{
-	margin:0 0 0 24px;
+/*		margin:0 0 0 24px;*/
 /*	padding:2px 0 0;*/
 	padding:4px 0 0;
 	font:13pt Tahoma;

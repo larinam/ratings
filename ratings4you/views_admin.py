@@ -126,6 +126,9 @@ def rating_send_mail(request):
             send_mail(subject, body, FROM_EMAIL, [TO_EMAIL], False, "", "")
             return HttpResponseRedirect(reverse('ratings.ratings4you.views_admin.moderate_rating', kwargs={"id":rating_id}))
         
+def moderator_email(request):
+    pass
+        
 #def add(request):
 #    form = RatingModelForm()
 #    return render_to_response('ratings/one_form_page.html', dict(form=form, link="/", link_text="или просто продолжайте серфинг с главной"),
