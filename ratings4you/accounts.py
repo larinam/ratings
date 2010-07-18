@@ -13,7 +13,7 @@ from models import UserProfile
 class UserProfileForm(ModelForm):
     class Meta:
         model = UserProfile
-        exclude = ['user','profile_url']
+        exclude = ['user', 'profile_url', 'authorization_mode']
         
 def profile(request):
     if request.method == 'POST':

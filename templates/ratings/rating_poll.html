@@ -37,5 +37,8 @@
 		<div align="left">
 		{% render_comment_form for rating %}
 		</div>
+	{% else %}
+		<br/>
+		<div>Только авторизованные пользователи могут оставлять комментарии. <a href="/accounts/login/?next=/ratings/view/{{ rating.id }}/">Авторизуйтесь</a>, пожалуйста.</div>
 	{% endif %}
 {% endblock %}

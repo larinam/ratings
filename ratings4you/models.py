@@ -11,6 +11,7 @@ from interfaces import IModeratable, NameAsIdentifier
 AUTHORIZATION_CHOICES = (
     ('Anonymous', 'Анонимный'),
     ('Authorized', 'Авторизованный'),
+    ('Expert', 'Эксперт'),
 )
 
 BONUS_CHOICES = (
@@ -21,9 +22,9 @@ BONUS_CHOICES = (
 
 class UserProfile(models.Model):
     authorization_mode = models.CharField(max_length=255, verbose_name="Тип пользователя",
-                                          choices=AUTHORIZATION_CHOICES)
-    bonus_currency = models.CharField(max_length=255, verbose_name="Валюта бонуса",
-                                      choices=BONUS_CHOICES)
+                                          choices=AUTHORIZATION_CHOICES, default=AUTHORIZATION_CHOICES[1][0])
+    bonus_currency = models.CharField(max_length=255, verbose_name="В какой валюте хотите получать бонусы?",
+                                      choices=BONUS_CHOICES) # Валюта бонуса
     profile_url = models.URLField(verbose_name="URL", verify_exists=True, null=True)
     user = models.ForeignKey(User, unique=True)
     
@@ -60,11 +61,11 @@ class  Rating(models.Model, IModeratable, NameAsIdentifier):
     Сам рейтинг, содержащий пункты для голосования.
     Один из главных бизнес-объектов.
     """
-    name = models.CharField(max_length=255, verbose_name="Название рейтинга", help_text="Название рейтинга")
-    region = models.ForeignKey(RegionDirectory, verbose_name="Регион", help_text="Регион")
-    theme = models.ForeignKey(RatingThemesDirectory, verbose_name="Тема рейтинга", help_text="Тема рейтинга")
-    begin_date = models.DateField(verbose_name="Дата начала голосования", help_text="например, 2010-01-01")
-    end_date = models.DateField(verbose_name="Дата окончания голосования", help_text="например, 2010-12-01")
+    name = models.CharField(max_length=255, verbose_name="Название рейтинга") #, help_text="Название рейтинга"
+    region = models.ForeignKey(RegionDirectory, verbose_name="Регион") #, help_text="Регион"
+    theme = models.ForeignKey(RatingThemesDirectory, verbose_name="Тема рейтинга") #, help_text="Тема рейтинга"
+    begin_date = models.DateField(verbose_name="Дата начала голосования", help_text="например, 01.01.2010")
+    end_date = models.DateField(verbose_name="Дата окончания голосования", help_text="например, 31.12.2010")
     moderated = models.BooleanField(default=False, help_text="Прошёл модерацию")
     author = models.ForeignKey(User, null=True) # автор рейтинга
     
