@@ -9,6 +9,8 @@ from django.shortcuts import get_object_or_404, render_to_response
 from django.template import RequestContext
 from forms import FeedbackForm, RatingModelForm, RatingItemForm
 from models import Rating, RatingItem
+from settings import PROJECT_URL_BASE
+from views_admin import TO_EMAIL
 
 def index(request):
     #ratings = listActualRatings()
@@ -44,10 +46,14 @@ def add_item(request, id):
     rating = get_object_or_404(Rating, pk=id)
     rating_items = rating.listRatingItems()
     title = "Добавление элемента голосования для рейтинга %s" % (rating)
+    link_text="или просто продолжайте серфинг с главной"
+    link = "/ratings/"
     if request.POST:
         form = RatingItemForm(data=request.POST)
         if form.is_valid():
             rating_item = rating.addRatingItem(name=form.cleaned_data['name'], author=request.user)
+            link_text="или отправьте рейтинг на премодерацию"
+            link = "/ratings/sendtomoder/%d/" % (rating.id)
         else:
             return render_to_response('ratings/simple_catalogs_management.html', 
                                       dict(form=form, title=title, link="/ratings/", link_text="или просто продолжайте серфинг с главной",
@@ -55,10 +61,20 @@ def add_item(request, id):
                               context_instance=RequestContext(request))
     form = RatingItemForm()
     return render_to_response('ratings/simple_catalogs_management.html', 
-                              dict(form=form, title=title, link="/ratings/", link_text="или просто продолжайте серфинг с главной",
+                              dict(form=form, title=title, link=link, link_text=link_text,
                                    catalog_items=rating_items),
                               context_instance=RequestContext(request))
 
+def send_to_moderator(request, id):
+    """
+    Отправить письмо модератору о том, что рейтинг добавлен и нужно его отмодерировать
+    """
+    rating = get_object_or_404(Rating, pk=id)
+    send_mail("Рейтинг добавлен и ожидает модерации", PROJECT_URL_BASE+"/ratings/admin/moderaterating/"+str(rating.id)+"/", request.user.email, [TO_EMAIL])
+    return render_to_response('ratings/message.html', 
+                              dict(title="Рейтинг добавлен и ожидает модерации", link='/ratings/', link_text='на главную'),
+                              context_instance=RequestContext(request))
+    
 def view_rating(request, id):
     '''
     отображение рейтинга для голосования и нажатие кнопки голосовать

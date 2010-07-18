@@ -11,6 +11,8 @@ urlpatterns = patterns('',
    (r'^add/$', 'ratings.ratings4you.views.add'),
    (r'^additem/(?P<id>\w{0,10})/$', 'ratings.ratings4you.views.add_item'),
    (r'^view/(?P<id>\w{0,10})/$', 'ratings.ratings4you.views.view_rating'),
+   (r'^sendtomoder/(?P<id>\w{0,10})/$', 
+    'ratings.ratings4you.views.send_to_moderator'),
    
    #administration
    (r'^admin/$', 'ratings.ratings4you.views_admin.index'),

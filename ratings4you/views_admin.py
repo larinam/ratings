@@ -121,9 +121,10 @@ def rating_send_mail(request):
             rating = Rating.objects.get(pk=rating_id)
             subject = data.get('subject')
             body = data.get('body')
-            to_email = rating.author.email
             
-            send_mail(subject, body, FROM_EMAIL, [TO_EMAIL], False, "", "")
+            rating.author.email_user(subject, body, FROM_EMAIL)
+            #to_email = rating.author.email
+            #send_mail(subject, body, FROM_EMAIL, [TO_EMAIL], False, "", "")
             return HttpResponseRedirect(reverse('ratings.ratings4you.views_admin.moderate_rating', kwargs={"id":rating_id}))
         
 def moderator_email(request):

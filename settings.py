@@ -96,3 +96,13 @@ INSTALLED_APPS = (
 AUTH_PROFILE_MODULE = 'ratings4you.UserProfile'
 LOGIN_REDIRECT_URL = "/ratings/accounts/profile/"
 ACCOUNT_ACTIVATION_DAYS = 7 # One-week activation window
+
+
+
+
+#email settings
+#EMAIL_HOST='smtp.mail.ru'
+#EMAIL_PORT=25
+#EMAIL_HOST_USER=''
+#EMAIL_HOST_PASSWORD=''
+DEFAULT_FROM_EMAIL = "krater@narod.ru"
