@@ -16,16 +16,15 @@ class UserProfileForm(ModelForm):
         exclude = ['user', 'profile_url', 'authorization_mode']
         
 def profile(request):
+    user = request.user
+    p = user.get_profile()
     if request.method == 'POST':
-        f = UserProfileForm(request.POST, instance=request.user.get_profile())
+        f = UserProfileForm(request.POST, instance=p)
         if f.is_valid():
             print "everything is valid"
             f.save()
             
     else:
-        
-        user = request.user
-        p = user.get_profile()
         f = UserProfileForm(instance=p)
     return render_to_response('ratings/profile_form_page.html', dict(widget=f, profile=p),
                                               context_instance=RequestContext(request))
