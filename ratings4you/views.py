@@ -81,14 +81,20 @@ def view_rating(request, id):
     '''
     user = request.user
     rating = get_object_or_404(Rating, pk=id)
-    if request.POST:
+    userVoted = rating.userVoted(user)
+    if request.POST and not userVoted:
         rating_item_id = request.POST.get('ri_id')
         if rating_item_id:
             rating_item = get_object_or_404(RatingItem, pk=rating_item_id)
             rating_item.addVote(request.user, request.META['REMOTE_ADDR'])
-            return render_to_response('ratings/rating_results.html', dict(title=rating.name, rating=rating, rating_items=rating.listModeratedRatingItems(), link="/ratings/", link_text="или просто продолжайте серфинг с главной"),
+            return render_to_response('ratings/rating_results.html', 
+                                      dict(title=rating.name, rating=rating, 
+                                           rating_items=rating.listModeratedRatingItems(), 
+                                           link="/ratings/", 
+                                           link_text="или просто продолжайте серфинг с главной"),
                                   context_instance=RequestContext(request))
-    if request.GET.get('action') == 'view_results' or not user.is_authenticated():
+
+    if request.GET.get('action') == 'view_results' or not user.is_authenticated() or userVoted:
         return render_to_response('ratings/rating_results.html', dict(title=rating.name, rating=rating, rating_items=rating.listModeratedRatingItems(), link="/ratings/view/%s/" % (rating.id), link_text="или вернитесь на страничку голосования"),
                               context_instance=RequestContext(request))
     return render_to_response('ratings/rating_poll.html', dict(title=rating.name, rating=rating, rating_items=rating.listModeratedRatingItems(), link="/ratings/", link_text="или просто продолжайте серфинг с главной"),

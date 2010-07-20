@@ -100,6 +100,18 @@ class  Rating(models.Model, IModeratable, NameAsIdentifier):
         for item in self.listRatingItems():
             item.delete()
         super(Rating, self).delete()
+        
+    def userVoted(self, user):
+        result = False
+        votes = []
+        for ri in self.listRatingItems():
+            votes += list(Vote.objects.filter(rating_item=ri))
+        for i in votes:
+            if user == i.user:
+                result = True
+                
+        return result
+        
 
     
 class RatingItem(models.Model, IModeratable, NameAsIdentifier):
