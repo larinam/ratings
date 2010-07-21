@@ -13,6 +13,7 @@ urlpatterns = patterns('',
    (r'^view/(?P<id>\w{0,10})/$', 'ratings.ratings4you.views.view_rating'),
    (r'^sendtomoder/(?P<id>\w{0,10})/$', 
     'ratings.ratings4you.views.send_to_moderator'),
+   (r'^feedback/$', 'ratings.ratings4you.views.feedback'),
    
    #administration
    (r'^admin/$', 'ratings.ratings4you.views_admin.index'),
@@ -25,6 +26,5 @@ urlpatterns = patterns('',
    (r'^admin/rating_send_mail$', 'ratings.ratings4you.views_admin.rating_send_mail'),
    (r'^/admin/moderator_email/$', 'ratings.ratings4you.views_admin.moderator_email'),
    
-    
                        
 )

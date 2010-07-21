@@ -49,7 +49,7 @@ class FeedbackForm(forms.Form):
     '''
     name = forms.CharField(label="Имя", required=True)
     contacts = forms.CharField(label="Контактные данные", required=True)
-    question = forms.CharField(label="Содержание", widget=forms.Textarea, required=True)
+    question = forms.CharField(label="Содержание", widget=forms.Textarea(attrs={'rows':4, 'cols':25}), required=True)
     captcha = CaptchaField()
     
 class SendMailForm(forms.Form):

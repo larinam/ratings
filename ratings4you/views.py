@@ -11,6 +11,7 @@ from forms import FeedbackForm, RatingModelForm, RatingItemForm
 from models import Rating, RatingItem
 from settings import PROJECT_URL_BASE
 from views_admin import TO_EMAIL
+from settings import DEFAULT_FROM_EMAIL
 
 def index(request):
     #ratings = listActualRatings()
@@ -105,11 +106,11 @@ def feedback(request):
     if request.POST:
         form = FeedbackForm(request.POST.copy())
         if not form.is_valid():
-            return render_to_response("metal/one_form_page.html", dict(widget=form))
+            return render_to_response("ratings/one_form_page.html", dict(form=form), context_instance=RequestContext(request))
         data = form.cleaned_data
-        send_mail("Письмо с сайта", data["question"], "larinam@gmail.com", ["larinam@gmail.com"], False, "", "")
-        return render_to_response("metal/one_widget_page.html", dict(widget="Спасибо за обратную связь!", link="/", link_text="Вернуться на главную."),
+        send_mail("Письмо с сайта", data["question"] + '\r\n\r\n' + data["name"] + data["contacts"], DEFAULT_FROM_EMAIL, [TO_EMAIL], False, "", "")
+        return render_to_response("ratings/one_widget_page.html", dict(widget="Спасибо за обратную связь!", link="/ratings/", link_text="Вернуться на главную."),
                               context_instance=RequestContext(request))
     form = FeedbackForm()
-    return render_to_response("metal/one_form_page.html", dict(widget=form, link="mailto:krater@narod.ru", link_text="или напишите нам через почтовый клиент"),
+    return render_to_response("ratings/one_form_page.html", dict(form=form, link="mailto:%s" % (TO_EMAIL), link_text="или напишите нам через почтовый клиент"),
                               context_instance=RequestContext(request))
