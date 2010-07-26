@@ -16,17 +16,17 @@ FROM_EMAIL = 'krater@narod.ru'
 TO_EMAIL = 'krater@narod.ru'
 
 
-@login_required
+@user_passes_test(lambda u: u.is_superuser)
 def index(request):
     return render_to_response('ratings/index_admin.html',
                               context_instance=RequestContext(request))
 
-@login_required
+@user_passes_test(lambda u: u.is_superuser)
 def catalogs(request):
     return render_to_response('ratings/admin/catalogs_admin.html',
                               context_instance=RequestContext(request))
 
-@login_required    
+@user_passes_test(lambda u: u.is_superuser)
 def themes(request):
     catalog_items = RatingThemesDirectory.objects.all().order_by('name')
     if request.POST:
@@ -45,7 +45,7 @@ def themes(request):
                                    link_text="или вернитесь в список каталогов", catalog_items=catalog_items),
                               context_instance=RequestContext(request))
 
-@login_required
+@user_passes_test(lambda u: u.is_superuser)
 def regions(request):
     catalog_items = RegionDirectory.objects.all().order_by('name')
     if request.POST:
@@ -70,7 +70,7 @@ def regions(request):
                                    catalog_items=catalog_items),
                               context_instance=RequestContext(request))
 
-@login_required
+@user_passes_test(lambda u: u.is_superuser)
 def moderation(request):
     moderatable = Rating.objects.filter() #listActualRatings()
     return render_to_response('ratings/admin/moderation_admin.html', 
@@ -81,7 +81,7 @@ def moderation(request):
                                    ),
                               context_instance=RequestContext(request))
 
-@login_required
+@user_passes_test(lambda u: u.is_superuser)
 def moderate_rating(request, id):
     rating = Rating.objects.get(pk=id)
     moderatable = rating.listRatingItems()
@@ -112,6 +112,7 @@ def moderate_rating(request, id):
                                    ),
                               context_instance=RequestContext(request))
 
+@user_passes_test(lambda u: u.is_superuser)
 def rating_send_mail(request):
     if request.POST:
         form = SendMailForm(request.POST)
@@ -126,7 +127,8 @@ def rating_send_mail(request):
             #to_email = rating.author.email
             #send_mail(subject, body, FROM_EMAIL, [TO_EMAIL], False, "", "")
             return HttpResponseRedirect(reverse('ratings.ratings4you.views_admin.moderate_rating', kwargs={"id":rating_id}))
-        
+
+@user_passes_test(lambda u: u.is_superuser)
 def moderator_email(request):
     pass
         

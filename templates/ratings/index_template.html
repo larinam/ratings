@@ -48,7 +48,7 @@
 				</div>
 				{% else %}
 				<div> 
-					<a class="login" href="/accounts/login/?next={{ request.get_full_path }}"><font style="visibility:hidden">войти</font></a><br/><br /> 
+					<a class="login" href="/accounts/login/{% if not "logout" in request.get_full_path %}?next={{ request.get_full_path }}{% endif %}"><font style="visibility:hidden">войти</font></a><br/><br /> 
 					<a class="reg" href="/accounts/register/"><font style="visibility:hidden">зерегистрироваться</font></a>
 				</div>
 				{% endif %}
