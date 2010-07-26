@@ -4,6 +4,8 @@ Created on 03.01.2010
 @author: alarin
 '''
 
+from django.contrib.auth.decorators import login_required
+from django.core.urlresolvers import reverse
 from django.forms import ModelForm
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render_to_response
@@ -14,9 +16,12 @@ class UserProfileForm(ModelForm):
     class Meta:
         model = UserProfile
         exclude = ['user', 'profile_url', 'authorization_mode']
-        
+
+@login_required
 def profile(request):
     user = request.user
+    if user.is_superuser:
+        return HttpResponseRedirect(reverse('ratings.ratings4you.views_admin.index'))
     p = user.get_profile()
     if request.method == 'POST':
         f = UserProfileForm(request.POST, instance=p)
