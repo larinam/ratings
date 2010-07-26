@@ -19,7 +19,6 @@ def index(request):
     return render_to_response('ratings/index.html', dict (ratings=ratings),
                               context_instance=RequestContext(request))
 
-
 @login_required
 def add(request):
     """
@@ -44,7 +43,10 @@ def add_item(request, id):
     '''
     добавление элемента рейтинга
     '''
+    user = request.user
     rating = get_object_or_404(Rating, pk=id)
+    if user != rating.author:
+        return HttpResponseRedirect(reverse('ratings.ratings4you.views.view_rating', kwargs=dict(id=id))) #вернуть страничку с просмотром рейтинга вместо добавления элемента
     rating_items = rating.listRatingItems()
     title = "Добавление элемента голосования для рейтинга %s" % (rating)
     link_text="или просто продолжайте серфинг с главной"
@@ -52,7 +54,7 @@ def add_item(request, id):
     if request.POST:
         form = RatingItemForm(data=request.POST)
         if form.is_valid():
-            rating_item = rating.addRatingItem(name=form.cleaned_data['name'], author=request.user)
+            rating_item = rating.addRatingItem(name=form.cleaned_data['name'], author=user)
             link_text="или отправьте рейтинг на премодерацию"
             link = "/ratings/sendtomoder/%d/" % (rating.id)
         else:
@@ -66,6 +68,7 @@ def add_item(request, id):
                                    catalog_items=rating_items),
                               context_instance=RequestContext(request))
 
+@login_required
 def send_to_moderator(request, id):
     """
     Отправить письмо модератору о том, что рейтинг добавлен и нужно его отмодерировать
