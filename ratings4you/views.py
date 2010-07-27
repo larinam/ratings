@@ -98,10 +98,19 @@ def view_rating(request, id):
                                            link_text="или просто продолжайте серфинг с главной"),
                                   context_instance=RequestContext(request))
 
+    link_text = "или вернитесь на страничку голосования"
+    link="/ratings/view/%s/" % (rating.id)
+    if not user.is_authenticated() or userVoted:
+        link_text = "или просто продолжайте серфинг с главной"
+        link="/ratings/"
     if request.GET.get('action') == 'view_results' or not user.is_authenticated() or userVoted:
-        return render_to_response('ratings/rating_results.html', dict(title=rating.name, rating=rating, rating_items=rating.listModeratedRatingItems(), link="/ratings/view/%s/" % (rating.id), link_text="или вернитесь на страничку голосования"),
+        return render_to_response('ratings/rating_results.html', dict(title=rating.name, rating=rating, 
+                                                                      rating_items=rating.listModeratedRatingItems(), 
+                                                                      link=link, 
+                                                                      link_text=link_text),
                               context_instance=RequestContext(request))
-    return render_to_response('ratings/rating_poll.html', dict(title=rating.name, rating=rating, rating_items=rating.listModeratedRatingItems(), link="/ratings/", link_text="или просто продолжайте серфинг с главной"),
+    return render_to_response('ratings/rating_poll.html', dict(title=rating.name, rating=rating, rating_items=rating.listModeratedRatingItems(), link="/ratings/", 
+                                                               link_text="или просто продолжайте серфинг с главной"),
                               context_instance=RequestContext(request))
 
 
