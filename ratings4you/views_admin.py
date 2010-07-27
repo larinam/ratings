@@ -37,12 +37,12 @@ def themes(request):
         else:
             return render_to_response('ratings/simple_catalogs_management.html', 
                                       dict(form=form, link="/ratings/admin/catalogs/", title="Темы голосований", 
-                                           link_text="или вернитесь в список каталогов", catalog_items=catalog_items),
+                                           link_text="Вернуться в список каталогов", catalog_items=catalog_items),
                               context_instance=RequestContext(request))
     form = RatingThemesDirectoryForm()
     return render_to_response('ratings/simple_catalogs_management.html', 
                               dict(form=form, link="/ratings/admin/catalogs/", title="Темы голосований",
-                                   link_text="или вернитесь в список каталогов", catalog_items=catalog_items),
+                                   link_text="Вернуться в список каталогов", catalog_items=catalog_items),
                               context_instance=RequestContext(request))
 
 @user_passes_test(lambda u: u.is_superuser)
@@ -58,7 +58,7 @@ def regions(request):
                                       dict(form=form, 
                                            title="Регионы голосований",
                                            link="/ratings/admin/catalogs/", 
-                                           link_text="или вернитесь в список каталогов",
+                                           link_text="Вернуться в список каталогов",
                                            catalog_items=catalog_items),
                               context_instance=RequestContext(request))
     form = RegionDirectoryForm()
@@ -66,7 +66,7 @@ def regions(request):
                               dict(form=form,
                                    title="Регионы голосований", 
                                    link="/ratings/admin/catalogs/",
-                                   link_text="или вернитесь в список каталогов",
+                                   link_text="Вернуться в список каталогов",
                                    catalog_items=catalog_items),
                               context_instance=RequestContext(request))
 
@@ -77,7 +77,7 @@ def moderation(request):
                               dict(moderatable=moderatable,
                                    title="Модерация",
                                    link="/ratings/admin/",
-                                   link_text="или вернитесь в раздел администрирование",
+                                   link_text="Вернуться в раздел администрирование",
                                    ),
                               context_instance=RequestContext(request))
 
@@ -102,13 +102,14 @@ def moderate_rating(request, id):
         rating.setModerated(value=isRatingModerated)
         for i in moderatable:
             i.setModerated(value=isModeratableModerated.get(i.id))
+        return HttpResponseRedirect(reverse('ratings.ratings4you.views_admin.moderation'))
     send_mail_form = SendMailForm(initial=dict(rating_id=id))
     return render_to_response('ratings/admin/moderate_rating_admin.html', 
                               dict(rating=rating, moderatable=moderatable,
                                    send_mail_form=send_mail_form,
                                    title="Модерация рейтинга",
                                    link="/ratings/admin/moderation/",
-                                   link_text="или вернитесь к списку модерируемых рейтингов",
+                                   link_text="Вернуться к списку модерируемых рейтингов",
                                    ),
                               context_instance=RequestContext(request))
 
