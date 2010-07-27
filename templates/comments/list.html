@@ -7,7 +7,10 @@
 <ul name="comments_block" id="comments_block">
 {% for comment in comment_list %}
 	<li>
-		<div style="color:grey;">{% user_id_to_name comment.user_name %} {{ comment.submit_date|date:"d F Y, H:i" }}</div>
+		<div style="color:grey;">
+			{% user_id_to_name comment.user_name %} {{ comment.submit_date|date:"d F Y, H:i" }} 
+			<span>{% if user.is_superuser %}<a href="/comments/delete/{{comment.id}}/">удалить</a>{% endif %}</span>
+		</div>
 		<div >{{ comment.comment }}</div>
 	</li>
 {% endfor %}
