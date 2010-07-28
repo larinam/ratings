@@ -1,7 +1,7 @@
 {% extends "ratings/index_template.html" %}
 
 {% block title %}
-	Модерирование. ratings4you.
+	Редактирование рейтинга. rating4you.net
 {% endblock %}
 
 {% block center_title %} {{ title }} {% endblock %}
@@ -15,18 +15,15 @@
 		<div>{{ rating.begin_date|date:"d.m.Y" }}</div><div>{{ rating.end_date|date:"d.m.Y" }}</div>
 	</div>
 	<br/>
-	{% for m in moderatable %}
+	{% for ri in unmoderated %}
 	<br/>
 	<div>
-		<div style="float:left;">{{ m }}</div>
-		<div style="float:right;"><input type="checkbox" name="ratingitem{{ m.id }}" {% if m.moderated %} checked {% endif %}/></div>
+		<input type="text" name="ri{{ ri.id }}" value="{{ ri.name }}">
 	</div>
 	{% endfor %}
 	<br/>
 	<div>
 	<input type="submit" value="Сохранить"/>
-	<input type="submit" name="delete" value="Удалить рейтинг"/>
-	[<a href="/ratings/admin/edit_unmoderated_items/{{ rating.id }}/">Отредактировать неподтвержденные пункты рейтинга</a>]
 	</div>
 	</form>
 	

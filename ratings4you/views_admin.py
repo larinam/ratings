@@ -92,7 +92,7 @@ def moderate_rating(request, id):
     if request.POST:
         if 'delete' in request.POST.keys():
             rating.delete()
-            return moderation(request)
+            return HttpResponseRedirect(reverse('ratings.ratings4you.views_admin.moderation'))
         for i in request.POST:
             if i.startswith('rating') and i.replace('rating', '') == id and request.POST.get(i) == 'on':
                 isRatingModerated = True
@@ -112,6 +112,19 @@ def moderate_rating(request, id):
                                    link_text="Вернуться к списку модерируемых рейтингов",
                                    ),
                               context_instance=RequestContext(request))
+
+@user_passes_test(lambda u: u.is_superuser)
+def edit_unmoderated_items(request, id):
+    rating = get_object_or_404(Rating, pk=id)
+    unmoderated = rating.listUnmoderatedRatingItems()
+    return render_to_response('ratings/admin/edit_rating_admin.html', 
+                              dict(rating=rating, unmoderated=unmoderated,
+                                   title="Редактирование рейтинга",
+                                   link="/ratings/admin/moderaterating/%d/" % rating.id,
+                                   link_text="Вернуться к модерированию рейтинга",
+                                   ),
+                              context_instance=RequestContext(request))
+    
 
 @user_passes_test(lambda u: u.is_superuser)
 def rating_send_mail(request):

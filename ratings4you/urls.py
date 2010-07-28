@@ -24,7 +24,7 @@ urlpatterns = patterns('',
    (r'^admin/moderaterating/(?P<id>\w{0,10})/$', 
     'ratings.ratings4you.views_admin.moderate_rating'),
    (r'^admin/rating_send_mail$', 'ratings.ratings4you.views_admin.rating_send_mail'),
-   (r'^/admin/moderator_email/$', 'ratings.ratings4you.views_admin.moderator_email'),
-   
+   (r'^admin/moderator_email/$', 'ratings.ratings4you.views_admin.moderator_email'),
+   (r'^admin/edit_unmoderated_items/(?P<id>\w{0,10})/$', 'ratings.ratings4you.views_admin.edit_unmoderated_items'),   
                        
 )

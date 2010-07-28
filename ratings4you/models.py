@@ -83,6 +83,9 @@ class  Rating(models.Model, IModeratable, NameAsIdentifier):
     def listModeratedRatingItems(self):
         return RatingItem.objects.filter(rating=self, moderated=True)
     
+    def listUnmoderatedRatingItems(self):
+        return RatingItem.objects.filter(rating=self, moderated=False)
+    
     def isModerated(self):
         return self.moderated
     
