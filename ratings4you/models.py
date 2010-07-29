@@ -143,6 +143,10 @@ class RatingItem(models.Model, IModeratable, NameAsIdentifier):
         
     def getOverallCount(self):
         return Vote.objects.filter(rating_item=self).count()
+    
+    def setName(self, value):
+        self.name = value
+        self.save()
 
 class Vote(models.Model):
     """

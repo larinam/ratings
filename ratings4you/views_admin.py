@@ -116,6 +116,13 @@ def moderate_rating(request, id):
 @user_passes_test(lambda u: u.is_superuser)
 def edit_unmoderated_items(request, id):
     rating = get_object_or_404(Rating, pk=id)
+    if request.POST:
+        for i in request.POST:
+            if i.startswith('ri'):
+                riid = i.replace('ri','')
+                ratingItem = get_object_or_404(RatingItem, pk=riid)
+                ratingItem.setName(request.POST.get(i))
+        return HttpResponseRedirect(reverse('ratings.ratings4you.views_admin.moderate_rating', kwargs={"id":rating.id}))
     unmoderated = rating.listUnmoderatedRatingItems()
     return render_to_response('ratings/admin/edit_rating_admin.html', 
                               dict(rating=rating, unmoderated=unmoderated,
