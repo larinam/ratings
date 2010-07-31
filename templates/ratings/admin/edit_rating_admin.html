@@ -11,7 +11,6 @@
 	{% csrf_token %}
 	<div>
 		<div style="float:left;font-size:1.5em;">{{ rating }}</div>
-		<div style="float:right;"><input type="checkbox" name="rating{{ rating.id }}" {% if rating.isModerated %} checked {% endif %}/></div>
 		<div>{{ rating.begin_date|date:"d.m.Y" }}</div><div>{{ rating.end_date|date:"d.m.Y" }}</div>
 	</div>
 	<br/>
@@ -29,22 +28,4 @@
 	
 	<a href="{{ link }}">{{ link_text }}</a>
 	<br />
-	<a href="#" id="rating_author_mail_link">Отписать автору рейтинга</a>
-	<div id="rating_author_mail">
-	<form action="/ratings/admin/rating_send_mail" method="POST">
-		{% csrf_token %}
-		<table>
-		{{ send_mail_form }}
-		</table>
-		<input type="submit" value="Отправить" />
-	</form>
-	</div>
-	
-<script> 
-	$('#rating_author_mail').hide();
-    $("#rating_author_mail_link").click(function () {
-        $("#rating_author_mail").show("fast");
-        return false;
-   });
-</script>
 {% endblock %}
