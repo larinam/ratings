@@ -12,6 +12,7 @@ from models import Rating, RatingItem
 from settings import PROJECT_URL_BASE
 from views_admin import TO_EMAIL
 from settings import DEFAULT_FROM_EMAIL
+ELEMENTS_TO_ADD_COUNT = 10
 
 def index(request):
     #ratings = listActualRatings()
@@ -52,19 +53,20 @@ def add_item(request, id):
     link_text="Продолжить серфинг с главной"
     link = "/ratings/"
     if request.POST:
-        form = RatingItemForm(data=request.POST)
-        if form.is_valid():
-            rating_item = rating.addRatingItem(name=form.cleaned_data['name'], author=user)
+        forms = [RatingItemForm(request.POST, prefix=str(x), instance=RatingItem()) for x in range(0,ELEMENTS_TO_ADD_COUNT)]
+        if all([form.is_valid() for form in forms]):
+            for form in forms:
+                rating.addRatingItem(name=form.cleaned_data['name'], author=user)
             link_text="Отправить рейтинг на премодерацию"
             link = "/ratings/sendtomoder/%d/" % (rating.id)
         else:
-            return render_to_response('ratings/simple_catalogs_management.html', 
-                                      dict(form=form, title=title, link="/ratings/", link_text="Продолжить серфинг с главной",
+            return render_to_response('ratings/simple_catalogs_management_multiple.html', 
+                                      dict(forms=forms, title=title, link="/ratings/", link_text="Продолжить серфинг с главной",
                                            catalog_items=rating_items),
                               context_instance=RequestContext(request))
-    form = RatingItemForm()
-    return render_to_response('ratings/simple_catalogs_management.html', 
-                              dict(form=form, title=title, link=link, link_text=link_text,
+    forms = [RatingItemForm(prefix=str(x), instance=RatingItem()) for x in range(0,ELEMENTS_TO_ADD_COUNT)]
+    return render_to_response('ratings/simple_catalogs_management_multiple.html', 
+                              dict(forms=forms, title=title, link=link, link_text=link_text,
                                    catalog_items=rating_items),
                               context_instance=RequestContext(request))
 

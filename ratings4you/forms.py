@@ -27,7 +27,7 @@ class RatingModelForm(ModelForm):
     
     class Meta:
         model = Rating
-        exclude = ['moderated', 'author']
+        exclude = ['moderated', 'author', 'creation_date']
         
 class RatingThemesDirectoryForm(ModelForm):
     class Meta:
@@ -40,7 +40,7 @@ class RegionDirectoryForm(ModelForm):
 class RatingItemForm(ModelForm):
     class Meta:
         model = RatingItem
-        exclude = ['moderated', 'author', 'rating']
+        exclude = ['moderated', 'author', 'rating', 'creation_date']
         
         
 class FeedbackForm(forms.Form):

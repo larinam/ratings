@@ -34,9 +34,14 @@
 	{% load comments %}
 	{% render_comment_list for rating %}
 	{% if request.user.is_authenticated %}
-		<div align="left">
-		{% render_comment_form for rating %}
-		</div>
+		{% if request.user in rating.listUsersVoted %}
+			<div align="left">
+			{% render_comment_form for rating %}
+			</div>
+		{% else %}
+			<br/>
+			<div>Оставить комментарий можно только после голосования.</div>
+		{% endif %}
 	{% else %}
 		<br/>
 		<div>Только авторизованные пользователи могут оставлять комментарии. <a href="/accounts/login/?next=/ratings/view/{{ rating.id }}/">Авторизуйтесь</a>, пожалуйста.</div>

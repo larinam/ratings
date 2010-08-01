@@ -1,0 +1,26 @@
+{% extends "ratings/index_template.html" %}
+
+{% block title %}
+	{{ title }}. rating4you.net
+{% endblock %}
+
+{% block center_title %} {{ title }} {% endblock %}
+
+{% block content %}
+	<form action="" method="POST">
+		{% csrf_token %}
+	<table>
+		{% for form in forms %}
+			{{ form }}
+		{% endfor %}
+		<tr><td><input type="submit" value="Сохранить" /></td><td></td></tr>
+	</table>
+	</form>
+	<br />
+	<a href="{{ link }}">{{ link_text }}</a>
+	<ul>
+	{% for item in catalog_items %}
+		<li>{{ item.name }}</li>
+	{% endfor %}
+	</ul>
+{% endblock %}

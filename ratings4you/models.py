@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 from django.db import models
 from django.db.models.signals import post_save
 from interfaces import IModeratable, NameAsIdentifier
+from datetime import datetime
 
 # Create your models here.
 
@@ -68,6 +69,8 @@ class  Rating(models.Model, IModeratable, NameAsIdentifier):
     end_date = models.DateField(verbose_name="Дата окончания голосования", help_text="например, 31.12.2010")
     moderated = models.BooleanField(default=False, help_text="Прошёл модерацию")
     author = models.ForeignKey(User, null=True) # автор рейтинга
+    creation_date = models.DateTimeField(verbose_name="Дата создания голосования", auto_now=True, null=False, default=datetime.now())
+    time_moderated = models.DateTimeField(verbose_name="Время, когда был принят для отображения пользователю", null=True)
     
     class Meta:
         ordering = ('name',)
@@ -90,6 +93,8 @@ class  Rating(models.Model, IModeratable, NameAsIdentifier):
         return self.moderated
     
     def setModerated(self, value=True):
+        if value:
+            self.time_moderated = datetime.now()
         self.moderated = value
         self.save()
         
@@ -104,16 +109,22 @@ class  Rating(models.Model, IModeratable, NameAsIdentifier):
             item.delete()
         super(Rating, self).delete()
         
-    def userVoted(self, user):
-        result = False
+    def listVotes(self):
         votes = []
         for ri in self.listRatingItems():
             votes += list(Vote.objects.filter(rating_item=ri))
-        for i in votes:
+        return votes
+    
+    def userVoted(self, user):
+        result = False
+        for i in self.listVotes():
             if user == i.user:
                 result = True
                 
         return result
+    
+    def listUsersVoted(self):
+        return [i.user for i in self.listVotes()]
         
 
     
@@ -126,6 +137,8 @@ class RatingItem(models.Model, IModeratable, NameAsIdentifier):
     rating = models.ForeignKey(Rating)
     moderated = models.BooleanField(default=False)
     author = models.ForeignKey(User, null=True) # автор изменений внесенных в элемент
+    creation_date = models.DateTimeField(verbose_name="Дата создания голосования", auto_now=True, null=False, default=datetime.now())
+    time_moderated = models.DateTimeField(verbose_name="Время, когда был принят для отображения пользователю", null=True)
     
     class Meta:
         ordering = ('name',)
@@ -138,6 +151,8 @@ class RatingItem(models.Model, IModeratable, NameAsIdentifier):
         return self.moderated
         
     def setModerated(self, value=True):
+        if value:
+            self.time_moderated = datetime.now()
         self.moderated = value
         self.save()
         
