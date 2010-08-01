@@ -30,20 +30,5 @@
 	
 	<br /><br />
 	<a href="{{ link }}">{{ link_text }}</a>
-	
-	{% load comments %}
-	{% render_comment_list for rating %}
-	{% if request.user.is_authenticated %}
-		{% if request.user in rating.listUsersVoted %}
-			<div align="left">
-			{% render_comment_form for rating %}
-			</div>
-		{% else %}
-			<br/>
-			<div>Оставить комментарий можно только после голосования.</div>
-		{% endif %}
-	{% else %}
-		<br/>
-		<div>Только авторизованные пользователи могут оставлять комментарии. <a href="/accounts/login/?next=/ratings/view/{{ rating.id }}/">Авторизуйтесь</a>, пожалуйста.</div>
-	{% endif %}
+	<br />
 {% endblock %}
