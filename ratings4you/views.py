@@ -25,6 +25,7 @@ def add(request):
     """
     метод добавления рейтинга
     """
+    form = RatingModelForm()
     if request.POST:
         form = RatingModelForm(data=request.POST)
         if (form.is_valid()):
@@ -32,10 +33,7 @@ def add(request):
             entity.author = request.user
             entity.save()
             return HttpResponseRedirect(reverse('ratings.ratings4you.views.add_item', kwargs=dict(id=entity.id)))
-        else:
-            return render_to_response('ratings/one_form_page.html', dict(form=form, link="/ratings/", title="Добавление рейтинга", link_text="Продолжить сёрфинг с главной"),
-                              context_instance=RequestContext(request))
-    form = RatingModelForm()
+
     return render_to_response('ratings/one_form_page.html', dict(form=form, link="/ratings/", title="Добавление рейтинга", link_text="Продолжить серфинг с главной"),
                               context_instance=RequestContext(request))
 
@@ -93,28 +91,35 @@ def view_rating(request, id):
         if rating_item_id:
             rating_item = get_object_or_404(RatingItem, pk=rating_item_id)
             rating_item.addVote(request.user, request.META['REMOTE_ADDR'])
-            return render_to_response('ratings/rating_results.html', 
-                                      dict(title=rating.name, rating=rating, 
-                                           rating_items=rating.listModeratedRatingItems(), 
-                                           link="/ratings/", 
-                                           link_text="Продолжить серфинг с главной"),
-                                  context_instance=RequestContext(request))
+            userVoted = True
 
-    link_text = "или вернитесь на страничку голосования"
-    link="/ratings/view/%s/" % (rating.id)
     if not user.is_authenticated() or userVoted:
-        link_text = "Продолжить серфинг с главной"
-        link="/ratings/"
-    if request.GET.get('action') == 'view_results' or not user.is_authenticated() or userVoted:
-        return render_to_response('ratings/rating_results.html', dict(title=rating.name, rating=rating, 
-                                                                      rating_items=rating.listModeratedRatingItems(), 
-                                                                      link=link, 
-                                                                      link_text=link_text),
-                              context_instance=RequestContext(request))
+        return HttpResponseRedirect(reverse('ratings.ratings4you.views.view_rating_results', kwargs=dict(id=id)))
     return render_to_response('ratings/rating_poll.html', dict(title=rating.name, rating=rating, rating_items=rating.listModeratedRatingItems(), link="/ratings/", 
                                                                link_text="Продолжить серфинг с главной"),
                               context_instance=RequestContext(request))
 
+
+def view_rating_results(request, id):
+    '''
+    отображение результатов голосования
+    '''
+    user = request.user
+    rating = get_object_or_404(Rating, pk=id)
+    userVoted = rating.userVoted(user)
+    
+    if not user.is_authenticated() or userVoted:
+        link_text = "Продолжить серфинг с главной"
+        link="/ratings/"
+    else:
+        link_text = "Вернуться на страничку голосования"
+        link="/ratings/view/%s/" % (rating.id)
+
+    return render_to_response('ratings/rating_results.html', dict(title=rating.name, rating=rating, 
+                                                                  rating_items=rating.listModeratedRatingItems(), 
+                                                                  link=link, 
+                                                                  link_text=link_text),
+                          context_instance=RequestContext(request))
 
 def feedback(request):
     if request.POST:

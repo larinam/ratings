@@ -21,7 +21,7 @@
 											{% endfor %}
 											<div class="buttons"> 
 												{% if user.is_authenticated %} <input type="submit" class="btn-vote" value="" /> {% endif %} 
-												<input type="button" class="btn-viewres" value="" onClick="window.location=window.location+'?action=view_results'"/> 
+												<input type="button" class="btn-viewres" value="" onClick="window.location='/ratings/view_results/{{ rating.id }}/'"/> 
 											</div> 
 										</form>
 	
