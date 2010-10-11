@@ -52,9 +52,8 @@ def add_item(request, id):
     link = "/ratings/"
     if request.POST:
         forms = [RatingItemForm(request.POST, prefix=str(x), instance=RatingItem()) for x in range(0,ELEMENTS_TO_ADD_COUNT)]
-        if all([form.is_valid() for form in forms]):
-            for form in forms:
-                rating.addRatingItem(name=form.cleaned_data['name'], author=user)
+        if all([(form.is_valid()) for form in forms]):
+            [rating.addRatingItem(name=form.cleaned_data['name'], author=user) for form in forms if form.cleaned_data['name']]
             link_text="Отправить рейтинг на премодерацию"
             link = "/ratings/sendtomoder/%d/" % (rating.id)
         else:

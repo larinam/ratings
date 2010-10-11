@@ -19,7 +19,7 @@
 	{{ form.non_field_errors }}
 	{% endif %}
 	
-	<form method="post" action="">
+	<form method="post" class="niceform" action="">
 		{% csrf_token %}
 		<table class="prod_table">
 		{{ form }}

@@ -4,10 +4,10 @@ body{
 	width:expression(document.documentElement.clientWidth < 1003 ? "1003px" : "100%");
 	position:relative;
 }
-form, fieldset, input{
+/*form, fieldset, input{
 	margin:0;
 	padding:0;
-}
+}*/
 a{
 /*		margin:0 0 0 24px;*/
 /*	padding:2px 0 0;*/

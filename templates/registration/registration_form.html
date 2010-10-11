@@ -8,14 +8,16 @@
 
 {% block content %}
 	<br/>
-		<table class="prod_table">
-		<form method="post">
+		
+		<form class="niceform" method="post">
+			<table>
 			{% csrf_token %}
  			{{ form }}
  			<tr>
  			<td><input type="submit" value="Зарегистрироваться"></td>
  			<td></td>
- 			</tr> 
+ 			</tr>
+ 			</table> 
  		</form>
- 	</table>
+ 	
 {% endblock %}

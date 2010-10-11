@@ -7,7 +7,7 @@
 {% block center_title %} {{ title }} {% endblock %}
 
 {% block content %}
-	<form action="" method="POST">
+	<form action="" class="niceform" method="POST">
 	{% csrf_token %}
 	<table>
 		{{ form }}

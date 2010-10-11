@@ -8,7 +8,7 @@
 
 {% block content %}
 
-										<form action="" method="POST">
+										<form action="" class="niceforms" method="POST">
 											{% csrf_token %}
 											{% for ri in rating_items %}
 											<div class="clear-l"> 
@@ -20,8 +20,8 @@
 											</div> 
 											{% endfor %}
 											<div class="buttons"> 
-												{% if user.is_authenticated %} <input type="submit" class="btn-vote" value="" /> {% endif %} 
-												<input type="button" class="btn-viewres" value="" onClick="window.location='/ratings/view_results/{{ rating.id }}/'"/> 
+												{% if user.is_authenticated %} <input type="submit" class="btn-vote" value="Проголосовать" /> {% endif %} 
+												<input type="button" class="btn-viewres" value="Результаты" onClick="window.location='/ratings/view_results/{{ rating.id }}/'"/> 
 											</div> 
 										</form>
 	

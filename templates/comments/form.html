@@ -1,7 +1,7 @@
 {% load comments %}
 {% get_comment_form for rating as form %}
 
-<form action="{% comment_form_target %}" method="post">
+<form action="{% comment_form_target %}" class="niceform" method="post">
   <table>
   {% csrf_token %}
   			

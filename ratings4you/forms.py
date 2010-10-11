@@ -27,7 +27,7 @@ class RatingModelForm(ModelForm):
     
     class Meta:
         model = Rating
-        exclude = ['moderated', 'author', 'creation_date']
+        exclude = ['moderated', 'author', 'creation_date', 'time_moderated']
         
 class RatingThemesDirectoryForm(ModelForm):
     class Meta:
@@ -38,10 +38,16 @@ class RegionDirectoryForm(ModelForm):
         model = RegionDirectory
         
 class RatingItemForm(ModelForm):
+    def __init__(self, *args, **kwargs):
+        super(RatingItemForm, self).__init__(*args, **kwargs)
+
+        # change a widget attribute:
+        self.fields['name'].required = False
+        
     class Meta:
         model = RatingItem
-        exclude = ['moderated', 'author', 'rating', 'creation_date']
-        
+        exclude = ['moderated', 'author', 'rating', 'creation_date', 
+                   'time_moderated']
         
 class FeedbackForm(forms.Form):
     '''
