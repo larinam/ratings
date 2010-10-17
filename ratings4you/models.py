@@ -174,6 +174,12 @@ class Vote(models.Model):
     rating_item = models.ForeignKey(RatingItem)
     ip = models.IPAddressField()
     
-
+class KVTable(models.Model):
+    """
+    Универсальное хранилище key-value таблица
+    """
+    key_column = models.CharField(max_length=255)
+    value_column = models.CharField(max_length=255)
+    
 # Список моделей, реализующих интерфейс @see: IModeratable    
 MODERATABLE_MODELS = (Rating, RatingItem)

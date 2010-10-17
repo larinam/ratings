@@ -63,3 +63,6 @@ class SendMailForm(forms.Form):
     subject = forms.CharField(label="Тема письма", required=True)
     body = forms.CharField(label="Текст письма", required=True, widget=forms.Textarea)
     
+class EditModeratorEmailForm(forms.Form):
+    email = forms.CharField(label="Email адрес модератора", required=True)
+    
