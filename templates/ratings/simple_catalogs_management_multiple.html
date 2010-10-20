@@ -7,6 +7,13 @@
 {% block center_title %} {{ title }} {% endblock %}
 
 {% block content %}
+	<ul>
+	{% for item in catalog_items %}
+		<li>{{ item.name }}</li>
+	{% endfor %}
+	</ul>
+	<a href="{{ link }}">{{ link_text }}</a>
+	<br />
 	<form action="" class="niceforms" method="POST">
 		{% csrf_token %}
 	<table>
@@ -16,11 +23,4 @@
 		<tr><td><input type="submit" value="Сохранить" /></td><td></td></tr>
 	</table>
 	</form>
-	<br />
-	<a href="{{ link }}">{{ link_text }}</a>
-	<ul>
-	{% for item in catalog_items %}
-		<li>{{ item.name }}</li>
-	{% endfor %}
-	</ul>
 {% endblock %}
