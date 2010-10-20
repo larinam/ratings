@@ -115,6 +115,12 @@ class  Rating(models.Model, IModeratable, NameAsIdentifier):
             votes += list(Vote.objects.filter(rating_item=ri))
         return votes
     
+    def votesCount(self):
+        count = 0
+        for ri in self.listRatingItems():
+            count += Vote.objects.filter(rating_item=ri).count()
+        return count
+    
     def userVoted(self, user):
         result = False
         for i in self.listVotes():

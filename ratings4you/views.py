@@ -101,7 +101,7 @@ def view_rating(request, id):
 
 def view_rating_results(request, id):
     '''
-    отображение результатов голосования
+    отображение результатов голосования. упорядоченных по рейтингу.
     '''
     user = request.user
     rating = get_object_or_404(Rating, pk=id)
@@ -113,9 +113,14 @@ def view_rating_results(request, id):
     else:
         link_text = "Вернуться на страничку голосования"
         link="/ratings/view/%s/" % (rating.id)
-
+        
+    rating_items=rating.listModeratedRatingItems()
+    items = [(item.getOverallCount(), item) for item in rating_items]
+    items.sort()
+    items.reverse()
+    rating_items = [item[1] for item in items]
     return render_to_response('ratings/rating_results.html', dict(title=rating.name, rating=rating, 
-                                                                  rating_items=rating.listModeratedRatingItems(), 
+                                                                  rating_items=rating_items,
                                                                   link=link, 
                                                                   link_text=link_text),
                           context_instance=RequestContext(request))
