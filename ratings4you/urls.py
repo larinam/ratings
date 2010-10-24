@@ -26,6 +26,9 @@ urlpatterns = patterns('',
     'ratings.ratings4you.views_admin.moderate_rating'),
    (r'^admin/rating_send_mail$', 'ratings.ratings4you.views_admin.rating_send_mail'),
    (r'^admin/moderator_email/$', 'ratings.ratings4you.views_admin.moderator_email'),
-   (r'^admin/edit_unmoderated_items/(?P<id>\w{0,10})/$', 'ratings.ratings4you.views_admin.edit_unmoderated_items'),   
-                       
+   (r'^admin/edit_unmoderated_items/(?P<id>\w{0,10})/$', 'ratings.ratings4you.views_admin.edit_unmoderated_items'),
+   (r'^admin/catalogs/themes/edit/(?P<id>\w{0,10})/$',
+    'ratings.ratings4you.views_admin.edit_theme_item'),                        
+   (r'^admin/catalogs/regions/edit/(?P<id>\w{0,10})/$',
+    'ratings.ratings4you.views_admin.edit_region_item'),
 )

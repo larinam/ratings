@@ -15,10 +15,18 @@ img {
 	border: none;
 }
 
+li {
+	margin-left:14px;
+}
+
 a {
 	outline: none;
 	margin: -2px;
 	padding: 0px;
+}
+
+li a {
+	margin: 4px;	
 }
 
 a:link {
@@ -40,6 +48,30 @@ a:hover {
 }
 
 a:visited {
+	font-weight:bold;
+	color: #888989;
+	text-decoration:none;
+}
+
+li a:link {
+	font-weight:bold;
+	color: #888989;
+	text-decoration:none;
+}
+
+li a:active {
+	font-weight:bold;
+	color: #234F89;
+	text-decoration:none;
+}
+
+li a:hover {
+	font-weight:bold;
+	color: #234F89;
+	text-decoration:none;
+}
+
+li a:visited {
 	font-weight:bold;
 	color: #888989;
 	text-decoration:none;
@@ -138,9 +170,10 @@ a:visited {
 
 .c-text {
 	margin: 0px 10px 10px 20px;
-	height: 860px;
+	height: auto;
 	display:block;
 	color: #234F89;
+	padding-top: 14px;
 }
 
 #headlinks {

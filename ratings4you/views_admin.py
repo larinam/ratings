@@ -35,12 +35,12 @@ def themes(request):
         if (form.is_valid()):
             entity = form.save(commit=True)
         else:
-            return render_to_response('ratings/simple_catalogs_management.html', 
-                                      dict(form=form, link="/ratings/admin/catalogs/", title="Темы голосований", 
+            return render_to_response('ratings/simple_catalogs_management.html',
+                                      dict(form=form, link="/ratings/admin/catalogs/", title="Темы голосований",
                                            link_text="Вернуться в список каталогов", catalog_items=catalog_items),
                               context_instance=RequestContext(request))
     form = RatingThemesDirectoryForm()
-    return render_to_response('ratings/simple_catalogs_management.html', 
+    return render_to_response('ratings/simple_catalogs_management.html',
                               dict(form=form, link="/ratings/admin/catalogs/", title="Темы голосований",
                                    link_text="Вернуться в список каталогов", catalog_items=catalog_items),
                               context_instance=RequestContext(request))
@@ -54,17 +54,17 @@ def regions(request):
         if (form.is_valid()):
             entity = form.save(commit=True)
         else:
-            return render_to_response('ratings/simple_catalogs_management.html', 
-                                      dict(form=form, 
+            return render_to_response('ratings/simple_catalogs_management.html',
+                                      dict(form=form,
                                            title="Регионы голосований",
-                                           link="/ratings/admin/catalogs/", 
+                                           link="/ratings/admin/catalogs/",
                                            link_text="Вернуться в список каталогов",
                                            catalog_items=catalog_items),
                               context_instance=RequestContext(request))
     form = RegionDirectoryForm()
-    return render_to_response('ratings/simple_catalogs_management.html', 
+    return render_to_response('ratings/simple_catalogs_management.html',
                               dict(form=form,
-                                   title="Регионы голосований", 
+                                   title="Регионы голосований",
                                    link="/ratings/admin/catalogs/",
                                    link_text="Вернуться в список каталогов",
                                    catalog_items=catalog_items),
@@ -73,7 +73,7 @@ def regions(request):
 @user_passes_test(lambda u: u.is_superuser)
 def moderation(request):
     moderatable = Rating.objects.filter() #listActualRatings()
-    return render_to_response('ratings/admin/moderation_admin.html', 
+    return render_to_response('ratings/admin/moderation_admin.html',
                               dict(moderatable=moderatable,
                                    title="Модерация",
                                    link="/ratings/admin/",
@@ -104,7 +104,7 @@ def moderate_rating(request, id):
             i.setModerated(value=isModeratableModerated.get(i.id))
         return HttpResponseRedirect(reverse('ratings.ratings4you.views_admin.moderation'))
     send_mail_form = SendMailForm(initial=dict(rating_id=id))
-    return render_to_response('ratings/admin/moderate_rating_admin.html', 
+    return render_to_response('ratings/admin/moderate_rating_admin.html',
                               dict(rating=rating, moderatable=moderatable,
                                    send_mail_form=send_mail_form,
                                    title="Модерация рейтинга",
@@ -119,12 +119,12 @@ def edit_unmoderated_items(request, id):
     if request.POST:
         for i in request.POST:
             if i.startswith('ri'):
-                riid = i.replace('ri','')
+                riid = i.replace('ri', '')
                 ratingItem = get_object_or_404(RatingItem, pk=riid)
                 ratingItem.setName(request.POST.get(i))
         return HttpResponseRedirect(reverse('ratings.ratings4you.views_admin.moderate_rating', kwargs={"id":rating.id}))
     unmoderated = rating.listUnmoderatedRatingItems()
-    return render_to_response('ratings/admin/edit_rating_admin.html', 
+    return render_to_response('ratings/admin/edit_rating_admin.html',
                               dict(rating=rating, unmoderated=unmoderated,
                                    title="Редактирование рейтинга",
                                    link="/ratings/admin/moderaterating/%d/" % rating.id,
@@ -160,8 +160,48 @@ def moderator_email(request):
             email = data.get('email')
             moderator_email.value_column = email
             moderator_email.save()
-    return render_to_response("ratings/one_form_page.html", dict(form=form, link="/ratings/", link_text="На главную", 
+    return render_to_response("ratings/one_form_page.html", dict(form=form, link="/ratings/", link_text="На главную",
                                                                  title="Редактирование рейтинга"),
+                              context_instance=RequestContext(request))
+    
+@user_passes_test(lambda u: u.is_superuser)
+def edit_theme_item(request, id):
+    theme = get_object_or_404(RatingThemesDirectory, pk=id)
+    if request.POST:
+        data_dict = request.POST
+        form = RatingThemesDirectoryForm(data_dict, instance=theme)
+        if (form.is_valid()):
+            entity = form.save(commit=True)
+            return HttpResponseRedirect(reverse('ratings.ratings4you.views_admin.themes'))
+        else:
+            return render_to_response('ratings/admin/edit_simple_catalog_item.html',
+                                      dict(form=form, link="/ratings/admin/catalogs/themes/", title="Редактирование темы голосований",
+                                           link_text="Вернуться в список тем"),
+                              context_instance=RequestContext(request))
+    form = RatingThemesDirectoryForm(instance=theme)
+    return render_to_response('ratings/admin/edit_simple_catalog_item.html',
+                              dict(form=form, link="/ratings/admin/catalogs/themes/", title="Редактирование темы голосований",
+                                   link_text="Вернуться в список тем"),
+                              context_instance=RequestContext(request))
+    
+@user_passes_test(lambda u: u.is_superuser)
+def edit_region_item(request, id):
+    region = get_object_or_404(RegionDirectory, pk=id)
+    if request.POST:
+        data_dict = request.POST
+        form = RegionDirectoryForm(data_dict, instance=region)
+        if (form.is_valid()):
+            entity = form.save(commit=True)
+            return HttpResponseRedirect(reverse('ratings.ratings4you.views_admin.regions'))
+        else:
+            return render_to_response('ratings/admin/edit_simple_catalog_item.html',
+                                      dict(form=form, link="/ratings/admin/catalogs/regions/", title="Редактирование региона",
+                                           link_text="Вернуться в список регионов"),
+                              context_instance=RequestContext(request))
+    form = RatingThemesDirectoryForm(instance=region)
+    return render_to_response('ratings/admin/edit_simple_catalog_item.html',
+                              dict(form=form, link="/ratings/admin/catalogs/regions/", title="Редактирование региона",
+                                   link_text="Вернуться в список регионов"),
                               context_instance=RequestContext(request))
         
 #def add(request):
