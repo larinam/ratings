@@ -11,8 +11,9 @@ class Migration(SchemaMigration):
         # Adding model 'UserProfile'
         db.create_table('ratings4you_userprofile', (
             ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('authorization_mode', self.gf('django.db.models.fields.CharField')(max_length=255)),
+            ('authorization_mode', self.gf('django.db.models.fields.CharField')(default='Authorized', max_length=255)),
             ('bonus_currency', self.gf('django.db.models.fields.CharField')(max_length=255)),
+            ('profile_url', self.gf('django.db.models.fields.URLField')(max_length=200, null=True)),
             ('user', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['auth.User'], unique=True)),
         ))
         db.send_create_signal('ratings4you', ['UserProfile'])
@@ -21,6 +22,7 @@ class Migration(SchemaMigration):
         db.create_table('ratings4you_ratingthemesdirectory', (
             ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
             ('name', self.gf('django.db.models.fields.CharField')(unique=True, max_length=255)),
+            ('parent', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['ratings4you.RatingThemesDirectory'], null=True)),
         ))
         db.send_create_signal('ratings4you', ['RatingThemesDirectory'])
 
@@ -28,6 +30,7 @@ class Migration(SchemaMigration):
         db.create_table('ratings4you_regiondirectory', (
             ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
             ('name', self.gf('django.db.models.fields.CharField')(unique=True, max_length=255)),
+            ('parent', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['ratings4you.RegionDirectory'], null=True)),
         ))
         db.send_create_signal('ratings4you', ['RegionDirectory'])
 
@@ -41,6 +44,8 @@ class Migration(SchemaMigration):
             ('end_date', self.gf('django.db.models.fields.DateField')()),
             ('moderated', self.gf('django.db.models.fields.BooleanField')(default=False, blank=True)),
             ('author', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['auth.User'], null=True)),
+            ('creation_date', self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime(2010, 10, 25, 12, 29, 6, 830654), auto_now=True, blank=True)),
+            ('time_moderated', self.gf('django.db.models.fields.DateTimeField')(null=True)),
         ))
         db.send_create_signal('ratings4you', ['Rating'])
 
@@ -51,6 +56,8 @@ class Migration(SchemaMigration):
             ('rating', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['ratings4you.Rating'])),
             ('moderated', self.gf('django.db.models.fields.BooleanField')(default=False, blank=True)),
             ('author', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['auth.User'], null=True)),
+            ('creation_date', self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime(2010, 10, 25, 12, 29, 6, 831468), auto_now=True, blank=True)),
+            ('time_moderated', self.gf('django.db.models.fields.DateTimeField')(null=True)),
         ))
         db.send_create_signal('ratings4you', ['RatingItem'])
 
@@ -63,6 +70,14 @@ class Migration(SchemaMigration):
             ('ip', self.gf('django.db.models.fields.IPAddressField')(max_length=15)),
         ))
         db.send_create_signal('ratings4you', ['Vote'])
+
+        # Adding model 'KVTable'
+        db.create_table('ratings4you_kvtable', (
+            ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
+            ('key_column', self.gf('django.db.models.fields.CharField')(max_length=255)),
+            ('value_column', self.gf('django.db.models.fields.CharField')(max_length=255)),
+        ))
+        db.send_create_signal('ratings4you', ['KVTable'])
 
 
     def backwards(self, orm):
@@ -84,6 +99,9 @@ class Migration(SchemaMigration):
 
         # Deleting model 'Vote'
         db.delete_table('ratings4you_vote')
+
+        # Deleting model 'KVTable'
+        db.delete_table('ratings4you_kvtable')
 
 
     models = {
@@ -123,40 +141,53 @@ class Migration(SchemaMigration):
             'model': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
             'name': ('django.db.models.fields.CharField', [], {'max_length': '100'})
         },
+        'ratings4you.kvtable': {
+            'Meta': {'object_name': 'KVTable'},
+            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'key_column': ('django.db.models.fields.CharField', [], {'max_length': '255'}),
+            'value_column': ('django.db.models.fields.CharField', [], {'max_length': '255'})
+        },
         'ratings4you.rating': {
             'Meta': {'object_name': 'Rating'},
             'author': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['auth.User']", 'null': 'True'}),
             'begin_date': ('django.db.models.fields.DateField', [], {}),
+            'creation_date': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime(2010, 10, 25, 12, 29, 6, 830654)', 'auto_now': 'True', 'blank': 'True'}),
             'end_date': ('django.db.models.fields.DateField', [], {}),
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'moderated': ('django.db.models.fields.BooleanField', [], {'default': 'False', 'blank': 'True'}),
             'name': ('django.db.models.fields.CharField', [], {'max_length': '255'}),
             'region': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['ratings4you.RegionDirectory']"}),
-            'theme': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['ratings4you.RatingThemesDirectory']"})
+            'theme': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['ratings4you.RatingThemesDirectory']"}),
+            'time_moderated': ('django.db.models.fields.DateTimeField', [], {'null': 'True'})
         },
         'ratings4you.ratingitem': {
             'Meta': {'object_name': 'RatingItem'},
             'author': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['auth.User']", 'null': 'True'}),
+            'creation_date': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime(2010, 10, 25, 12, 29, 6, 831468)', 'auto_now': 'True', 'blank': 'True'}),
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'moderated': ('django.db.models.fields.BooleanField', [], {'default': 'False', 'blank': 'True'}),
             'name': ('django.db.models.fields.CharField', [], {'max_length': '255'}),
-            'rating': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['ratings4you.Rating']"})
+            'rating': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['ratings4you.Rating']"}),
+            'time_moderated': ('django.db.models.fields.DateTimeField', [], {'null': 'True'})
         },
         'ratings4you.ratingthemesdirectory': {
             'Meta': {'object_name': 'RatingThemesDirectory'},
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'name': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '255'})
+            'name': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '255'}),
+            'parent': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['ratings4you.RatingThemesDirectory']", 'null': 'True'})
         },
         'ratings4you.regiondirectory': {
             'Meta': {'object_name': 'RegionDirectory'},
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'name': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '255'})
+            'name': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '255'}),
+            'parent': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['ratings4you.RegionDirectory']", 'null': 'True'})
         },
         'ratings4you.userprofile': {
             'Meta': {'object_name': 'UserProfile'},
-            'authorization_mode': ('django.db.models.fields.CharField', [], {'max_length': '255'}),
+            'authorization_mode': ('django.db.models.fields.CharField', [], {'default': "'Authorized'", 'max_length': '255'}),
             'bonus_currency': ('django.db.models.fields.CharField', [], {'max_length': '255'}),
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'profile_url': ('django.db.models.fields.URLField', [], {'max_length': '200', 'null': 'True'}),
             'user': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['auth.User']", 'unique': 'True'})
         },
         'ratings4you.vote': {

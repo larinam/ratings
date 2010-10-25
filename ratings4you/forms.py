@@ -32,10 +32,12 @@ class RatingModelForm(ModelForm):
 class RatingThemesDirectoryForm(ModelForm):
     class Meta:
         model = RatingThemesDirectory
+        exclude = ['parent']
         
 class RegionDirectoryForm(ModelForm):
     class Meta:
         model = RegionDirectory
+        exclude = ['parent']
         
 class RatingItemForm(ModelForm):
     def __init__(self, *args, **kwargs):

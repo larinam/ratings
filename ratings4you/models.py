@@ -35,7 +35,7 @@ def create_user_profile(sender, instance, created, **kwargs):
 
 
 #чтобы init миграция проходил без сучка без задоринки 
-post_save.connect(create_user_profile, sender=User)
+#post_save.connect(create_user_profile, sender=User)
 
     
 class RatingThemesDirectory(models.Model, NameAsIdentifier):
@@ -43,7 +43,7 @@ class RatingThemesDirectory(models.Model, NameAsIdentifier):
     Справочник тем для голосований.
     """
     name = models.CharField(max_length=255, unique=True, null=False, verbose_name="Тема голосования", help_text="Тема голосования")
-    
+    parent = models.ForeignKey('self', null=True)
     class Meta:
         ordering = ('name',)
 
@@ -53,7 +53,7 @@ class RegionDirectory(models.Model, NameAsIdentifier):
     Справочник регионов - здесь могут быть как страны, города, области, так и всё что угодно.
     """
     name = models.CharField(max_length=255, unique=True, null=False, verbose_name="Регион", help_text="Регион, для которого проводится голосование")
-    
+    parent = models.ForeignKey('self', null=True)
     class Meta:
         ordering = ('name',)
 
@@ -186,6 +186,6 @@ class KVTable(models.Model):
     """
     key_column = models.CharField(max_length=255)
     value_column = models.CharField(max_length=255)
-    
+
 # Список моделей, реализующих интерфейс @see: IModeratable    
 MODERATABLE_MODELS = (Rating, RatingItem)
