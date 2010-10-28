@@ -46,7 +46,16 @@ class RatingThemesDirectory(models.Model, NameAsIdentifier):
     parent = models.ForeignKey('self', null=True)
     class Meta:
         ordering = ('name',)
-
+        
+    def getEditURI(self):
+        return "/ratings/admin/catalogs/themes/edit/" + str(self.id) + "/"
+    
+    def getDrillDownURI(self):
+        return "/ratings/admin/catalogs/themes/"+ str(self.id) + "/"
+    
+    def setParent(self, parent):
+        self.parent = parent
+        self.save()
 
 class RegionDirectory(models.Model, NameAsIdentifier):
     """
@@ -56,6 +65,16 @@ class RegionDirectory(models.Model, NameAsIdentifier):
     parent = models.ForeignKey('self', null=True)
     class Meta:
         ordering = ('name',)
+        
+    def getEditURI(self):
+        return "/ratings/admin/catalogs/regions/edit/" + str(self.id) + "/"
+    
+    def getDrillDownURI(self):
+        return "/ratings/admin/catalogs/regions/"+ str(self.id) + "/"
+    
+    def setParent(self, parent):
+        self.parent = parent
+        self.save()
 
 class  Rating(models.Model, IModeratable, NameAsIdentifier):
     """

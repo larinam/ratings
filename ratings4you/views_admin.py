@@ -27,13 +27,19 @@ def catalogs(request):
                               context_instance=RequestContext(request))
 
 @user_passes_test(lambda u: u.is_superuser)
-def themes(request):
-    catalog_items = RatingThemesDirectory.objects.all().order_by('name')
+def themes(request, id=None):
+    if id:
+        catalog_items = RatingThemesDirectory.objects.filter(parent=id).order_by('name')
+    else:
+        catalog_items = RatingThemesDirectory.objects.filter(parent=None).order_by('name')
+        id = ""
     if request.POST:
         data_dict = request.POST
         form = RatingThemesDirectoryForm(data=data_dict)
         if (form.is_valid()):
             entity = form.save(commit=True)
+            if id:
+                entity.setParent(RatingThemesDirectory.objects.get(pk=id))
         else:
             return render_to_response('ratings/simple_catalogs_management.html',
                                       dict(form=form, link="/ratings/admin/catalogs/", title="Темы голосований",
@@ -46,20 +52,26 @@ def themes(request):
                               context_instance=RequestContext(request))
 
 @user_passes_test(lambda u: u.is_superuser)
-def regions(request):
-    catalog_items = RegionDirectory.objects.all().order_by('name')
+def regions(request, id=None):
+    if id:
+        catalog_items = RegionDirectory.objects.filter(parent=id).order_by('name')
+    else:
+        catalog_items = RegionDirectory.objects.filter(parent=None).order_by('name')
+        id = ""
     if request.POST:
         data_dict = request.POST
         form = RegionDirectoryForm(data=data_dict)
         if (form.is_valid()):
             entity = form.save(commit=True)
+            if id:
+                entity.setParent(RegionDirectory.objects.get(pk=id))
         else:
             return render_to_response('ratings/simple_catalogs_management.html',
                                       dict(form=form,
                                            title="Регионы голосований",
                                            link="/ratings/admin/catalogs/",
                                            link_text="Вернуться в список каталогов",
-                                           catalog_items=catalog_items),
+                                           catalog_items=catalog_items, parent=id),
                               context_instance=RequestContext(request))
     form = RegionDirectoryForm()
     return render_to_response('ratings/simple_catalogs_management.html',
@@ -67,7 +79,7 @@ def regions(request):
                                    title="Регионы голосований",
                                    link="/ratings/admin/catalogs/",
                                    link_text="Вернуться в список каталогов",
-                                   catalog_items=catalog_items),
+                                   catalog_items=catalog_items, parent=id),
                               context_instance=RequestContext(request))
 
 @user_passes_test(lambda u: u.is_superuser)
