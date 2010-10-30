@@ -9,16 +9,31 @@ from django import forms
 from django.forms import ModelForm, DateField
 from models import Rating, RatingThemesDirectory, RegionDirectory, RatingItem
 from captcha.fields import CaptchaField
+from db_rating import getHierarchicalList
+
+def getHierarchicalPresentation(cls):
+    result = []
+    for x in getHierarchicalList(cls):
+        if x.parent != None:
+            result.append(tuple((x.id, "----" + x.name)))
+        else:
+            result.append(tuple((x.id, x.name)))
+    print result
+    return result
 
 def customize_date_fields(f):
     if isinstance(f, django.db.models.fields.DateField):
         date_field=DateField(widget=forms.DateInput(format='%d.%m.%Y'), label=f.verbose_name)
         date_field.input_formats = ("%d.%m.%Y",)# + (date_field.input_formats)
         return date_field
+    if isinstance(f, django.db.models.fields.related.ForeignKey):
+        #print f.rel.to.objects.filter(parent=None)
+        ffield = f.formfield()
+        ffield.choices=getHierarchicalPresentation(f.rel.to)
+        return ffield
     else:
         return f.formfield()
-
-
+    
 class RatingModelForm(ModelForm):
     """
     форма создания/редактирования 

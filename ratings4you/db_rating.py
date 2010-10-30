@@ -33,5 +33,21 @@ def listArchievedRatings():
     ratings = Rating.objects.filter(end_date<today) #@UndefinedVariable
     ratings =  Rating.objects.filter(moderated=True)
     return ratings
-    
+
+def getHierarchicalList(cls):
+    '''
+    возвращает иерархический список элементов иерархического каталога плоским списком
+    Родитель
+        Потомок
+        Потомок
+    Родитель
+    Родитель
+        Потомок
+    '''
+    topObjects = cls.objects.filter(parent=None)
+    result = []
+    for o in topObjects:
+        result.append(o)
+        result += o.listSubElements()
+    return result
     

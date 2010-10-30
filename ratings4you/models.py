@@ -56,6 +56,10 @@ class RatingThemesDirectory(models.Model, NameAsIdentifier):
     def setParent(self, parent):
         self.parent = parent
         self.save()
+        
+    def listSubElements(self):
+        return RatingThemesDirectory.objects.filter(parent=self)
+        
 
 class RegionDirectory(models.Model, NameAsIdentifier):
     """
@@ -75,6 +79,9 @@ class RegionDirectory(models.Model, NameAsIdentifier):
     def setParent(self, parent):
         self.parent = parent
         self.save()
+        
+    def listSubElements(self):
+        return RegionDirectory.objects.filter(parent=self)
 
 class  Rating(models.Model, IModeratable, NameAsIdentifier):
     """
