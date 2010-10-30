@@ -8,7 +8,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render_to_response
 from django.template import RequestContext
 from forms import FeedbackForm, RatingModelForm, RatingItemForm
-from models import Rating, RatingItem
+from models import Rating, RatingItem, RatingThemesDirectory
 from settings import PROJECT_URL_BASE
 from views_admin import TO_EMAIL
 from settings import DEFAULT_FROM_EMAIL
@@ -95,6 +95,17 @@ def view_rating(request, id):
     if not user.is_authenticated() or userVoted:
         return HttpResponseRedirect(reverse('ratings.ratings4you.views.view_rating_results', kwargs=dict(id=id)))
     return render_to_response('ratings/rating_poll.html', dict(title=rating.name, rating=rating, rating_items=rating.listModeratedRatingItems(), link="/ratings/", 
+                                                               link_text="Продолжить серфинг с главной"),
+                              context_instance=RequestContext(request))
+    
+def view_ratings_list(request, id):
+    '''
+    отображение списка рейтингов определённой категории
+    '''
+    user = request.user
+    rating_theme = get_object_or_404(RatingThemesDirectory, pk=id)
+    ratings = rating_theme.listRatings()
+    return render_to_response('ratings/ratings_list.html', dict(title=rating_theme.name, rating_theme=rating_theme, ratings=ratings, link="/ratings/", 
                                                                link_text="Продолжить серфинг с главной"),
                               context_instance=RequestContext(request))
 

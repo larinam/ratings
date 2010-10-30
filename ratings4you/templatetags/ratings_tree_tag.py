@@ -6,7 +6,8 @@
 
 from django import template
 from django.template import Context
-from ratings4you.db_rating import listActualRatings
+from ratings4you.models import RatingThemesDirectory
+from ratings4you.db_rating import listActualRatings, getHierarchicalDict
 
 register = template.Library()
 
@@ -17,7 +18,7 @@ class RatingsTreeTagNode(template.Node):
     def render(self, context):
         #raise template.TemplateSyntaxError, context
         request = context['request']
-        ratings = listActualRatings()
+        ratings = RatingThemesDirectory.objects.filter(parent=None)
         t = template.loader.get_template('ratings/templatetags/ratings_tree_tag.html')
         return t.render(Context({'ratings': ratings}))
 

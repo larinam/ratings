@@ -59,6 +59,9 @@ class RatingThemesDirectory(models.Model, NameAsIdentifier):
         
     def listSubElements(self):
         return RatingThemesDirectory.objects.filter(parent=self)
+    
+    def listRatings(self):
+        return Rating.objects.filter(theme=self, moderated=True)
         
 
 class RegionDirectory(models.Model, NameAsIdentifier):

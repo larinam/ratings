@@ -12,10 +12,10 @@
 											{% csrf_token %}
 											{% for ri in rating_items %}
 											<div class="clear-l"> 
-												<p class="brand">{{ ri }}</p> 
-												<div class="cl-n"> 
-													<input type="radio" name="ri_id" value="{{ri.id }}" /> 
-												</div> 
+												<p class="brand">
+													<span>{{ ri }}</span>
+													<span style="float:right;"><input type="radio" name="ri_id" value="{{ri.id }}" /></span>
+												</p> 
 												<div class="separator">&nbsp;</div> 
 											</div> 
 											{% endfor %}

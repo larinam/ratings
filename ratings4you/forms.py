@@ -18,7 +18,6 @@ def getHierarchicalPresentation(cls):
             result.append(tuple((x.id, "----" + x.name)))
         else:
             result.append(tuple((x.id, x.name)))
-    print result
     return result
 
 def customize_date_fields(f):
@@ -27,7 +26,6 @@ def customize_date_fields(f):
         date_field.input_formats = ("%d.%m.%Y",)# + (date_field.input_formats)
         return date_field
     if isinstance(f, django.db.models.fields.related.ForeignKey):
-        #print f.rel.to.objects.filter(parent=None)
         ffield = f.formfield()
         ffield.choices=getHierarchicalPresentation(f.rel.to)
         return ffield

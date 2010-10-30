@@ -1,3 +1,14 @@
+<ul>
 {% for rating in ratings %}
-	<a href="/ratings/view/{{ rating.id }}/">{{ rating }}</a> <br />
+	<li>
+		<a href="/ratings/view_list/{{ rating.id }}/">{{ rating }}</a>
+		{% ifnotequal rating.listSubElements None %}
+			<ul>
+			{% for r in rating.listSubElements %}
+				<li><a href="/ratings/view_list/{{ r.id }}/">{{ r }}</a></li>
+			{% endfor %}
+			</ul>
+		{% endifnotequal %}
+	</li>
 {% endfor %}
+</ul>

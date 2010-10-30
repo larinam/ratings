@@ -51,3 +51,18 @@ def getHierarchicalList(cls):
         result += o.listSubElements()
     return result
     
+def getHierarchicalDict(cls):
+    '''
+    возвращает иерархический словарь элементов иерархического каталога словарём
+    Родитель - key
+        Потомок - value
+        Потомок - value
+    Родитель
+    Родитель
+        Потомок
+    '''
+    topObjects = cls.objects.filter(parent=None)
+    result = {}
+    for o in topObjects:
+        result.update({o:o.listSubElements()})
+    return result
