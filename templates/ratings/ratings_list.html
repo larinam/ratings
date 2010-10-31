@@ -1,0 +1,16 @@
+{% extends "ratings/index_template.html" %}
+
+{% block title %}
+	{{ title }}. ratings4you.
+{% endblock %}
+
+{% block center_title %} {{ title }} {% endblock %}
+
+{% block content %}
+
+	{% for rating in ratings %}
+		<p><a href="/ratings/view/{{ rating.id }}/">{{ rating.name }}</a></p>
+	{% endfor %}
+	<br />
+	<a href="{{ link }}">{{ link_text }}</a>
+{% endblock %}

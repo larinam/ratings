@@ -22,7 +22,7 @@ def getHierarchicalPresentation(cls):
 
 def customize_date_fields(f):
     if isinstance(f, django.db.models.fields.DateField):
-        date_field=DateField(widget=forms.DateInput(format='%d.%m.%Y'), label=f.verbose_name)
+        date_field=DateField(widget=forms.DateInput(format='%d.%m.%Y', attrs={"class":"dateField"}), label=f.verbose_name)
         date_field.input_formats = ("%d.%m.%Y",)# + (date_field.input_formats)
         return date_field
     if isinstance(f, django.db.models.fields.related.ForeignKey):
