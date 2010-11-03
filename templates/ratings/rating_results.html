@@ -7,18 +7,17 @@
 {% block center_title %} {{ title }} {% endblock %}
 
 {% block content %}
+											<table style="width: 100%;border-width: 1px;border-spacing: ;border-style: outset;border-color: gray;border-collapse: collapse;background-color: white;">
 		{% for ri in rating_items %}
-											<div class="clear-l"> 
-												<p class="brand">
-													<span>{{ ri }}</span>
-													<span style="float:right;">{{ ri.getOverallCount }}</span>
-												</p> 
-												<div class="separator">&nbsp;</div> 
-											</div> 
+												<tr>
+													<td style="border-width: 1px;padding: 2px;border-style:solid;border-color: gray;background-color: white;border-collapse: collapse;">{{ ri }}</td>
+													<td style="text-align: center;border-width: 1px;padding: 2px; margin:0;border-style:solid;border-color: gray;background-color: white;border-collapse: collapse;">{{ ri.getOverallCount }}</td>
+												</tr>
 		{% endfor %}
-		<div>Общее количество голосов: {{ rating.votesCount }}</div>
+											</table>
+		<div>Общее количество голосов: <strong>{{ rating.votesCount }}</strong></div>
 	<br />
-	<a href="{{ link }}">{{ link_text }}</a>
+	<a class="uni_link" href="{{ link }}">{{ link_text }}</a>
 	{% load comments %}
 	{% render_comment_list for rating %}
 	{% if request.user.is_authenticated %}

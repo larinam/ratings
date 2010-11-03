@@ -79,3 +79,6 @@ msgstr "профиль регистрации"
 #: models.py:195
 msgid "registration profiles"
 msgstr "профили регистрации"
+
+msgid "This value must contain only letters, numbers and underscores."
+msgstr "Значение должно содержать только буквы латинского алфавита, цифры и подчёркивания."

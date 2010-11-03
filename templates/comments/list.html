@@ -2,12 +2,12 @@
 {% load comments %}
 {% load user_name_tag %}
 {% get_comment_count for rating as comment_count %}
-<div><a href="#" id="comment_id">комментарии ({{ comment_count }})</a></div>
+<div style="margin-top: 10px;"><a href="#" id="comment_id">Комментарии ({{ comment_count }})</a></div>
 {% get_comment_list for rating as comment_list %}
 <ul name="comments_block" id="comments_block">
 {% for comment in comment_list %}
-	<li>
-		<div style="color:grey;">
+	<li onmouseover="this.style.backgroundColor='#F0F0F0'" onmouseout="this.style.backgroundColor='#FFFFFF'" >
+		<div style="color:grey;font-size:0.7em;margin-top: 10px;">
 			{% user_id_to_name comment.user_name %} {{ comment.submit_date|date:"d F Y, H:i" }} 
 			<span>{% if user.is_superuser %}<a href="/comments/delete/{{comment.id}}/">удалить</a>{% endif %}</span>
 		</div>

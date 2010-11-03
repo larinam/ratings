@@ -16,7 +16,7 @@
 	</table>
 	</form>
 	<br />
-	<a href="{{ link }}">{{ link_text }}</a>
+	<a class="uni_link" href="{{ link }}">{{ link_text }}</a>
 	<ul>
 	{% for item in catalog_items %}
 		<li><a href="{{ item.getDrillDownURI }}">{{ item.name }}</a><span><a href="{{ item.getEditURI }}">редактировать</a></span></li>

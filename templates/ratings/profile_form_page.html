@@ -13,12 +13,12 @@
 	<!-- div>Текущий статус {{ profile.authorization_mode }}</div -->
 	<form action="" class="niceforms" method="POST">
 		{% csrf_token %}
-	<table class="prod_table">
+	<table>
 		{{ widget }}
 		<tr><td><input type="submit" value="Сохранить" /></td><td></td></tr>
 	</table>
 	
 	</form>
 	<br />
-	<a href="{{ link }}">{{ link_text }}</a>
+	<a class="uni_link" href="{{ link }}">{{ link_text }}</a>
 {% endblock %}

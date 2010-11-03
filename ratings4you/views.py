@@ -47,7 +47,7 @@ def add_item(request, id):
     if user != rating.author:
         return HttpResponseRedirect(reverse('ratings.ratings4you.views.view_rating', kwargs=dict(id=id))) #вернуть страничку с просмотром рейтинга вместо добавления элемента
     rating_items = rating.listRatingItems()
-    title = "Добавление элемента голосования для рейтинга %s" % (rating)
+    title = 'Пункты голосования "%s"' % (rating)
     link_text="Продолжить серфинг с главной"
     link = "/ratings/"
     if request.POST:
@@ -149,4 +149,9 @@ def feedback(request):
     form = FeedbackForm()
     return render_to_response("ratings/one_form_page.html", dict(form=form, link="mailto:%s" % (TO_EMAIL), link_text="Написать нам через почтовый клиент", 
                                                                  title="Форма обратной связи"),
+                              context_instance=RequestContext(request))
+
+def development_message(request):
+    return render_to_response("ratings/message.html", dict(msg="Раздел в разработке", link="/ratings/", link_text="Вернуться на главную", 
+                                                                 title="Раздел находится в разработке"),
                               context_instance=RequestContext(request))

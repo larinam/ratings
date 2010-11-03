@@ -34,8 +34,8 @@
 			  	<input type="hidden" name="url" id="id_url" value="{{request.user.profile.profile_url}}" /> 
 			{% endifequal %}
 			{% ifequal field.name "comment" %}
-				<tr><td>Комментарий:</td></tr>
-			  	<tr><td>{{ field }}</td></tr>
+				<p>Комментарий:</p>
+			  	<p>{{ field }}</p>
 			{% endifequal %}
         </p>
       {% endif %}

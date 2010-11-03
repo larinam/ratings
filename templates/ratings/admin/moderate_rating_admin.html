@@ -10,9 +10,13 @@
 	<form action="" class="niceforms" method="POST">
 	{% csrf_token %}
 	<div>
-		<div style="float:left;font-size:1.5em;">{{ rating }}</div>
-		<div style="float:right;"><input type="checkbox" id="ratingCheckbox" name="rating{{ rating.id }}" {% if rating.isModerated %} checked {% endif %}/></div>
-		<div>{{ rating.begin_date|date:"d.m.Y" }}</div><div>{{ rating.end_date|date:"d.m.Y" }}</div>
+		<div style="float:left;font-size:1.5em;display: block;">{{ rating }}</div>
+		<div style="float:right;display: block;"><input type="checkbox" id="ratingCheckbox" name="rating{{ rating.id }}" {% if rating.isModerated %} checked {% endif %}/></div>
+		<br/>
+		<br/>
+		<div style="display: block;float:left;">
+		<span>{{ rating.begin_date|date:"d.m.Y" }}</span> <span> - </span><span>{{ rating.end_date|date:"d.m.Y" }}</span>
+		</div>
 	</div>
 	<br/>
 	{% for m in moderatable %}
@@ -26,11 +30,12 @@
 	<div>
 	<input type="submit" value="Сохранить"/>
 	<input type="submit" name="delete" value="Удалить рейтинг"/>
-	[<a href="/ratings/admin/edit_unmoderated_items/{{ rating.id }}/">Отредактировать неподтвержденные пункты рейтинга</a>]
+	<br/>
+	<a href="/ratings/admin/edit_unmoderated_items/{{ rating.id }}/">Отредактировать неподтвержденные пункты рейтинга</a>
 	</div>
 	</form>
 	
-	<a href="{{ link }}">{{ link_text }}</a>
+	<a class="uni_link" href="{{ link }}">{{ link_text }}</a>
 	<br />
 	<a href="#" id="rating_author_mail_link">Отписать автору рейтинга</a>
 	<div id="rating_author_mail">

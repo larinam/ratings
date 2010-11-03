@@ -16,6 +16,11 @@ urlpatterns = patterns('',
    (r'^sendtomoder/(?P<id>\w{0,10})/$', 
     'ratings.ratings4you.views.send_to_moderator'),
    (r'^feedback/$', 'ratings.ratings4you.views.feedback'),
+   (r'^about/$', 'ratings.ratings4you.views.development_message'),
+   (r'^forum/$', 'ratings.ratings4you.views.development_message'),
+   (r'^analitics/$', 'ratings.ratings4you.views.development_message'),
+   (r'^arch/$', 'ratings.ratings4you.views.development_message'),
+   (r'^exp/$', 'ratings.ratings4you.views.development_message'),
    
    #administration
    (r'^admin/$', 'ratings.ratings4you.views_admin.index'),

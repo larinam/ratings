@@ -63,8 +63,11 @@
 				{% endif %}
 		</div>
 	</div>
-		<div id="place" align="center">
-			<div class="leftpane">
+		<table id="place" align="center">
+			<tr>
+				<td align="center" style="padding-top: 65px; width: 260px;">
+		
+			
 				<div class="paneheader-lr" align="center"><div class="phead">каталог рейтингов</div></div>
 				<div class="panecenter-lr">
 					<div class="c-text" align="left">
@@ -73,18 +76,22 @@
 					</div>
 				</div>
 				<div class="panebottom-lr" align="center"></div>
-			</div>
-			<div class="centerpane">
-				<div class="paneheader" align="center"><div class="phead">{% block center_title %} топ брендов {% endblock %}</h1> </div></div>
+			
+				</td>
+				<td align="center" style="padding: 65px 10px 0px 10px;">
+			
+				<div class="paneheader" align="center"><div class="phead">{% block center_title %} топ брендов {% endblock %}</div></div>
 				<div class="panecenter">
-					<div class="c-text" align="justify">
+					<div class="c-text" align="left">
 					{% block content %}
 					{% endblock %}
 					</div>
 				</div>
 				<div class="panebottom" align="center"></div>
-			</div>
-			<div class="rightpane">
+			
+				</td>
+				<td align="center" style="padding-top: 65px; width: 260px;">
+			
 				<div class="paneheader-lr" align="center"><div class="phead">топ брендов</div></div>
 				<div class="panecenter-lr">
 					<div class="c-text" align="left">
@@ -93,18 +100,20 @@
 					</div>
 				</div>
 				<div class="panebottom-lr" align="center"></div>
-			</div>
-		</div>
+			
+				</td>
+			</tr>
+		</table>
 	<div id="place-bottom" align="center"></div>
 </div>
 <div id="buttons" align="center">
-	<a href="#" onmouseover="document.pma.src='/images/buttons/about_h.png'" onmouseout="document.pma.src='/images/buttons/about.png'" onmousedown="document.pma.src='/images/buttons/about_p.png'" onmouseup="document.pma.src='/images/buttons/about_h.png'"><img src="/images/buttons/about.png" name="pma" alt="О сайте" /></a>
-	<a href="/ratings/add/" onmouseover="document.pmb.src='/images/buttons/create_h.png'" onmouseout="document.pmb.src='/images/buttons/create.png'" onmousedown="document.pmb.src='/images/buttons/create_p.png'" onmouseup="document.pmb.src='/images/buttons/create_h.png'"><img src="/images/buttons/create.png" name="pmb" alt="Создать рейтинг" /></a>
-	<a href="#" onmouseover="document.pmc.src='/images/buttons/archive_h.png'" onmouseout="document.pmc.src='/images/buttons/archive.png'" onmousedown="document.pmc.src='/images/buttons/archive_p.png'" onmouseup="document.pmc.src='/images/buttons/archive_h.png'"><img src="/images/buttons/archive.png" name="pmc" alt="Архив" /></a>
-	<a href="#" onmouseover="document.pmd.src='/images/buttons/analitic_h.png'" onmouseout="document.pmd.src='/images/buttons/analitic.png'" onmousedown="document.pmd.src='/images/buttons/analitic_p.png'" onmouseup="document.pmd.src='/images/buttons/analitic_h.png'"><img src="/images/buttons/analitic.png" name="pmd" alt="Аналитика" /></a>
-	<a href="#" onmouseover="document.pme.src='/images/buttons/experts_h.png'" onmouseout="document.pme.src='/images/buttons/experts.png'" onmousedown="document.pme.src='/images/buttons/experts_p.png'" onmouseup="document.pme.src='/images/buttons/experts_h.png'"><img src="/images/buttons/experts.png" name="pme" alt="Эксперты" /></a>
-	<a href="#" onmouseover="document.pmf.src='/images/buttons/forum_h.png'" onmouseout="document.pmf.src='/images/buttons/forum.png'" onmousedown="document.pmf.src='/images/buttons/forum_p.png'" onmouseup="document.pmf.src='/images/buttons/forum_h.png'"><img src="/images/buttons/forum.png" name="pmf" alt="Форум" /></a>
-	<a href="/ratings/feedback/" onmouseover="document.pmg.src='/images/buttons/feedback_h.png'" onmouseout="document.pmg.src='/images/buttons/feedback.png'" onmousedown="document.pmg.src='/images/buttons/feedback_p.png'" onmouseup="document.pmg.src='/images/buttons/feedback_h.png'"><img src="/images/buttons/feedback.png" name="pmg" alt="Обратная связь" /></a>
+	<a href="/ratings/about/" onmouseover="document.pma.src='/images/buttons/about_h.png'" onmouseout="document.pma.src='/images/buttons/about{% if '/ratings/about' in request.get_full_path %}_h{% endif %}.png'" onmousedown="document.pma.src='/images/buttons/about_p.png'" onmouseup="document.pma.src='/images/buttons/about_h.png'"><img src="/images/buttons/about{% if '/ratings/about' in request.get_full_path %}_h{% endif %}.png" name="pma" alt="О сайте" /></a>
+	<a href="/ratings/add/" onmouseover="document.pmb.src='/images/buttons/create_h.png'" onmouseout="document.pmb.src='/images/buttons/create{% if '/ratings/add' in request.get_full_path %}_h{% endif %}.png'" onmousedown="document.pmb.src='/images/buttons/create_p.png'" onmouseup="document.pmb.src='/images/buttons/create_h.png'"><img src="/images/buttons/create{% if '/ratings/add' in request.get_full_path %}_h{% endif %}.png" name="pmb" alt="Создать рейтинг" /></a>
+	<a href="/ratings/arch/" onmouseover="document.pmc.src='/images/buttons/archive_h.png'" onmouseout="document.pmc.src='/images/buttons/archive{% if '/ratings/arch' in request.get_full_path %}_h{% endif %}.png'" onmousedown="document.pmc.src='/images/buttons/archive_p.png'" onmouseup="document.pmc.src='/images/buttons/archive_h.png'"><img src="/images/buttons/archive{% if '/ratings/arch' in request.get_full_path %}_h{% endif %}.png" name="pmc" alt="Архив" /></a>
+	<a href="/ratings/analitics/" onmouseover="document.pmd.src='/images/buttons/analitic_h.png'" onmouseout="document.pmd.src='/images/buttons/analitic{% if '/ratings/analitics' in request.get_full_path %}_h{% endif %}.png'" onmousedown="document.pmd.src='/images/buttons/analitic_p.png'" onmouseup="document.pmd.src='/images/buttons/analitic_h.png'"><img src="/images/buttons/analitic{% if '/ratings/analitics' in request.get_full_path %}_h{% endif %}.png" name="pmd" alt="Аналитика" /></a>
+	<a href="/ratings/exp/" onmouseover="document.pme.src='/images/buttons/experts_h.png'" onmouseout="document.pme.src='/images/buttons/experts{% if '/ratings/exp' in request.get_full_path %}_h{% endif %}.png'" onmousedown="document.pme.src='/images/buttons/experts_p.png'" onmouseup="document.pme.src='/images/buttons/experts_h.png'"><img src="/images/buttons/experts{% if '/ratings/exp' in request.get_full_path %}_h{% endif %}.png" name="pme" alt="Эксперты" /></a>
+	<a href="/ratings/forum/" onmouseover="document.pmf.src='/images/buttons/forum_h.png'" onmouseout="document.pmf.src='/images/buttons/forum{% if '/ratings/forum' in request.get_full_path %}_h{% endif %}.png'" onmousedown="document.pmf.src='/images/buttons/forum_p.png'" onmouseup="document.pmf.src='/images/buttons/forum_h.png'"><img src="/images/buttons/forum{% if '/ratings/forum' in request.get_full_path %}_h{% endif %}.png" name="pmf" alt="Форум" /></a>
+	<a href="/ratings/feedback/" onmouseover="document.pmg.src='/images/buttons/feedback_h.png'" onmouseout="document.pmg.src='/images/buttons/feedback{% if '/ratings/feedback' in request.get_full_path %}_h{% endif %}.png'" onmousedown="document.pmg.src='/images/buttons/feedback_p.png'" onmouseup="document.pmg.src='/images/buttons/feedback_h.png'"><img src="/images/buttons/feedback{% if '/ratings/feedback' in request.get_full_path %}_h{% endif %}.png" name="pmg" alt="Обратная связь" /></a>
 </div>
 </body>
 </html>
