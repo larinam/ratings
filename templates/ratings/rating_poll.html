@@ -10,11 +10,13 @@
 
 										<form action="" class="niceforms" method="POST">
 											{% csrf_token %}
-											<table style="width: 100%;border-width: 1px;border-spacing: ;border-style: outset;border-color: gray;border-collapse: collapse;background-color: white;">
+											<table class="table_poll" id="nth-child-odd">
 											{% for ri in rating_items %}
 												<tr>
-													<td style="border-width: 1px;padding: 2px;border-style:solid;border-color: gray;background-color: white;border-collapse: collapse;">{{ ri }}</td>
-													<td style="text-align: center;border-width: 1px;padding: 2px; margin:0;border-style:solid;border-color: gray;background-color: white;border-collapse: collapse;"><input type="radio" name="ri_id" value="{{ri.id }}" /></td>
+													<td class="td_poll">
+														<span>{{ ri }}</span>
+														<span style="float:right;"><input type="radio" name="ri_id" value="{{ri.id }}" /></span>
+													</td>
 												</tr>
 											{% endfor %}
 											</table>

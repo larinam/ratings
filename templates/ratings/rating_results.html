@@ -7,11 +7,21 @@
 {% block center_title %} {{ title }} {% endblock %}
 
 {% block content %}
-											<table style="width: 100%;border-width: 1px;border-spacing: ;border-style: outset;border-color: gray;border-collapse: collapse;background-color: white;">
+											<table class="table_poll" id="nth-child-even">
+												<tr style="font-size: .8em;background-color: white;text-align: center;">
+													<th width="37px">место в рейтинге</th>
+													<th width="240px" align="left">наименование</th>
+													<th width="40px">кол-во голосов</th>
+													<th width="39px">% от общего числа</th>
+												</tr>
 		{% for ri in rating_items %}
 												<tr>
-													<td style="border-width: 1px;padding: 2px;border-style:solid;border-color: gray;background-color: white;border-collapse: collapse;">{{ ri }}</td>
-													<td style="text-align: center;border-width: 1px;padding: 2px; margin:0;border-style:solid;border-color: gray;background-color: white;border-collapse: collapse;">{{ ri.getOverallCount }}</td>
+													<td class="td_poll" colspan="4">
+														<span style="width: 37px;">{{forloop.counter}}</span>
+														<span style="width: 240px;text-align: left;">{{ ri }}</span>
+														<span style="width: 40px;">{{ ri.getOverallCount }}</span>
+														<span style="width: 39px;">{{ ri.getPercentage }}%</span>
+													</td>
 												</tr>
 		{% endfor %}
 											</table>
