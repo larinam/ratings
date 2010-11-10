@@ -287,4 +287,17 @@ li a:visited {
 	float: left;
 	text-align: center;
 }
+
+ul.top_brands li {
+	padding: 5px;
+}
+ul.top_brands li:nth-child(odd){
+	padding: 5px;
+	background-color: #F0F0F0;
+	-o-border-radius: 8px;
+	-moz-border-radius: 8px;
+	-webkit-border-radius: 8px;
+	border-radius: 8px;
+}
+
 	

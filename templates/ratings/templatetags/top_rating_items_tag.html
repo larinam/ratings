@@ -1,8 +1,8 @@
-<ul>
+<ul class="top_brands">
 {% for ri in rating_items %}
 										<li> 
-											{{ ri }} &nbsp;
-											{{ ri.getOverallCount }}  
+											<span style="float:left;">{{ ri }}</span>
+											<span style="float:right;">{{ ri.getOverallCount }}</span>  
 										</li> 
 {% endfor %}
 </ul>

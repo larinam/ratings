@@ -17,7 +17,7 @@
 	</form>
 	<br />
 	<a class="uni_link" href="{{ link }}">{{ link_text }}</a>
-	<ul>
+	<ul class="top_brands">
 	{% for item in catalog_items %}
 		<li><a href="{{ item.getDrillDownURI }}">{{ item.name }}</a><span><a href="{{ item.getEditURI }}">редактировать</a></span></li>
 	{% endfor %}
