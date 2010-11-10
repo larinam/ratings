@@ -44,7 +44,7 @@ class Migration(SchemaMigration):
             ('end_date', self.gf('django.db.models.fields.DateField')()),
             ('moderated', self.gf('django.db.models.fields.BooleanField')(default=False, blank=True)),
             ('author', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['auth.User'], null=True)),
-            ('creation_date', self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime(2010, 10, 25, 12, 29, 6, 830654), auto_now=True, blank=True)),
+            ('creation_date', self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime(2010, 11, 10, 14, 18, 28, 155482), auto_now=True, blank=True)),
             ('time_moderated', self.gf('django.db.models.fields.DateTimeField')(null=True)),
         ))
         db.send_create_signal('ratings4you', ['Rating'])
@@ -56,7 +56,7 @@ class Migration(SchemaMigration):
             ('rating', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['ratings4you.Rating'])),
             ('moderated', self.gf('django.db.models.fields.BooleanField')(default=False, blank=True)),
             ('author', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['auth.User'], null=True)),
-            ('creation_date', self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime(2010, 10, 25, 12, 29, 6, 831468), auto_now=True, blank=True)),
+            ('creation_date', self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime(2010, 11, 10, 14, 18, 28, 156200), auto_now=True, blank=True)),
             ('time_moderated', self.gf('django.db.models.fields.DateTimeField')(null=True)),
         ))
         db.send_create_signal('ratings4you', ['RatingItem'])
@@ -151,7 +151,7 @@ class Migration(SchemaMigration):
             'Meta': {'object_name': 'Rating'},
             'author': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['auth.User']", 'null': 'True'}),
             'begin_date': ('django.db.models.fields.DateField', [], {}),
-            'creation_date': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime(2010, 10, 25, 12, 29, 6, 830654)', 'auto_now': 'True', 'blank': 'True'}),
+            'creation_date': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime(2010, 11, 10, 14, 18, 28, 155482)', 'auto_now': 'True', 'blank': 'True'}),
             'end_date': ('django.db.models.fields.DateField', [], {}),
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'moderated': ('django.db.models.fields.BooleanField', [], {'default': 'False', 'blank': 'True'}),
@@ -163,7 +163,7 @@ class Migration(SchemaMigration):
         'ratings4you.ratingitem': {
             'Meta': {'object_name': 'RatingItem'},
             'author': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['auth.User']", 'null': 'True'}),
-            'creation_date': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime(2010, 10, 25, 12, 29, 6, 831468)', 'auto_now': 'True', 'blank': 'True'}),
+            'creation_date': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime(2010, 11, 10, 14, 18, 28, 156200)', 'auto_now': 'True', 'blank': 'True'}),
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'moderated': ('django.db.models.fields.BooleanField', [], {'default': 'False', 'blank': 'True'}),
             'name': ('django.db.models.fields.CharField', [], {'max_length': '255'}),
