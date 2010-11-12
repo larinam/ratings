@@ -8,10 +8,9 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render_to_response
 from django.template import RequestContext
 from forms import FeedbackForm, RatingModelForm, RatingItemForm
-from models import Rating, RatingItem, RatingThemesDirectory
-from settings import PROJECT_URL_BASE
+from models import Rating, RatingItem, RatingThemesDirectory, RegionDirectory
+from settings import DEFAULT_FROM_EMAIL, PROJECT_URL_BASE
 from views_admin import TO_EMAIL
-from settings import DEFAULT_FROM_EMAIL
 ELEMENTS_TO_ADD_COUNT = 10
 
 def index(request):

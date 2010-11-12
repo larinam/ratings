@@ -25,9 +25,10 @@ def customize_date_fields(f):
         date_field=DateField(widget=forms.DateInput(format='%d.%m.%Y', attrs={"class":"dateField"}), label=f.verbose_name)
         date_field.input_formats = ("%d.%m.%Y",)# + (date_field.input_formats)
         return date_field
-    if isinstance(f, django.db.models.fields.related.ForeignKey):
+    elif isinstance(f, django.db.models.fields.related.ForeignKey):
         ffield = f.formfield()
         ffield.choices=getHierarchicalPresentation(f.rel.to)
+        print ffield.choices
         return ffield
     else:
         return f.formfield()
