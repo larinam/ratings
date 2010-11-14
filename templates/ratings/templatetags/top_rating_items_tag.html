@@ -1,7 +1,7 @@
 <ul class="top_brands">
 {% for ri in rating_items %}
 										<li> 
-											<span style="float:left;">{{ ri }}</span>
+											<span style="width:165px;float:left;overflow:hidden;text-overflow: ellipsis;white-space: nowrap;">{{ ri }}</span>
 											<span style="float:right;">{{ ri.getOverallCount }}</span>  
 										</li> 
 {% endfor %}
