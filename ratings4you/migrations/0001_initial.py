@@ -42,9 +42,9 @@ class Migration(SchemaMigration):
             ('theme', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['ratings4you.RatingThemesDirectory'])),
             ('begin_date', self.gf('django.db.models.fields.DateField')()),
             ('end_date', self.gf('django.db.models.fields.DateField')()),
-            ('moderated', self.gf('django.db.models.fields.BooleanField')(default=False, blank=True)),
+            ('moderated', self.gf('django.db.models.fields.BooleanField')(default=False)),
             ('author', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['auth.User'], null=True)),
-            ('creation_date', self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime(2010, 11, 10, 14, 18, 28, 155482), auto_now=True, blank=True)),
+            ('creation_date', self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime(2010, 11, 16, 12, 34, 45, 758189), auto_now=True, blank=True)),
             ('time_moderated', self.gf('django.db.models.fields.DateTimeField')(null=True)),
         ))
         db.send_create_signal('ratings4you', ['Rating'])
@@ -54,9 +54,9 @@ class Migration(SchemaMigration):
             ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
             ('name', self.gf('django.db.models.fields.CharField')(max_length=255)),
             ('rating', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['ratings4you.Rating'])),
-            ('moderated', self.gf('django.db.models.fields.BooleanField')(default=False, blank=True)),
+            ('moderated', self.gf('django.db.models.fields.BooleanField')(default=False)),
             ('author', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['auth.User'], null=True)),
-            ('creation_date', self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime(2010, 11, 10, 14, 18, 28, 156200), auto_now=True, blank=True)),
+            ('creation_date', self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime(2010, 11, 16, 12, 34, 45, 759097), auto_now=True, blank=True)),
             ('time_moderated', self.gf('django.db.models.fields.DateTimeField')(null=True)),
         ))
         db.send_create_signal('ratings4you', ['RatingItem'])
@@ -112,7 +112,7 @@ class Migration(SchemaMigration):
             'permissions': ('django.db.models.fields.related.ManyToManyField', [], {'to': "orm['auth.Permission']", 'symmetrical': 'False', 'blank': 'True'})
         },
         'auth.permission': {
-            'Meta': {'unique_together': "(('content_type', 'codename'),)", 'object_name': 'Permission'},
+            'Meta': {'ordering': "('content_type__app_label', 'content_type__model', 'codename')", 'unique_together': "(('content_type', 'codename'),)", 'object_name': 'Permission'},
             'codename': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
             'content_type': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['contenttypes.ContentType']"}),
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
@@ -125,9 +125,9 @@ class Migration(SchemaMigration):
             'first_name': ('django.db.models.fields.CharField', [], {'max_length': '30', 'blank': 'True'}),
             'groups': ('django.db.models.fields.related.ManyToManyField', [], {'to': "orm['auth.Group']", 'symmetrical': 'False', 'blank': 'True'}),
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'is_active': ('django.db.models.fields.BooleanField', [], {'default': 'True', 'blank': 'True'}),
-            'is_staff': ('django.db.models.fields.BooleanField', [], {'default': 'False', 'blank': 'True'}),
-            'is_superuser': ('django.db.models.fields.BooleanField', [], {'default': 'False', 'blank': 'True'}),
+            'is_active': ('django.db.models.fields.BooleanField', [], {'default': 'True'}),
+            'is_staff': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
+            'is_superuser': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
             'last_login': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now'}),
             'last_name': ('django.db.models.fields.CharField', [], {'max_length': '30', 'blank': 'True'}),
             'password': ('django.db.models.fields.CharField', [], {'max_length': '128'}),
@@ -135,7 +135,7 @@ class Migration(SchemaMigration):
             'username': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '30'})
         },
         'contenttypes.contenttype': {
-            'Meta': {'unique_together': "(('app_label', 'model'),)", 'object_name': 'ContentType', 'db_table': "'django_content_type'"},
+            'Meta': {'ordering': "('name',)", 'unique_together': "(('app_label', 'model'),)", 'object_name': 'ContentType', 'db_table': "'django_content_type'"},
             'app_label': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'model': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
@@ -148,36 +148,36 @@ class Migration(SchemaMigration):
             'value_column': ('django.db.models.fields.CharField', [], {'max_length': '255'})
         },
         'ratings4you.rating': {
-            'Meta': {'object_name': 'Rating'},
+            'Meta': {'ordering': "('name',)", 'object_name': 'Rating'},
             'author': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['auth.User']", 'null': 'True'}),
             'begin_date': ('django.db.models.fields.DateField', [], {}),
-            'creation_date': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime(2010, 11, 10, 14, 18, 28, 155482)', 'auto_now': 'True', 'blank': 'True'}),
+            'creation_date': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime(2010, 11, 16, 12, 34, 45, 758189)', 'auto_now': 'True', 'blank': 'True'}),
             'end_date': ('django.db.models.fields.DateField', [], {}),
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'moderated': ('django.db.models.fields.BooleanField', [], {'default': 'False', 'blank': 'True'}),
+            'moderated': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
             'name': ('django.db.models.fields.CharField', [], {'max_length': '255'}),
             'region': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['ratings4you.RegionDirectory']"}),
             'theme': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['ratings4you.RatingThemesDirectory']"}),
             'time_moderated': ('django.db.models.fields.DateTimeField', [], {'null': 'True'})
         },
         'ratings4you.ratingitem': {
-            'Meta': {'object_name': 'RatingItem'},
+            'Meta': {'ordering': "('name',)", 'object_name': 'RatingItem'},
             'author': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['auth.User']", 'null': 'True'}),
-            'creation_date': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime(2010, 11, 10, 14, 18, 28, 156200)', 'auto_now': 'True', 'blank': 'True'}),
+            'creation_date': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime(2010, 11, 16, 12, 34, 45, 759097)', 'auto_now': 'True', 'blank': 'True'}),
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'moderated': ('django.db.models.fields.BooleanField', [], {'default': 'False', 'blank': 'True'}),
+            'moderated': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
             'name': ('django.db.models.fields.CharField', [], {'max_length': '255'}),
             'rating': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['ratings4you.Rating']"}),
             'time_moderated': ('django.db.models.fields.DateTimeField', [], {'null': 'True'})
         },
         'ratings4you.ratingthemesdirectory': {
-            'Meta': {'object_name': 'RatingThemesDirectory'},
+            'Meta': {'ordering': "('name',)", 'object_name': 'RatingThemesDirectory'},
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'name': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '255'}),
             'parent': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['ratings4you.RatingThemesDirectory']", 'null': 'True'})
         },
         'ratings4you.regiondirectory': {
-            'Meta': {'object_name': 'RegionDirectory'},
+            'Meta': {'ordering': "('name',)", 'object_name': 'RegionDirectory'},
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'name': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '255'}),
             'parent': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['ratings4you.RegionDirectory']", 'null': 'True'})

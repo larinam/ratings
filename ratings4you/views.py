@@ -31,7 +31,7 @@ def add(request):
             entity = form.save()
             entity.author = request.user
             entity.save()
-            return HttpResponseRedirect(reverse('ratings.ratings4you.views.add_item', kwargs=dict(id=entity.id)))
+            return HttpResponseRedirect(reverse('ratings4you.views.add_item', kwargs=dict(id=entity.id)))
 
     return render_to_response('ratings/one_form_page.html', dict(form=form, link="/ratings/", title="Добавление рейтинга", link_text="Продолжить серфинг с главной"),
                               context_instance=RequestContext(request))
@@ -44,7 +44,7 @@ def add_item(request, id):
     user = request.user
     rating = get_object_or_404(Rating, pk=id)
     if user != rating.author:
-        return HttpResponseRedirect(reverse('ratings.ratings4you.views.view_rating', kwargs=dict(id=id))) #вернуть страничку с просмотром рейтинга вместо добавления элемента
+        return HttpResponseRedirect(reverse('ratings4you.views.view_rating', kwargs=dict(id=id))) #вернуть страничку с просмотром рейтинга вместо добавления элемента
     rating_items = rating.listRatingItems()
     title = 'Пункты голосования "%s"' % (rating)
     link_text="Продолжить серфинг с главной"
@@ -92,7 +92,7 @@ def view_rating(request, id):
             userVoted = True
 
     if not user.is_authenticated() or userVoted:
-        return HttpResponseRedirect(reverse('ratings.ratings4you.views.view_rating_results', kwargs=dict(id=id)))
+        return HttpResponseRedirect(reverse('ratings4you.views.view_rating_results', kwargs=dict(id=id)))
     return render_to_response('ratings/rating_poll.html', dict(title=rating.name, rating=rating, rating_items=rating.listModeratedRatingItems(), link="/ratings/", 
                                                                link_text="Продолжить серфинг с главной"),
                               context_instance=RequestContext(request))

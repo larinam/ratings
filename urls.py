@@ -6,9 +6,10 @@ from django.contrib import admin
 admin.autodiscover()
 
 urlpatterns = patterns('',
-    # Example:
+    (r'^$', 'ratings4you.views.index'),
+    
     (r'^comments/', include('django.contrib.comments.urls')),
-    (r'^ratings/', include('ratings.ratings4you.urls')),
+    (r'^ratings/', include('ratings4you.urls')),
 
     # Uncomment the admin/doc line below and add 'django.contrib.admindocs' 
     # to INSTALLED_APPS to enable admin documentation:
@@ -19,7 +20,7 @@ urlpatterns = patterns('',
 
     # Uncomment the next line to enable the admin:
     (r'^admin/', include(admin.site.urls)),
-    (r'^accounts/', include('ratings.registration.urls')),
+    (r'^accounts/', include('registration.urls')),
     
     
     #css

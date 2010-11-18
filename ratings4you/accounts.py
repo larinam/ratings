@@ -21,7 +21,7 @@ class UserProfileForm(ModelForm):
 def profile(request):
     user = request.user
     if user.is_superuser:
-        return HttpResponseRedirect(reverse('ratings.ratings4you.views_admin.index'))
+        return HttpResponseRedirect(reverse('ratings4you.views_admin.index'))
     p = user.get_profile()
     if request.method == 'POST':
         f = UserProfileForm(request.POST, instance=p)

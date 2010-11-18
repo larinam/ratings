@@ -104,7 +104,7 @@ def moderate_rating(request, id):
     if request.POST:
         if 'delete' in request.POST.keys():
             rating.delete()
-            return HttpResponseRedirect(reverse('ratings.ratings4you.views_admin.moderation'))
+            return HttpResponseRedirect(reverse('ratings4you.views_admin.moderation'))
         for i in request.POST:
             if i.startswith('rating') and i.replace('rating', '') == id and request.POST.get(i) == 'on':
                 isRatingModerated = True
@@ -114,7 +114,7 @@ def moderate_rating(request, id):
         rating.setModerated(value=isRatingModerated)
         for i in moderatable:
             i.setModerated(value=isModeratableModerated.get(i.id))
-        return HttpResponseRedirect(reverse('ratings.ratings4you.views_admin.moderation'))
+        return HttpResponseRedirect(reverse('ratings4you.views_admin.moderation'))
     send_mail_form = SendMailForm(initial=dict(rating_id=id))
     return render_to_response('ratings/admin/moderate_rating_admin.html',
                               dict(rating=rating, moderatable=moderatable,
@@ -134,7 +134,7 @@ def edit_unmoderated_items(request, id):
                 riid = i.replace('ri', '')
                 ratingItem = get_object_or_404(RatingItem, pk=riid)
                 ratingItem.setName(request.POST.get(i))
-        return HttpResponseRedirect(reverse('ratings.ratings4you.views_admin.moderate_rating', kwargs={"id":rating.id}))
+        return HttpResponseRedirect(reverse('ratings4you.views_admin.moderate_rating', kwargs={"id":rating.id}))
     unmoderated = rating.listUnmoderatedRatingItems()
     return render_to_response('ratings/admin/edit_rating_admin.html',
                               dict(rating=rating, unmoderated=unmoderated,
@@ -159,7 +159,7 @@ def rating_send_mail(request):
             rating.author.email_user(subject, body, FROM_EMAIL)
             #to_email = rating.author.email
             #send_mail(subject, body, FROM_EMAIL, [TO_EMAIL], False, "", "")
-            return HttpResponseRedirect(reverse('ratings.ratings4you.views_admin.moderate_rating', kwargs={"id":rating_id}))
+            return HttpResponseRedirect(reverse('ratings4you.views_admin.moderate_rating', kwargs={"id":rating_id}))
 
 @user_passes_test(lambda u: u.is_superuser)
 def moderator_email(request):
@@ -184,7 +184,7 @@ def edit_theme_item(request, id):
         form = RatingThemesDirectoryForm(data_dict, instance=theme)
         if (form.is_valid()):
             entity = form.save(commit=True)
-            return HttpResponseRedirect(reverse('ratings.ratings4you.views_admin.themes'))
+            return HttpResponseRedirect(reverse('ratings4you.views_admin.themes'))
         else:
             return render_to_response('ratings/admin/edit_simple_catalog_item.html',
                                       dict(form=form, link="/ratings/admin/catalogs/themes/", title="Редактирование темы голосований",
@@ -204,7 +204,7 @@ def edit_region_item(request, id):
         form = RegionDirectoryForm(data_dict, instance=region)
         if (form.is_valid()):
             entity = form.save(commit=True)
-            return HttpResponseRedirect(reverse('ratings.ratings4you.views_admin.regions'))
+            return HttpResponseRedirect(reverse('ratings4you.views_admin.regions'))
         else:
             return render_to_response('ratings/admin/edit_simple_catalog_item.html',
                                       dict(form=form, link="/ratings/admin/catalogs/regions/", title="Редактирование региона",
