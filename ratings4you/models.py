@@ -50,6 +50,9 @@ class RatingThemesDirectory(models.Model, NameAsIdentifier):
     def getEditURI(self):
         return "/ratings/admin/catalogs/themes/edit/" + str(self.id) + "/"
     
+    def getDelURI(self):
+        return "/ratings/admin/catalogs/themes/delete/" + str(self.id) + "/"
+    
     def getDrillDownURI(self):
         return "/ratings/admin/catalogs/themes/"+ str(self.id) + "/"
     
@@ -62,6 +65,11 @@ class RatingThemesDirectory(models.Model, NameAsIdentifier):
     
     def listRatings(self):
         return Rating.objects.filter(theme=self, moderated=True)
+    
+    def delete(self):
+        for item in self.listSubElements():
+            item.delete()
+        super(RatingThemesDirectory, self).delete()
         
 
 class RegionDirectory(models.Model, NameAsIdentifier):
@@ -76,6 +84,9 @@ class RegionDirectory(models.Model, NameAsIdentifier):
     def getEditURI(self):
         return "/ratings/admin/catalogs/regions/edit/" + str(self.id) + "/"
     
+    def getDelURI(self):
+        return "/ratings/admin/catalogs/regions/delete/" + str(self.id) + "/"
+    
     def getDrillDownURI(self):
         return "/ratings/admin/catalogs/regions/"+ str(self.id) + "/"
     
@@ -85,6 +96,11 @@ class RegionDirectory(models.Model, NameAsIdentifier):
         
     def listSubElements(self):
         return RegionDirectory.objects.filter(parent=self)
+    
+    def delete(self):
+        for item in self.listSubElements():
+            item.delete()
+        super(RegionDirectory, self).delete()
 
 class  Rating(models.Model, IModeratable, NameAsIdentifier):
     """

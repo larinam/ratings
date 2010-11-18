@@ -215,7 +215,26 @@ def edit_region_item(request, id):
                               dict(form=form, link="/ratings/admin/catalogs/regions/", title="Редактирование региона",
                                    link_text="Вернуться в список регионов"),
                               context_instance=RequestContext(request))
-        
+
+@user_passes_test(lambda u: u.is_superuser)
+def delete_region_item(request, id):
+    kwargs={}
+    region = get_object_or_404(RegionDirectory, pk=id)
+    p = region.parent
+    if p:
+        kwargs={"id":p.id}
+    region.delete()
+    return HttpResponseRedirect(reverse('ratings4you.views_admin.regions', kwargs=kwargs))
+    
+@user_passes_test(lambda u: u.is_superuser)
+def delete_theme_item(request, id):
+    kwargs={}
+    theme = get_object_or_404(RatingThemesDirectory, pk=id)
+    p = theme.parent
+    if p:
+        kwargs={"id":p.id}
+    theme.delete()
+    return HttpResponseRedirect(reverse('ratings4you.views_admin.themes', kwargs=kwargs))
 #def add(request):
 #    form = RatingModelForm()
 #    return render_to_response('ratings/one_form_page.html', dict(form=form, link="/", link_text="или просто продолжайте серфинг с главной"),

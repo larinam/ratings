@@ -41,4 +41,8 @@ urlpatterns = patterns('',
     'ratings4you.views_admin.edit_theme_item'),                        
    (r'^admin/catalogs/regions/edit/(?P<id>\w{0,10})/$',
     'ratings4you.views_admin.edit_region_item'),
+    (r'^admin/catalogs/themes/delete/(?P<id>\w{0,10})/$',
+    'ratings4you.views_admin.delete_theme_item'),                        
+   (r'^admin/catalogs/regions/delete/(?P<id>\w{0,10})/$',
+    'ratings4you.views_admin.delete_region_item'),
 )

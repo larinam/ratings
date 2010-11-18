@@ -17,7 +17,7 @@ class TopRatingItemsTagNode(template.Node):
     def render(self, context):
         #raise template.TemplateSyntaxError, context
         request = context['request']
-        rating_items = listTopRatingItems()
+        rating_items = listTopRatingItems(20)
         t = template.loader.get_template('ratings/templatetags/top_rating_items_tag.html')
         return t.render(Context({'rating_items': rating_items}))
 
