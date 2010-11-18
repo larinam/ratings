@@ -98,7 +98,7 @@ class  Rating(models.Model, IModeratable, NameAsIdentifier):
     end_date = models.DateField(verbose_name="Дата окончания голосования", help_text="например, 31.12.2010")
     moderated = models.BooleanField(default=False, help_text="Прошёл модерацию")
     author = models.ForeignKey(User, null=True) # автор рейтинга
-    creation_date = models.DateTimeField(verbose_name="Дата создания голосования", auto_now=True, null=False, default=datetime.now())
+    creation_date = models.DateTimeField(verbose_name="Дата создания голосования", auto_now=True, null=False, default=datetime.now)
     time_moderated = models.DateTimeField(verbose_name="Время, когда был принят для отображения пользователю", null=True)
     
     class Meta:
@@ -172,7 +172,7 @@ class RatingItem(models.Model, IModeratable, NameAsIdentifier):
     rating = models.ForeignKey(Rating)
     moderated = models.BooleanField(default=False)
     author = models.ForeignKey(User, null=True) # автор изменений внесенных в элемент
-    creation_date = models.DateTimeField(verbose_name="Дата создания голосования", auto_now=True, null=False, default=datetime.now())
+    creation_date = models.DateTimeField(verbose_name="Дата создания голосования", auto_now=True, null=False, default=datetime.now)
     time_moderated = models.DateTimeField(verbose_name="Время, когда был принят для отображения пользователю", null=True)
     
     class Meta:
