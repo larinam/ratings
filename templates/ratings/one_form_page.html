@@ -15,5 +15,5 @@
 	</table>
 	</form>
 	<br />
-	<a class="uni_link" href="{{ link }}">{{ link_text }}</a>
+	{% if link_text %}<a class="uni_link" href="{{ link }}">{{ link_text }}</a>{% endif %}
 {% endblock %}

@@ -14,6 +14,6 @@
 	<tr><td><input type="submit" value="Сохранить"/></td></tr>
 	</form>
 	</table>
-	<a class="uni_link" href="{{ link }}">{{ link_text }}</a>
+	{% if link_text %}<a class="uni_link" href="{{ link }}">{{ link_text }}</a>{% endif %}
 	<br />
 {% endblock %}

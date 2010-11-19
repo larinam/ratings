@@ -21,6 +21,7 @@ def index(request):
     return render_to_response('ratings/index_admin.html',
                               context_instance=RequestContext(request))
 
+
 @user_passes_test(lambda u: u.is_superuser)
 def catalogs(request):
     return render_to_response('ratings/admin/catalogs_admin.html',
@@ -172,8 +173,8 @@ def moderator_email(request):
             email = data.get('email')
             moderator_email.value_column = email
             moderator_email.save()
-    return render_to_response("ratings/one_form_page.html", dict(form=form, link="/ratings/", link_text="На главную",
-                                                                 title="Редактирование рейтинга"),
+    return render_to_response("ratings/one_form_page.html", dict(form=form, link="/ratings/admin/", link_text="Вернуться в раздел администрирование",
+                                                                 title="Редактирование e-mail администратора"),
                               context_instance=RequestContext(request))
     
 @user_passes_test(lambda u: u.is_superuser)

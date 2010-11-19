@@ -12,5 +12,5 @@
 		<p><a href="/ratings/view/{{ rating.id }}/">{{ rating.name }}</a></p>
 	{% endfor %}
 	<br />
-	<a class="uni_link" href="{{ link }}">{{ link_text }}</a>
+	{% if link_text %}<a class="uni_link" href="{{ link }}">{{ link_text }}</a>{% endif %}
 {% endblock %}

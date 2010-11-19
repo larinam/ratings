@@ -15,8 +15,8 @@ ELEMENTS_TO_ADD_COUNT = 10
 
 def index(request):
     #ratings = listActualRatings()
-    ratings = Rating.objects.all()
-    return render_to_response('ratings/index.html', dict (ratings=ratings),
+    ratings = listTopRatings()
+    return render_to_response('ratings/index.html', dict (ratings=ratings, title="Популярные рейтинги"),
                               context_instance=RequestContext(request))
 
 @login_required
@@ -33,7 +33,7 @@ def add(request):
             entity.save()
             return HttpResponseRedirect(reverse('ratings4you.views.add_item', kwargs=dict(id=entity.id)))
 
-    return render_to_response('ratings/one_form_page.html', dict(form=form, link="/ratings/", title="Добавление рейтинга", link_text="Продолжить серфинг с главной"),
+    return render_to_response('ratings/one_form_page.html', dict(form=form, link="/ratings/", title="Создание рейтинга", link_text=""),
                               context_instance=RequestContext(request))
 
 @login_required
@@ -46,8 +46,8 @@ def add_item(request, id):
     if user != rating.author:
         return HttpResponseRedirect(reverse('ratings4you.views.view_rating', kwargs=dict(id=id))) #вернуть страничку с просмотром рейтинга вместо добавления элемента
     rating_items = rating.listRatingItems()
-    title = 'Пункты голосования "%s"' % (rating)
-    link_text="Продолжить серфинг с главной"
+    title = 'Создание рейтинга'
+    link_text=""
     link = "/ratings/"
     if request.POST:
         forms = [RatingItemForm(request.POST, prefix=str(x), instance=RatingItem()) for x in range(0,ELEMENTS_TO_ADD_COUNT)]
@@ -57,7 +57,7 @@ def add_item(request, id):
             link = "/ratings/sendtomoder/%d/" % (rating.id)
         else:
             return render_to_response('ratings/simple_catalogs_management_multiple.html', 
-                                      dict(forms=forms, title=title, link="/ratings/", link_text="Продолжить серфинг с главной",
+                                      dict(forms=forms, title=title, link="/ratings/", link_text="",
                                            catalog_items=rating_items),
                               context_instance=RequestContext(request))
     forms = [RatingItemForm(prefix=str(x), instance=RatingItem()) for x in range(0,ELEMENTS_TO_ADD_COUNT)]
@@ -74,7 +74,7 @@ def send_to_moderator(request, id):
     rating = get_object_or_404(Rating, pk=id)
     send_mail("Рейтинг добавлен и ожидает модерации", PROJECT_URL_BASE+"/ratings/admin/moderaterating/"+str(rating.id)+"/", request.user.email, [TO_EMAIL])
     return render_to_response('ratings/message.html', 
-                              dict(title="Рейтинг добавлен и ожидает модерации", link='/ratings/', link_text='на главную'),
+                              dict(title="Создание рейтинга", link='/ratings/', link_text='на главную', msg="Рейтинг создан и ожидает одобрения модератора"),
                               context_instance=RequestContext(request))
     
 def view_rating(request, id):
@@ -94,7 +94,7 @@ def view_rating(request, id):
     if not user.is_authenticated() or userVoted:
         return HttpResponseRedirect(reverse('ratings4you.views.view_rating_results', kwargs=dict(id=id)))
     return render_to_response('ratings/rating_poll.html', dict(title=rating.name, rating=rating, rating_items=rating.listModeratedRatingItems(), link="/ratings/", 
-                                                               link_text="Продолжить серфинг с главной"),
+                                                               link_text=""),
                               context_instance=RequestContext(request))
     
 def view_ratings_list(request, id):
@@ -105,7 +105,7 @@ def view_ratings_list(request, id):
     rating_theme = get_object_or_404(RatingThemesDirectory, pk=id)
     ratings = rating_theme.listRatings()
     return render_to_response('ratings/ratings_list.html', dict(title=rating_theme.name, rating_theme=rating_theme, ratings=ratings, link="/ratings/", 
-                                                               link_text="Продолжить серфинг с главной"),
+                                                               link_text=""),
                               context_instance=RequestContext(request))
 
 
@@ -118,7 +118,7 @@ def view_rating_results(request, id):
     userVoted = rating.userVoted(user)
     
     if not user.is_authenticated() or userVoted:
-        link_text = "Продолжить серфинг с главной"
+        link_text = ""
         link="/ratings/"
     else:
         link_text = "Вернуться на страничку голосования"

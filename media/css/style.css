@@ -19,6 +19,10 @@ li {
 	margin-left: 14px;
 }
 
+ul.rarefied li {
+	margin-top: 5px;	
+}
+
 a {
 	outline: none;
 	margin: -2px;

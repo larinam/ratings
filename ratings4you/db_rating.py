@@ -16,6 +16,16 @@ def listTopRatingItems(lim=10):
     ris = RatingItem.objects.raw(sql)[:lim]
     return ris
 
+def listTopRatings(lim=25):
+    sql = """SELECT ratings4you_rating.id, ratings4you_rating.name, count(ratings4you_vote.id) as c 
+            from ratings4you_vote, ratings4you_ratingitem, ratings4you_rating
+            where ratings4you_vote.rating_item_id=ratings4you_ratingitem.id and ratings4you_rating.id=ratings4you_ratingitem.rating_id 
+            group by ratings4you_vote.rating_item_id
+            order by count(ratings4you_vote.id) desc"""
+    r = Rating.objects.raw(sql)[:lim]
+    return set(r)
+    
+
 def listActualRatings():
     '''
     возвращает рейтинги, которые актуальны в данный момент, все остальные рейтинги не отображаются в общем списке

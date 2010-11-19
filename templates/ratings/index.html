@@ -1,10 +1,11 @@
 {% extends "ratings/index_template.html" %}
 
+{% block center_title %} {{ title }} {% endblock %}
 
 {% block content %}
-
-										<div>BMW</div>
-										<div>Mercedes</div>
-										<div>VAZ</div>
-										<div>UAZ</div>
+										<ul class="top_brands">
+										{% for r in ratings %}
+										   <li><a href="/ratings/view/{{ r.id }}/">{{ r }}</a></li>
+										{% endfor %}
+										</ul>
 {% endblock %} 

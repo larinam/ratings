@@ -25,9 +25,9 @@
 												</tr>
 		{% endfor %}
 											</table>
-		<div>Общее количество голосов: <strong>{{ rating.votesCount }}</strong></div>
+		<div>Всего голосов: <strong>{{ rating.votesCount }}</strong></div>
 	<br />
-	<a class="uni_link" href="{{ link }}">{{ link_text }}</a>
+	{% if link_text %}<a class="uni_link" href="{{ link }}">{{ link_text }}</a>{% endif %}
 	{% load comments %}
 	{% render_comment_list for rating %}
 	{% if request.user.is_authenticated %}
