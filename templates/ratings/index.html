@@ -3,9 +3,9 @@
 {% block center_title %} {{ title }} {% endblock %}
 
 {% block content %}
-										<ul class="top_brands">
+										<ul class="top_ratings">
 										{% for r in ratings %}
-										   <li><a href="/ratings/view/{{ r.id }}/">{{ r }}</a></li>
+										   <li><a href="/ratings/view/{{ r.id }}/">№ {{ r }}</a></li>
 										{% endfor %}
 										</ul>
 {% endblock %} 

@@ -4,9 +4,21 @@
 	Real-Rating.ru: Настоящий рейтинг - {{ title }}
 {% endblock %}
 
-{% block center_title %} {{ title }} {% endblock %}
+{% block center_title %} Голосование в рейтинге {% endblock %}
 
 {% block content %}
+
+		<!-- заголовок рейтинга -->
+		<div id="rating_title">
+			№ {{ rating }}
+		</div>
+		<div class="rating_attr">
+			Период голосования с {{ rating.begin_date|date:"d.m.Y" }} по {{ rating.end_date|date:"d.m.Y" }}</span>
+		</div>
+		<div class="rating_attr" style="margin-top:-5px;margin-bottom:15px;">
+			Регион: {{rating.region}}
+		</div>
+
 
 										<form action="" class="niceforms" method="POST">
 											{% csrf_token %}

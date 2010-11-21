@@ -119,6 +119,9 @@ class  Rating(models.Model, IModeratable, NameAsIdentifier):
     
     class Meta:
         ordering = ('name',)
+        
+    def __unicode__(self):
+        return str(self.id) + ". " + self.name
     
     def addRatingItem(self, name, author):
         rating_item = RatingItem(name=name, rating=self, author=author)
