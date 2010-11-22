@@ -2,16 +2,35 @@
 # Create your views here.
 from db_rating import *
 from django.contrib.auth.decorators import login_required, user_passes_test
+from django.contrib.auth.models import AnonymousUser
 from django.core.mail import send_mail
 from django.core.urlresolvers import reverse
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render_to_response
 from django.template import RequestContext
 from forms import FeedbackForm, RatingModelForm, RatingItemForm
-from models import Rating, RatingItem, RatingThemesDirectory, RegionDirectory
+from models import Rating, RatingItem, RatingThemesDirectory, RegionDirectory, \
+    User
+from recaptcha.client.captcha import displayhtml, submit
 from settings import DEFAULT_FROM_EMAIL, PROJECT_URL_BASE
 from views_admin import TO_EMAIL
 ELEMENTS_TO_ADD_COUNT = 10
+
+def getCaptcha(error=None):
+    return displayhtml('6Lfe9b4SAAAAAPvGjMLShAO9lTkjBtQT6N_MP_uQ', error=error)
+
+def checkCaptcha(request):
+    return submit(request.POST.get('recaptcha_challenge_field',''),
+            request.POST.get('recaptcha_response_field',''),
+            '6Lfe9b4SAAAAAFTHt3cRiSYsaf0D-4H3_ta7EG4D',
+            request.META.get('REMOTE_ADDR', None))
+
+def setSessionVoted(session, id):
+    voted = session.get("voted", [])
+    voted.append(id)
+    session.update({"voted":voted})
+    return session
+
 
 def index(request):
     #ratings = listActualRatings()
@@ -81,20 +100,28 @@ def view_rating(request, id):
     '''
     отображение рейтинга для голосования и нажатие кнопки голосовать
     '''
+    error=None
     user = request.user
     rating = get_object_or_404(Rating, pk=id)
-    userVoted = rating.userVoted(user)
+    userVoted = rating.userVoted(user) or id in request.session.get("voted",[])
     if request.POST and not userVoted:
-        rating_item_id = request.POST.get('ri_id')
-        if rating_item_id:
-            rating_item = get_object_or_404(RatingItem, pk=rating_item_id)
-            rating_item.addVote(request.user, request.META['REMOTE_ADDR'])
-            userVoted = True
+        cRes=checkCaptcha(request)
+        if not cRes.is_valid:
+            error = cRes.error_code
+        elif (cRes.is_valid or not isinstance(request.user, AnonymousUser)):
+            rating_item_id = request.POST.get('ri_id')
+            if rating_item_id:
+                rating_item = get_object_or_404(RatingItem, pk=rating_item_id)
+                fake_user = request.user
+                if isinstance(request.user, AnonymousUser): fake_user = User.objects.get(pk=1)
+                rating_item.addVote(fake_user, request.META['REMOTE_ADDR'])
+                userVoted = True
+                setSessionVoted(request.session, id)
 
-    if not user.is_authenticated() or userVoted:
+    if userVoted: #not user.is_authenticated() or 
         return HttpResponseRedirect(reverse('ratings4you.views.view_rating_results', kwargs=dict(id=id)))
     return render_to_response('ratings/rating_poll.html', dict(title=rating.name, rating=rating, rating_items=rating.listModeratedRatingItems(), link="/ratings/", 
-                                                               link_text=""),
+                                                               link_text="", reCaptcha=getCaptcha(error=error)),
                               context_instance=RequestContext(request))
     
 def view_ratings_list(request, id):
