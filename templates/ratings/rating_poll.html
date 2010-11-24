@@ -32,8 +32,10 @@
 												</tr>
 											{% endfor %}
 											</table>
-											<div class="buttons"> 
+											<div style="padding-top:10px;padding-bottom:10px;">
 												{% if not user.is_authenticated %} {{ reCaptcha|safe }} {% endif %}
+											</div>
+											<div class="buttons"> 
 												<input type="submit" class="btn-vote" value="Проголосовать" /> 
 												<input type="button" class="btn-viewres" value="Результаты" onClick="window.location='/ratings/view_results/{{ rating.id }}/'"/> 
 											</div> 
