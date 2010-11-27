@@ -8,7 +8,7 @@
 	</thead>
 {% for ri in rating_items %}
 <tr>
-	<td style="font-size:0.8em;">&nbsp;</td>
+	<td style="font-size:0.8em;">{{ forloop.counter }}</td>
 	<td style="font-size:0.8em;">{{ ri }}</td>
 	<td style="font-size:0.8em;" align="center">{{ ri.getOverallCount }}</td>
 </tr>
