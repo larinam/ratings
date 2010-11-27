@@ -31,7 +31,6 @@ def setSessionVoted(session, id):
     session.update({"voted":voted})
     return session
 
-
 def index(request):
     #ratings = listActualRatings()
     ratings = listTopRatings()
@@ -103,7 +102,7 @@ def view_rating(request, id):
     error=None
     user = request.user
     rating = get_object_or_404(Rating, pk=id)
-    userVoted = rating.userVoted(user) or id in request.session.get("voted",[])
+    userVoted = rating.userVoted(user) or (isinstance(request.user, AnonymousUser) and id in request.session.get("voted",[]))
     if request.POST and not userVoted:
         cRes=checkCaptcha(request)
         if not cRes.is_valid:
