@@ -87,8 +87,13 @@ li a:visited {
 	text-decoration: none;
 }
 
+th {
+	font-size: 0.85em;
+	padding-right: 24px;
+	color: #000;
+}
+
 .loader {
-	/*���� ������ ������������ ����������� ��� ��������������� ��������*/
 	margin-left: -1000px;
 }
 
@@ -119,7 +124,7 @@ li a:visited {
 
 .panecenter {
 	width: 100%;
-	min-height: 880px;
+	min-height: 870px;
 	display: block;
 	margin-top: -13px;
 	background: url(/images/panelcenter_c.png) repeat-y;
@@ -141,8 +146,6 @@ li a:visited {
 	display: block;
 	background: url(/images/panelbottom_c.png) no-repeat;
 	background-position: center center;
-	margin-top: -10px;
-	padding-top: 0px;
 }
 
 .paneheader-lr {
@@ -156,7 +159,7 @@ li a:visited {
 
 .panecenter-lr {
 	width: 240px;
-	min-height: 880px;
+	min-height: 870px;
 	height: auto;
 	display: block;
 	margin-top: -13px;
@@ -170,8 +173,6 @@ li a:visited {
 	display: block;
 	background: url(/images/panelbottom_lr.png) no-repeat;
 	background-position: center center;
-	margin-top: -10px;
-	padding-top: 0px;
 }
 
 .phead {
@@ -187,22 +188,37 @@ li a:visited {
 	display: block;
 	color: #234F89;
 	padding-top: 14px;
+	padding-right: 4px;
+}
+
+.c-text div {
+	color: #000;
+	font-size: 0.8em;
+}
+
+strong {
+	color: #000;
+	font-size: 0.8em;
 }
 
 #rating_title {
+	color: #000;
 	background-color: #F0F0F0;
+	border-radius: 8px;
 	-o-border-radius: 8px;
 	-moz-border-radius: 8px;
 	-webkit-border-radius: 8px;
 	font-weight: bold;
 	padding: 10px 10px 10px 10px;
+	font-size: 1.3em;
 }
 
 .rating_attr {
-	font-size: 10px;
-	margin-left:15px;
+	color: #000;
+	font-size: 0.7em;
+	margin-left:6px;
 	display:table;
-	margin-top:-3px;
+	margin-top:5px;
 	font-weight: bold;
 }
 
@@ -278,7 +294,6 @@ li a:visited {
 	border-spacing: 5px;
 	border-style: solid;
 	border-color: #F0F0F0;
-	/*border-collapse: collapse*/;
 	background-color: white;
 	-o-border-radius: 8px;
 	-moz-border-radius: 8px;
@@ -307,13 +322,16 @@ li a:visited {
 }
 
 .td_poll span {
-	margin-left: 8px;
-	margin-right: 8px;
+	margin-left: 10px;
+	margin-right: 10px;
 	padding-top: 4px;
 	padding-bottom: 4px;
 	width: 50px;
 	float: left;
 	text-align: center;
+	font-size: 1.05em;
+	font-weight: bold;
+	color: #000; 
 }
 
 ul.top_ratings li {
