@@ -11,13 +11,13 @@ from django.template import RequestContext
 from forms import FeedbackForm, RatingModelForm, RatingItemForm
 from models import Rating, RatingItem, RatingThemesDirectory, RegionDirectory, \
     User
-from recaptcha.client.captcha import displayhtml, submit
+from recaptcha.librecaptcha import displayhtml, submit
 from settings import DEFAULT_FROM_EMAIL, PROJECT_URL_BASE
 from views_admin import TO_EMAIL
 ELEMENTS_TO_ADD_COUNT = 10
 
 def getCaptcha(error=None):
-    return displayhtml('6Lfe9b4SAAAAAPvGjMLShAO9lTkjBtQT6N_MP_uQ', error=error)
+    return displayhtml('6Lfe9b4SAAAAAPvGjMLShAO9lTkjBtQT6N_MP_uQ', error=error, theme='white')
 
 def checkCaptcha(request):
     return submit(request.POST.get('recaptcha_challenge_field',''),
