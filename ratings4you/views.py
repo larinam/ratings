@@ -105,7 +105,7 @@ def view_rating(request, id):
     userVoted = rating.userVoted(user) or (isinstance(request.user, AnonymousUser) and id in request.session.get("voted",[]))
     if request.POST and not userVoted:
         cRes=checkCaptcha(request)
-        if not cRes.is_valid:
+        if not cRes.is_valid and isinstance(request.user, AnonymousUser):
             error = cRes.error_code
         elif (cRes.is_valid or not isinstance(request.user, AnonymousUser)):
             rating_item_id = request.POST.get('ri_id')

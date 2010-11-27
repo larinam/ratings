@@ -4,11 +4,12 @@ Created on 03.01.2010
 @author: alarin
 '''
 
+from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
 from django.forms import ModelForm
 from django.http import HttpResponse, HttpResponseRedirect
-from django.shortcuts import get_object_or_404, render_to_response
+from django.shortcuts import get_object_or_404, render_to_response, redirect
 from django.template import RequestContext
 from models import UserProfile
 
@@ -34,4 +35,9 @@ def profile(request):
     return render_to_response('ratings/profile_form_page.html', dict(widget=f, profile=p),
                                               context_instance=RequestContext(request))
          
+def logout_view(request):
+    logout(request)
+    response = redirect('ratings4you.views.index')
+    return response
+    
 
