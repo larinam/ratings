@@ -4,7 +4,9 @@
 	Real-Rating.ru: Настоящий рейтинг - {{ title }}
 {% endblock %}
 
-{% block center_title %} Голосование в рейтинге {% endblock %}
+{% block center_title %} 
+	Голосование в рейтинге 
+{% endblock %}
 
 {% block content %}
 
@@ -34,7 +36,7 @@
 											</table>
 											<div class="buttons">
 												
-												{% if not user.is_authenticated %}<div style="margin-top:10px;margin-bottom:10px;"> {{ reCaptcha|safe }} </div>{% endif %}
+												{% if not user.is_authenticated %}<div style="margin-top:10px;margin-bottom:10px;font-size: 12px;"> Анонимное голосование <br />{{ reCaptcha|safe }} </div>{% endif %}
 												<input type="submit" class="btn-vote" value="Проголосовать" /> 
 												<input type="button" class="btn-viewres" value="Результаты" onClick="window.location='/ratings/view_results/{{ rating.id }}/'"/> 
 											</div> 
