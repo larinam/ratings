@@ -10,7 +10,7 @@
     {% if form.errors %}
     <h1>{% blocktrans count form.errors|length as counter %}Пожалуйста, поправьте нижеописанную ошибку{% plural %}Пожалуйста, поправьте нижеописанные ошибки{% endblocktrans %}</h1>
     {% else %}
-      <blockquote>{{ comment|linebreaks|wordwrap|urlizetrunc:20 }}</blockquote>
+      <blockquote>{{ comment|linebreaks|urlizetrunc:20 }}</blockquote>
       <p>
       {% trans " и " %} <input type="submit" name="submit" class="submit-post" value="{% trans "Отправьте комментарий" %}" id="submit" />
       <br /> {% trans "или внесите изменения" %}:

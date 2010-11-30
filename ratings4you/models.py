@@ -214,7 +214,7 @@ class RatingItem(models.Model, IModeratable, NameAsIdentifier):
         return Vote.objects.filter(rating_item=self).count()
     
     def getPercentage(self):
-        return self.getOverallCount()/(self.rating.votesCount() or 1)*100
+        return float(self.getOverallCount())/(self.rating.votesCount() or 1.0)*100
     
     def setName(self, value):
         self.name = value
