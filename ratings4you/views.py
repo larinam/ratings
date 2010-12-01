@@ -27,9 +27,15 @@ def checkCaptcha(request):
 
 def setSessionVoted(session, id):
     voted = session.get("voted", [])
-    voted.append(id)
+    if type(id) == type([]):
+        voted.extend(id)
+    else:
+        voted.append(id)
     session.update({"voted":voted})
     return session
+
+def getVotedFromSession(session):
+    return session.get("voted", [])
 
 def index(request):
     #ratings = listActualRatings()

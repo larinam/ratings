@@ -12,6 +12,8 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render_to_response, redirect
 from django.template import RequestContext
 from models import UserProfile
+from views import getVotedFromSession, setSessionVoted
+
 
 class UserProfileForm(ModelForm):
     class Meta:
@@ -36,7 +38,9 @@ def profile(request):
                                               context_instance=RequestContext(request))
          
 def logout_view(request):
+    voted = getVotedFromSession(request.session)
     logout(request)
+    setSessionVoted(request.session, voted)
     response = redirect('ratings4you.views.index')
     return response
     
